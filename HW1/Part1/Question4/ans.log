@@ -1,0 +1,38 @@
+rm -rf main  .objs  *.o *.d *.dSYM
+rm -rf ./tags
+g++ -g -c -std=c++14 -O0 -pedantic -Wall  -Wfatal-errors -Wextra  -MMD -MP   -I ./include solution.cpp -o .objs/solution.o
+g++ -g -c -std=c++14 -O0 -pedantic -Wall  -Wfatal-errors -Wextra  -MMD -MP   -I ./include main.cpp -o .objs/main.o
+g++ .objs/solution.o .objs/main.o -std=c++14   -I ./include -o main
+ctags -R ./*
+ctags -a ./include/*
+Matrix matrix_a = 
+[ 1 2 3
+  4 5 6
+  7 8 9 ]
+Matrix matrix_b = 
+[ 11 12 13
+  14 15 16
+  17 18 19 ]
+Matrix matrix_c = 
+[ 90 96 102
+  216 231 246
+  342 366 390 ]
+Matrix matrix_d = 
+[ 12 14 16
+  18 20 22
+  24 26 28 ]
+Matrix matrix_e = 
+[ 36 42 48
+  54 60 66
+  72 78 84 ]
+---------------------
+Complex Matrix comp_matrix1 = (matrix_a + i*matrix_b), with
+Matrix matrix_a = 
+[ 1 2 3
+  4 5 6
+  7 8 9 ]
+Matrix matrix_b = 
+[ 11 12 13
+  14 15 16
+  17 18 19 ]
+---------------------------------

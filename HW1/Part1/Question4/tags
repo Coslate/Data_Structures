@@ -1,0 +1,60 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CC	./Makefile	/^CC = g++$/;"	m
+CFLAGS	./Makefile	/^CFLAGS = -g -c -std=c++14 -O0 $(WARNINGS) -MMD -MP $(ASANFLAGS)$/;"	m
+CLANG_EXCLUSIVE_WARNING_OPTIONS	./Makefile	/^CLANG_EXCLUSIVE_WARNING_OPTIONS =  # -Wno-unused-parameter -Wno-unused-variable$/;"	m
+CTAGS_FILES	./Makefile	/^CTAGS_FILES = .\/include$/;"	m
+CTAGS_FLAGS	./Makefile	/^CTAGS_FLAGS = $(foreach d, $(CTAGS_FILES),-a $d\/*)$/;"	m
+CTAGS_UTIL	./Makefile	/^CTAGS_UTIL = $/;"	m
+Complex_Matrix	./include/solution.h	/^        Complex_Matrix(const Matrix<T> &real, const Matrix<T> &imag, const std::string &name){$/;"	f	class:Complex_Matrix
+Complex_Matrix	./include/solution.h	/^        Complex_Matrix(const std::string &name):comp_name_(name){}$/;"	f	class:Complex_Matrix
+Complex_Matrix	./include/solution.h	/^class Complex_Matrix{$/;"	c
+Complex_MatrixMul	./include/solution.hpp	/^Complex_Matrix<T> Complex_Matrix<T>::Complex_MatrixMul(const Complex_Matrix &input_matrix){$/;"	f	class:Complex_Matrix
+EXCLUSIVE_WARNING_OPTIONS	./Makefile	/^EXCLUSIVE_WARNING_OPTIONS = $(CLANG_EXCLUSIVE_WARNING_OPTIONS)$/;"	m
+EXCLUSIVE_WARNING_OPTIONS	./Makefile	/^EXCLUSIVE_WARNING_OPTIONS = $(GCC_EXCLUSIVE_WARNING_OPTIONS)$/;"	m
+EXE	./Makefile	/^EXE := main$/;"	m
+GCC_EXCLUSIVE_WARNING_OPTIONS	./Makefile	/^GCC_EXCLUSIVE_WARNING_OPTIONS =  # -Wno-unused-but-set-variable$/;"	m
+GetCols	./include/solution.h	/^        int           GetCols() const {return cols_;}$/;"	f	class:Matrix
+GetImag	./include/solution.h	/^        Matrix<T>      GetImag() const {return complex_value[1];}$/;"	f	class:Complex_Matrix
+GetName	./include/solution.h	/^        std::string   GetName() const {return name_;}$/;"	f	class:Matrix
+GetReal	./include/solution.h	/^        Matrix<T>      GetReal() const {return complex_value[0];}$/;"	f	class:Complex_Matrix
+GetRows	./include/solution.h	/^        int           GetRows() const {return rows_;}$/;"	f	class:Matrix
+GetValues	./include/solution.h	/^        T             GetValues (const int &i, const int &j) const {return value_[i][j];}$/;"	f	class:Matrix
+INCLUDE_FLAGS	./Makefile	/^INCLUDE_FLAGS = $(foreach d, $(INC_DIR), -I $d)$/;"	m
+INC_DIR	./Makefile	/^INC_DIR := .\/include$/;"	m
+Matrix	./include/solution.h	/^        Matrix() : value_(nullptr), cols_(0), rows_(0), name_("NullMatrix") {}$/;"	f	class:Matrix
+Matrix	./include/solution.h	/^        Matrix(const Matrix &p){$/;"	f	class:Matrix
+Matrix	./include/solution.h	/^        Matrix(const int &rows, const int &cols, const std::string &name, T** const &input) : cols_(cols), rows_(rows), name_(name) {$/;"	f	class:Matrix
+Matrix	./include/solution.h	/^        Matrix(const int &rows, const int &cols, const std::string &name="Null") : cols_(cols), rows_(rows), name_(name) {$/;"	f	class:Matrix
+Matrix	./include/solution.h	/^        Matrix(const std::string &name) : value_(nullptr), cols_(0), rows_(0), name_(name) {}$/;"	f	class:Matrix
+Matrix	./include/solution.h	/^class Matrix{$/;"	c
+MatrixAdd	./include/solution.hpp	/^Matrix<T> Matrix<T>::MatrixAdd(const Matrix &input_matrix){ \/\/A+B$/;"	f	class:Matrix
+MatrixMul	./include/solution.hpp	/^Matrix<T> Matrix<T>::MatrixMul(const Matrix &input_matrix){$/;"	f	class:Matrix
+MatrixScalar	./include/solution.hpp	/^Matrix<T> Matrix<T>::MatrixScalar(const T &scalar){         \/\/A*c$/;"	f	class:Matrix
+NewSize	./include/solution.h	/^        void NewSize(){$/;"	f	class:Matrix
+OBJS	./Makefile	/^OBJS := solution.o main.o$/;"	m
+OBJS_DIR	./Makefile	/^OBJS_DIR := .objs$/;"	m
+Print	./include/solution.h	/^        void  Print() const {$/;"	f	class:Complex_Matrix
+Print	./include/solution.h	/^        void  Print() const {$/;"	f	class:Matrix
+SetCols	./include/solution.h	/^        void  SetCols(const int &input){ cols_ = input; }$/;"	f	class:Matrix
+SetImag	./include/solution.h	/^        void           SetImag(const int &i, const int &j, const T &input_value){complex_value[1].value_[i][j] = input_value;}$/;"	f	class:Complex_Matrix
+SetReal	./include/solution.h	/^        void           SetReal(const int &i, const int &j, const T &input_value){complex_value[0].value_[i][j] = input_value;}$/;"	f	class:Complex_Matrix
+SetRows	./include/solution.h	/^        void  SetRows(const int &input){ rows_ = input; }$/;"	f	class:Matrix
+SetValues	./include/solution.h	/^        void  SetValues(const int &i, const int &j, const T &input){ value_[i][j] = input; }$/;"	f	class:Matrix
+WARNINGS	./Makefile	/^WARNINGS = -pedantic -Wall $(WARNINGS_AS_ERRORS) -Wfatal-errors -Wextra $(EXCLUSIVE_WARNING_OPTIONS)$/;"	m
+_SOLUTION_H_	./include/solution.h	2;"	d
+cols	./main.cpp	/^const int cols = 3;$/;"	v
+cols_	./include/solution.h	/^        int cols_;$/;"	m	class:Matrix
+comp_name_	./include/solution.h	/^        std::string comp_name_;$/;"	m	class:Complex_Matrix
+complex_value	./include/solution.h	/^        Matrix<T> complex_value[2];\/\/0:real, 1:imag$/;"	m	class:Complex_Matrix
+main	./main.cpp	/^int main(){$/;"	f
+name_	./include/solution.h	/^        std::string name_;$/;"	m	class:Matrix
+operator =	./include/solution.hpp	/^void Matrix<T>::operator=(const Matrix &other){$/;"	f	class:Matrix
+rows	./main.cpp	/^const int rows = 3;$/;"	v
+rows_	./include/solution.h	/^        int rows_;$/;"	m	class:Matrix
+value_	./include/solution.h	/^        T** value_;$/;"	m	class:Matrix
+~Matrix	./include/solution.h	/^        ~Matrix(){$/;"	f	class:Matrix
