@@ -28,7 +28,8 @@ CFLAGS = -g -c -std=c++14 -O0 $(WARNINGS) -MMD -MP $(ASANFLAGS)
 LDFLAGS += -std=c++14 $(ASANFLAGS)
 
 # Rule for `all` (first/default rule):
-all: $(INC_DIR) $(EXE) all_file_tags
+#all: $(INC_DIR) $(EXE) all_file_tags
+all: $(INC_DIR) $(EXE)
 
 # Rule for linking the final executable:
 # - $(EXE) depends on all object files in $(OBJS)
