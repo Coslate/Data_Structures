@@ -56,18 +56,6 @@ Matrix<T> Matrix<T>::MatrixAdd(const Matrix &input_matrix){ //A+B
 
     return result;
 }
-/*
-template <typename T>
-void Matrix<T>::operator=(Matrix<T> &other){
-    this->rows_ = other.GetRows();
-    this->cols_ = other.GetCols();
-    for(int i=0;i<rows_;++i){
-        for(int j=0;j<cols_;++j){
-            value_[i][j] = other.GetValues(i, j);
-        }
-    }
-}
-*/
 
 template <typename T>
 void Matrix<T>::operator=(const Matrix &other){
@@ -83,13 +71,6 @@ void Matrix<T>::operator=(const Matrix &other){
     this->cols_ = other.GetCols();
 
     NewSize();
-    /*
-    value_ = new T* [rows_];
-    for(int i=0;i<rows_;++i){
-        value_[i] = new T [cols_]();
-    }
-    */
-
     for(int i=0;i<rows_;++i){
         for(int j=0;j<cols_;++j){
             value_[i][j] = other.GetValues(i, j);
@@ -98,8 +79,27 @@ void Matrix<T>::operator=(const Matrix &other){
 }
 
 template <typename T>
-Complex_Matrix<T> Complex_Matrix<T>::Complex_MatrixMul(const Complex_Matrix &input_matrix){
-    //continue
+void Complex_Matrix<T>::operator=(const Complex_Matrix &input_matrix){
+    complex_value[0] = input_matrix.GetReal();
+    complex_value[1] = input_matrix.GetImag();
+}
 
+template <typename T>
+Complex_Matrix<T> Complex_Matrix<T>::Complex_MatrixMul(const Complex_Matrix &input_comp_matrix){
+    Matrix<T> real_mul_result("real_mul_result");
+    Matrix<T> imag_mul_result("imag_mul_result");
+    Complex_Matrix<T> result("result");
+
+    real_mul_result = complex_value[1].MatrixMul(input_comp_matrix.GetImag());//B*D
+    real_mul_result = real_mul_result.MatrixScalar(-1);//-B*D
+    real_mul_result = real_mul_result.MatrixAdd(complex_value[0].MatrixMul(input_comp_matrix.GetReal()));//(A*C)-(B*D)
+
+    imag_mul_result = complex_value[0].MatrixMul(input_comp_matrix.GetImag());//A*D
+    imag_mul_result = imag_mul_result.MatrixAdd(complex_value[1].MatrixMul(input_comp_matrix.GetReal()));//(A*D)+(B*C)
+
+    result.SetReal(real_mul_result);
+    result.SetImag(imag_mul_result);
+
+    return result;
 }
 

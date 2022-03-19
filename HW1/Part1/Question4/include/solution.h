@@ -32,32 +32,21 @@ class Matrix{
             }
         }
         Matrix(const int &rows, const int &cols, const std::string &name, T** const &input) : cols_(cols), rows_(rows), name_(name) {
-            /*
-            value_ = new T* [rows_];
-            for(int i=0;i<rows_;++i){
-                value_[i] = new T [cols_]();
-            }
-            */
             NewSize();
-
             for(int i=0;i<rows_;++i){
                 for(int j=0;j<cols_;++j){
                     value_[i][j] = input[i][j];
                 }
             }
         }
+
+        //Copy consturctor
         Matrix(const Matrix &p){
             rows_ = p.GetRows();
             cols_ = p.GetCols();
             name_ = p.GetName();
 
             NewSize();
-            /*
-            value_ = new T* [rows_];
-            for(int i=0;i<rows_;++i){
-                value_[i] = new T [cols_]();
-            }
-            */
             for(int i=0;i<rows_;++i){
                 for(int j=0;j<cols_;++j){
                     value_[i][j] = p.GetValues(i, j);
@@ -76,7 +65,6 @@ class Matrix{
         int           GetCols() const {return cols_;}
         std::string   GetName() const {return name_;}
         T             GetValues (const int &i, const int &j) const {return value_[i][j];}
-
 
         void  SetRows(const int &input){ rows_ = input; }
         void  SetCols(const int &input){ cols_ = input; }
@@ -119,7 +107,6 @@ class Matrix{
         Matrix<T> MatrixScalar(const T &scalar);         //A*c
         Matrix<T> MatrixAdd   (const Matrix &input_matrix); //A+B
         void operator=(const Matrix &other);
-//        void operator=(Matrix<T>& other);
 
         friend class Complex_Matrix<T>;
 
@@ -132,6 +119,7 @@ class Complex_Matrix{
         std::string comp_name_;
     public:
         Complex_Matrix(const std::string &name):comp_name_(name){}
+        Complex_Matrix(const std::string &name, const std::string &real_name, const std::string &comp_name):comp_name_(name){ complex_value[0].name_ = real_name; complex_value[1].name_ = comp_name;}
         Complex_Matrix(const Matrix<T> &real, const Matrix<T> &imag, const std::string &name){
             comp_name_ = name;
             //Real part construction
@@ -161,10 +149,20 @@ class Complex_Matrix{
             }
         }
 
+        //Copy consturctor
+        Complex_Matrix(const Complex_Matrix &p){
+            complex_value[0] = p.complex_value[0];
+            complex_value[1] = p.complex_value[1];
+            comp_name_       = p.comp_name_;
+        }
+
         Matrix<T>      GetReal() const {return complex_value[0];}
         Matrix<T>      GetImag() const {return complex_value[1];}
-        void           SetReal(const int &i, const int &j, const T &input_value){complex_value[0].value_[i][j] = input_value;}
-        void           SetImag(const int &i, const int &j, const T &input_value){complex_value[1].value_[i][j] = input_value;}
+        void           SetRealElement(const int &i, const int &j, const T &input_value){complex_value[0].value_[i][j] = input_value;}
+        void           SetImagElement(const int &i, const int &j, const T &input_value){complex_value[1].value_[i][j] = input_value;}
+
+        void           SetReal(const Matrix<T> &input_matrix){complex_value[0] = input_matrix;}
+        void           SetImag(const Matrix<T> &input_matrix){complex_value[1] = input_matrix;}
 
         void  Print() const {
             std::cout<<"Complex Matrix "<<comp_name_<<" = ("<<complex_value[0].name_<<" + "<<"i*"<<complex_value[1].name_<<"), with"<<std::endl;
@@ -173,6 +171,7 @@ class Complex_Matrix{
             std::cout<<"---------------------------------"<<std::endl;
         }
 
+        void operator=(const Complex_Matrix &input_matrix);
         Complex_Matrix<T> Complex_MatrixMul(const Complex_Matrix &input_matrix);
 
 };
