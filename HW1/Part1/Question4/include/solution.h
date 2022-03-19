@@ -156,6 +156,9 @@ class Complex_Matrix{
             comp_name_       = p.comp_name_;
         }
 
+        //Destructor
+        ~Complex_Matrix(){}
+
         Matrix<T>      GetReal() const {return complex_value[0];}
         Matrix<T>      GetImag() const {return complex_value[1];}
         void           SetRealElement(const int &i, const int &j, const T &input_value){complex_value[0].value_[i][j] = input_value;}
