@@ -49,6 +49,10 @@ void Polynomial<CoefType, ExpType>::operator=(const Polynomial &other){
 
 template <typename CoefType, typename ExpType>
 Polynomial<CoefType, ExpType> Polynomial<CoefType, ExpType>::Add(Polynomial b){
+    if(terms == 0 && b.terms == 0){
+        throw std::runtime_error(std::string("Error: all the input Polynomial of Add() are empty."));
+    }
+
     Polynomial<CoefType, ExpType> c(0, 10, "temp_result");
     int aPos = 0;
     int bPos = 0;
@@ -87,7 +91,7 @@ void Polynomial<CoefType, ExpType>::FindLeadExp(){
     ExpType tmp;
 
     if(terms == 0){
-        throw std::runtime_error(std::string("Error: There is no term in the current Polynomial."));
+        throw std::runtime_error(std::string("Error: Not available. The Polynomial is empty."));
         //exit(0);
     }
 
@@ -127,4 +131,19 @@ CoefType Polynomial<CoefType, ExpType>::Coef(ExpType e){
         throw std::runtime_error(std::string("Error: No terms in the current Polynomial has the matched exponential."));
         //exit(0);
     }
+}
+
+template <typename CoefType, typename ExpType>
+float Polynomial<CoefType, ExpType>::Eval(float f){
+    if(terms == 0){
+        throw std::runtime_error(std::string("Error: Not available. The Polynomial is empty."));
+    }
+
+    float tmp_sum = 0;
+    for(int i=0;i<terms;++i){
+        ExpType pow_term = term_array[i].exp;
+        tmp_sum += term_array[i].coef*pow(f, (double)pow_term);
+    }
+
+    return tmp_sum;
 }

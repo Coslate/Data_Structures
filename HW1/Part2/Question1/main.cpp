@@ -45,15 +45,40 @@ int main(){
 
     std::cout<<std::endl;
     std::cout<<"You just entered:"<<std::endl;
-    std::cout<<test_poly_a.GetName()<<" = "<<test_poly_a;
-    std::cout<<"test_poly_a.LeadExp() = "<<test_poly_a.LeadExp()<<std::endl;
-    std::cout<<test_poly_b.GetName()<<" = "<<test_poly_b;
-    std::cout<<"test_poly_b.LeadExp() = "<<test_poly_b.LeadExp()<<std::endl;
+    try{std::cout<<test_poly_a.GetName()<<" = "<<test_poly_a;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    try{std::cout<<test_poly_b.GetName()<<" = "<<test_poly_b;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
 
-    std::cout<<"------------Add Test--------------"<<std::endl;
-    test_poly_a_plus_b_result = test_poly_a.Add(test_poly_b);
-    std::cout<<test_poly_a_plus_b_result.GetName()<<" = "<<test_poly_a.GetName()<<" + "<<test_poly_b.GetName()<<" = "<<test_poly_a_plus_b_result;
-    std::cout<<"test_poly_a_plus_b_result.LeadExp() = "<<test_poly_a_plus_b_result.LeadExp()<<std::endl;
+    std::cout<<"------------Add() Test--------------"<<std::endl;
+    try {test_poly_a_plus_b_result = test_poly_a.Add(test_poly_b);}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    try{std::cout<<test_poly_a_plus_b_result.GetName()<<" = "<<test_poly_a.GetName()<<" + "<<test_poly_b.GetName()<<" = "<<test_poly_a_plus_b_result;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    std::cout<<"------------LeadExp() Test--------------"<<std::endl;
+    try{std::cout<<"test_poly_a.LeadExp() = "<<test_poly_a.LeadExp()<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    try{std::cout<<"test_poly_b.LeadExp() = "<<test_poly_b.LeadExp()<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    try{std::cout<<"test_poly_a_plus_b_result.LeadExp() = "<<test_poly_a_plus_b_result.LeadExp()<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
     std::cout<<"------------Coef Test--------------"<<std::endl;
     std::cout<<"First for "<<test_poly_a.GetName()<<std::endl;
     std::cout<<"Please enter n for test_poly_a.Coef(n) : ";
@@ -86,9 +111,28 @@ int main(){
         }
         std::cout<<"Please enter n for test_poly_b.Coef(n) : ";
     }
-    std::cout<<"------------Operator! Test--------------"<<std::endl;
+    std::cout<<"------------Operator!() Test--------------"<<std::endl;
     std::cout<<"!"<<test_poly_a.GetName()<<" = "<<(!test_poly_a)<<std::endl;
     std::cout<<"!"<<test_poly_b.GetName()<<" = "<<(!test_poly_b)<<std::endl;
+
+    std::cout<<"------------Eval() Test--------------"<<std::endl;
+    try {std::cout<<test_poly_a.GetName()<<"(5)   = "<<test_poly_a.Eval(5)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    try {std::cout<<test_poly_a.GetName()<<"(3.3) = "<<test_poly_a.Eval(3.3)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    try {std::cout<<test_poly_b.GetName()<<"(9)   = "<<test_poly_b.Eval(9)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    try {std::cout<<test_poly_b.GetName()<<"(2.7) = "<<test_poly_b.Eval(2.7)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
 
     return EXIT_SUCCESS;
 }

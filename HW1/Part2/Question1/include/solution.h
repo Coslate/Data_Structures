@@ -5,6 +5,7 @@
 #include <string>
 #include <cfloat>
 #include <climits>
+#include <math.h>
 #include <iostream>
 
 template <typename CoefType, typename ExpType>
@@ -88,15 +89,18 @@ class Polynomial{
 
         Polynomial      Add                 (Polynomial b);
         Polynomial      Mult                (Polynomial b);
-        float           Eval                (float f){return 0.0;}
+        float           Eval                (float f);
         int             operator!           (){return ((terms==0)?1:0);}
         CoefType        Coef                (ExpType e);
-        ExpType         LeadExp             (){return max_exp;}
-
+        ExpType         LeadExp             (){if(terms==0){throw std::runtime_error(std::string("Error: Not available. The Polynomial is empty."));} return max_exp;}
 
         void operator=(const Polynomial &polynomial);
 
         friend std::ostream & operator<<(std::ostream &os, const Polynomial<CoefType, ExpType> &out_polynomial){
+            if(out_polynomial.terms == 0){
+                throw std::runtime_error(std::string("Error: Not available. The Polynomial is empty."));
+                return os;
+            }
             for(int i=0;i<out_polynomial.terms;++i){
                 if(i==out_polynomial.terms-1){
                     if(out_polynomial.term_array[i].GetExp()!=0){
