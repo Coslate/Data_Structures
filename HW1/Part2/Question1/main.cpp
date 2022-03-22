@@ -7,6 +7,7 @@ int main(){
     Polynomial<float, int> test_poly_a(0, 10, "test_poly_a");
     Polynomial<float, int> test_poly_b(0, 10, "test_poly_b");
     Polynomial<float, int> test_poly_a_plus_b_result(0, 10, "test_poly_a_plus_b_result");
+    Polynomial<float, int> test_poly_a_mul_b_result (0, 10, "test_poly_a_mul_b_result");
     int exp_est;
     std::string skip;
 
@@ -49,6 +50,7 @@ int main(){
     catch(std::runtime_error &e){
         std::cerr<<e.what()<<std::endl;
     }
+
     try{std::cout<<test_poly_b.GetName()<<" = "<<test_poly_b;}
     catch(std::runtime_error &e){
         std::cerr<<e.what()<<std::endl;
@@ -61,6 +63,17 @@ int main(){
     }
 
     try{std::cout<<test_poly_a_plus_b_result.GetName()<<" = "<<test_poly_a.GetName()<<" + "<<test_poly_b.GetName()<<" = "<<test_poly_a_plus_b_result;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    std::cout<<"------------Mul() Test--------------"<<std::endl;
+    try {test_poly_a_mul_b_result = test_poly_a.Mul(test_poly_b);}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    try{std::cout<<test_poly_a_mul_b_result.GetName()<<" = "<<test_poly_a.GetName()<<" * "<<test_poly_b.GetName()<<" = "<<test_poly_a_mul_b_result;}
     catch(std::runtime_error &e){
         std::cerr<<e.what()<<std::endl;
     }
@@ -78,9 +91,13 @@ int main(){
     catch(std::runtime_error &e){
         std::cerr<<e.what()<<std::endl;
     }
+    try{std::cout<<"test_poly_a_mul_b_result.LeadExp() = "<<test_poly_a_mul_b_result.LeadExp()<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
 
     std::cout<<"------------Coef Test--------------"<<std::endl;
-    std::cout<<"First for "<<test_poly_a.GetName()<<std::endl;
+    std::cout<<"First for "<<test_poly_a.GetName()<<":"<<std::endl;
     std::cout<<"Please enter n for test_poly_a.Coef(n) : ";
     while(std::cin >> exp_est){
         std::string end_input;
@@ -96,7 +113,7 @@ int main(){
         std::cout<<"Please enter n for test_poly_a.Coef(n) : ";
     }
 
-    std::cout<<"Then for "<<test_poly_b.GetName()<<std::endl;
+    std::cout<<"Then for "<<test_poly_b.GetName()<<":"<<std::endl;
     std::cout<<"Please enter n for test_poly_b.Coef(n) : ";
     while(std::cin >> exp_est){
         std::string end_input;

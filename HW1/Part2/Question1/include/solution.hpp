@@ -21,6 +21,7 @@ void Polynomial<CoefType, ExpType>::NewTerm(const CoefType &in_coef, const ExpTy
         std::copy(term_array, term_array+terms, temp);
         delete [] term_array;
         term_array = temp;
+        temp = nullptr;
     }
 
     term_array[terms].coef = in_coef;
@@ -45,6 +46,7 @@ void Polynomial<CoefType, ExpType>::operator=(const Polynomial &other){
     }
 
     term_array = temp;
+    temp = nullptr;
 }
 
 template <typename CoefType, typename ExpType>
@@ -57,6 +59,16 @@ Polynomial<CoefType, ExpType> Polynomial<CoefType, ExpType>::Add(Polynomial b){
     int aPos = 0;
     int bPos = 0;
 
+    //Reset c to remove 0 term because of the default constructor.
+    if(c.terms > 0){
+        c.terms = 0;
+        delete [] c.term_array;
+        Term<CoefType, ExpType> *temp = new Term<CoefType, ExpType> [c.capacity];
+        c.term_array = temp;
+        temp = nullptr;
+    }
+
+    //Begin the algorithm
     while((aPos<terms) && (bPos<b.terms)){
         if(term_array[aPos].exp == b.term_array[bPos].exp){
             CoefType t = term_array[aPos].coef + b.term_array[bPos].coef;
@@ -83,6 +95,7 @@ Polynomial<CoefType, ExpType> Polynomial<CoefType, ExpType>::Add(Polynomial b){
     catch(std::runtime_error &e){
         std::cerr<<e.what()<<std::endl;
     }
+
     return c;
 }
 
@@ -109,8 +122,48 @@ void Polynomial<CoefType, ExpType>::FindLeadExp(){
 }
 
 template <typename CoefType, typename ExpType>
-Polynomial<CoefType, ExpType> Polynomial<CoefType, ExpType>::Mult(Polynomial b){
+bool Polynomial<CoefType, ExpType>::SortFunction(const Term<CoefType, ExpType> &a, const Term<CoefType, ExpType> &b){
+    return (a.exp > b.exp);
+}
 
+template <typename CoefType, typename ExpType>
+Polynomial<CoefType, ExpType> Polynomial<CoefType, ExpType>::Mul(Polynomial b){
+    if(terms == 0 && b.terms == 0){
+        throw std::runtime_error(std::string("Error: all the input Polynomial of Mul() are empty."));
+    }
+
+    Polynomial<CoefType, ExpType> c(0, 10, "temp_result");
+    std::unordered_map<ExpType, int> map_exp2pos; //to record the exp stored in which position in c
+
+    //Reset c to remove 0 term because of the default constructor.
+    if(c.terms > 0){
+        c.terms = 0;
+        delete [] c.term_array;
+        Term<CoefType, ExpType> *temp = new Term<CoefType, ExpType> [c.capacity];
+        c.term_array = temp;
+        temp = nullptr;
+    }
+
+    for(int i=0;i<terms;++i){
+        for(int j=0;j<b.terms;++j){
+            ExpType exp_result   = term_array[i].exp + b.term_array[j].exp;
+            CoefType coef_result = term_array[i].coef * b.term_array[j].coef;
+
+            if(map_exp2pos.find(exp_result) == map_exp2pos.end()){//not found
+                map_exp2pos[exp_result] = c.terms;
+                c.NewTerm(coef_result, exp_result);
+            }else{
+                c.term_array[map_exp2pos[exp_result]].coef += coef_result;
+            }
+        }
+    }
+
+    std::sort(c.term_array, c.term_array+c.terms, c.SortFunction);
+    try {c.FindLeadExp();}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    return c;
 }
 
 template <typename CoefType, typename ExpType>

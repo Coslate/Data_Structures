@@ -6,6 +6,8 @@
 #include <cfloat>
 #include <climits>
 #include <math.h>
+#include <unordered_map>
+#include <algorithm>
 #include <iostream>
 
 template <typename CoefType, typename ExpType>
@@ -56,6 +58,7 @@ class Polynomial{
     public:
         Polynomial(const int &terms=0, const int &capacity=10, const std::string &name="NULL", const ExpType &max_exp=0, const bool &input_at_least_once = false):terms(terms), capacity(capacity), name(name), max_exp(max_exp), input_at_least_once(input_at_least_once){
             term_array = new Term<CoefType, ExpType> [capacity];
+            NewTerm(0, 0);
         }
 
         //Copy consturctor
@@ -64,17 +67,18 @@ class Polynomial{
             capacity = p.capacity;
             name     = p.name;
             max_exp  = p.max_exp;
+            input_at_least_once = p.input_at_least_once;
+            term_array = new Term<CoefType, ExpType> [capacity];
 
-            Term<CoefType, ExpType>* temp = new Term<CoefType, ExpType> [capacity];
             for(int i=0;i<terms;++i){
-                temp[i] = p.term_array[i];
+                term_array[i] = p.term_array[i];
             }
-            term_array = temp;
         }
 
         //Destructor
         ~Polynomial(){
             delete [] term_array;
+            term_array = nullptr;
         }
 
         int                                GetTerms            () const {return terms;}
@@ -88,11 +92,13 @@ class Polynomial{
         void                               NewTerm             (const CoefType &in_coef, const ExpType &in_exp);
 
         Polynomial      Add                 (Polynomial b);
-        Polynomial      Mult                (Polynomial b);
+        Polynomial      Mul                 (Polynomial b);
         float           Eval                (float f);
-        int             operator!           (){return ((terms==0)?1:0);}
+        int             operator!           (){return (((terms==1) && (term_array[0].coef==0))?1:0);}
         CoefType        Coef                (ExpType e);
         ExpType         LeadExp             (){if(terms==0){throw std::runtime_error(std::string("Error: Not available. The Polynomial is empty."));} return max_exp;}
+
+        static bool SortFunction(const Term<CoefType, ExpType> &a, const Term<CoefType, ExpType> &b);
 
         void operator=(const Polynomial &polynomial);
 
@@ -103,10 +109,18 @@ class Polynomial{
             }
             for(int i=0;i<out_polynomial.terms;++i){
                 if(i==out_polynomial.terms-1){
-                    if(out_polynomial.term_array[i].GetExp()!=0){
-                        os<<abs(out_polynomial.term_array[i].GetCoef())<<"X^"<<out_polynomial.term_array[i].GetExp()<<std::endl;
+                    if(i==0){
+                        if(out_polynomial.term_array[i].GetExp()!=0){
+                            os<<out_polynomial.term_array[i].GetCoef()<<"X^"<<out_polynomial.term_array[i].GetExp()<<std::endl;
+                        }else{
+                            os<<out_polynomial.term_array[i].GetCoef()<<std::endl;
+                        }
                     }else{
-                        os<<abs(out_polynomial.term_array[i].GetCoef())<<std::endl;
+                        if(out_polynomial.term_array[i].GetExp()!=0){
+                            os<<abs(out_polynomial.term_array[i].GetCoef())<<"X^"<<out_polynomial.term_array[i].GetExp()<<std::endl;
+                        }else{
+                            os<<abs(out_polynomial.term_array[i].GetCoef())<<std::endl;
+                        }
                     }
                 }else{
                     if(i==0){
@@ -141,14 +155,12 @@ class Polynomial{
                 }
             }
 
-            if(out_polynomial.terms == 0){
-                os<<"0"<<std::endl;
-            }
             return os;
         }
         friend std::istream & operator>>(std::istream &in, Polynomial<CoefType, ExpType> &in_polynomial){
             CoefType temp_coef;
             ExpType  temp_exp;
+
             std::cout<<"Please enter the coefficient for "<<in_polynomial.name<<" : ";
             in>> temp_coef;
             std::cout<<"Please enter the exponential for "<<in_polynomial.name<<" : ";
@@ -164,11 +176,19 @@ class Polynomial{
                 return in;
             }
 
-            in_polynomial.NewTerm(temp_coef, temp_exp);
             if(!in_polynomial.input_at_least_once){
                 in_polynomial.max_exp = temp_exp;
                 in_polynomial.input_at_least_once = true;
+                if(in_polynomial.terms > 0){
+                    in_polynomial.terms = 0;
+                    delete [] in_polynomial.term_array;
+                    Term<CoefType, ExpType> *temp = new Term<CoefType, ExpType> [in_polynomial.capacity];
+                    in_polynomial.term_array = temp;
+                    temp = nullptr;
+                }
             }
+
+            in_polynomial.NewTerm(temp_coef, temp_exp);
             return in;
         }
 };
