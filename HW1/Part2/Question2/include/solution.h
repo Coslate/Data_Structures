@@ -20,7 +20,7 @@ class MatrixTerm{
         T value;
 
     public:
-        MatrixTerm() : coef(0), exp(0), value(0){}
+        MatrixTerm() : row(0), col(0), value(0){}
         MatrixTerm(const int &row, const int &col, const T &value) : row(row), col(col), value(value){}
 
         //Copy consturctor
@@ -102,99 +102,66 @@ class SparseMatrix{
         void                               SetMatrixTermArray  (const MatrixTerm<T>* const &in_sm_array, const int &in_terms);
         void                               NewMatrixTerm       (const int &row_pos, const int &col_pos, const T &value);
         void                               ChangeArraySize(const int &new_size);
+        bool                               CheckSameItemAlreadyExisted(const int &row, const int &col, int &found_index);
 
-        SparseMatrix                       Transpose           (SparseMatrix b){};
-        SparseMatrix                       Add                 (SparseMatrix b){};
-        SparseMatrix                       Multiply            (SparseMatrix b){};
+        SparseMatrix                       Transpose           ();
+        SparseMatrix                       Add                 (SparseMatrix b);
+        SparseMatrix                       Multiply            (SparseMatrix b);
         void operator=(const SparseMatrix &polynomial);
 
-        friend std::ostream & operator<<(std::ostream &os, const SparseMatrix<CoefType, ExpType> &out_sparse_matrix){
+        friend std::ostream & operator<<(std::ostream &os, const SparseMatrix<T> &out_sparse_matrix){
             if(out_sparse_matrix.terms == 0){
                 throw std::runtime_error(std::string("Error: Not available. The SparseMatrix is empty."));
-                return os;
             }
+
+            os<<std::endl<<out_sparse_matrix.name<<"is a "<<out_sparse_matrix.rows<<"X"<<out_sparse_matrix.cols<<" matrix: "<<std::endl;
             for(int i=0;i<out_sparse_matrix.terms;++i){
-                if(i==out_sparse_matrix.terms-1){
-                    if(i==0){
-                        if(out_sparse_matrix.sm_array[i].GetExp()!=0){
-                            os<<out_sparse_matrix.sm_array[i].GetCoef()<<"X^"<<out_sparse_matrix.sm_array[i].GetExp()<<std::endl;
-                        }else{
-                            os<<out_sparse_matrix.sm_array[i].GetCoef()<<std::endl;
-                        }
-                    }else{
-                        if(out_sparse_matrix.sm_array[i].GetExp()!=0){
-                            os<<abs(out_sparse_matrix.sm_array[i].GetCoef())<<"X^"<<out_sparse_matrix.sm_array[i].GetExp()<<std::endl;
-                        }else{
-                            os<<abs(out_sparse_matrix.sm_array[i].GetCoef())<<std::endl;
-                        }
-                    }
-                }else{
-                    if(i==0){
-                        if(out_sparse_matrix.sm_array[i+1].GetCoef() > 0){
-                            if(out_sparse_matrix.sm_array[i].GetExp()!=0){
-                                os<<out_sparse_matrix.sm_array[i].GetCoef()<<"X^"<<out_sparse_matrix.sm_array[i].GetExp()<<"+";
-                            }else{
-                                os<<out_sparse_matrix.sm_array[i].GetCoef()<<"+";
-                            }
-                        }else{
-                            if(out_sparse_matrix.sm_array[i].GetExp()!=0){
-                                os<<out_sparse_matrix.sm_array[i].GetCoef()<<"X^"<<out_sparse_matrix.sm_array[i].GetExp()<<"-";
-                            }else{
-                                os<<out_sparse_matrix.sm_array[i].GetCoef()<<"-";
-                            }
-                        }
-                    }else{
-                        if(out_sparse_matrix.sm_array[i+1].GetCoef() > 0){
-                            if(out_sparse_matrix.sm_array[i].GetExp()!=0){
-                                os<<abs(out_sparse_matrix.sm_array[i].GetCoef())<<"X^"<<out_sparse_matrix.sm_array[i].GetExp()<<"+";
-                            }else{
-                                os<<abs(out_sparse_matrix.sm_array[i].GetCoef())<<"+";
-                            }
-                        }else{
-                            if(out_sparse_matrix.sm_array[i].GetExp()!=0){
-                                os<<abs(out_sparse_matrix.sm_array[i].GetCoef())<<"X^"<<out_sparse_matrix.sm_array[i].GetExp()<<"-";
-                            }else{
-                                os<<abs(out_sparse_matrix.sm_array[i].GetCoef())<<"-";
-                            }
-                        }
-                    }
-                }
+                os<<"("<<out_sparse_matrix.sm_array[i].GetRow()<<", "<<out_sparse_matrix.sm_array[i].GetCol()<<", "<<out_sparse_matrix.sm_array[i].GetValue()<<")"<<std::endl;
             }
 
             return os;
         }
-        friend std::istream & operator>>(std::istream &in, SparseMatrix<CoefType, ExpType> &in_sparse_matrix){
-            CoefType temp_coef;
-            ExpType  temp_exp;
 
-            std::cout<<"Please enter the coefficient for "<<in_sparse_matrix.name<<" : ";
-            in>> temp_coef;
-            std::cout<<"Please enter the exponential for "<<in_sparse_matrix.name<<" : ";
-            in>> temp_exp;
+        friend std::istream & operator>>(std::istream &in, SparseMatrix<T> &in_sparse_matrix){
+            int row, col;
+            T value;
+            int found_index = 0;
+            std::cout<<"Please enter the row of the "<<in_sparse_matrix.terms<<"th item in"<<in_sparse_matrix.name<<" : ";
 
-            if(temp_coef == 0){
-                std::cout<<"Warning: The coefficient you just entered is 0, which will not be taken into the SparseMatrix."<<std::endl;
-                return in;
-            }
-
-            if((temp_exp > in_sparse_matrix.max_exp) && (in_sparse_matrix.input_at_least_once)){
-                std::cout<<"Warning: You just entered an exponential that is bigger than the largest one you entered before : "<<in_sparse_matrix.max_exp<<". Please enter in decreasing order of exponential. This one will be neglected."<<std::endl;
-                return in;
-            }
-
-            if(!in_sparse_matrix.input_at_least_once){
-                in_sparse_matrix.max_exp = temp_exp;
-                in_sparse_matrix.input_at_least_once = true;
-                if(in_sparse_matrix.terms > 0){
-                    in_sparse_matrix.terms = 0;
-                    delete [] in_sparse_matrix.sm_array;
-                    MatrixTerm<CoefType, ExpType> *temp = new MatrixTerm<CoefType, ExpType> [in_sparse_matrix.capacity];
-                    in_sparse_matrix.sm_array = temp;
-                    temp = nullptr;
+            while(in>> row){
+                try{
+                    if(row > (in_sparse_matrix.rows-1) || row<0){
+                        throw std::runtime_error(std::string("Error: You just entered an invalid row, which should be <="+std::to_string(in_sparse_matrix.rows-1)+" or >=0. Please enter again : "));
+                    }
+                }catch(std::runtime_error &e){
+                    std::cerr<<e.what()<<std::endl;
                 }
+                if(row <= (in_sparse_matrix.rows-1) && row >=0) break;
+            }
+            std::cout<<"Please enter the col of the "<<in_sparse_matrix.terms<<"th item in"<<in_sparse_matrix.name<<" : ";
+            while(in>> col){
+                try{
+                    if(col > (in_sparse_matrix.cols-1) || col<0){
+                        throw std::runtime_error(std::string("Error: You just entered an invalid col, which should be <="+std::to_string(in_sparse_matrix.cols-1)+" or >=0. Please enter again : "));
+                    }
+                }catch(std::runtime_error &e){
+                    std::cerr<<e.what()<<std::endl;
+                }
+                if(col <= (in_sparse_matrix.cols-1) && col >=0) break;
             }
 
-            in_sparse_matrix.NewMatrixTerm(temp_coef, temp_exp);
+            std::cout<<"Please enter the value of the "<<in_sparse_matrix.terms<<"th item in"<<in_sparse_matrix.name<<" : ";
+            in>> value;
+            if(value == 0){
+                std::cout<<"Since you just entered 0 for the value, it will not be taken into this sparse matrix representation. It is neglected."<<std::endl;
+                return in;
+            }
+
+            if(in_sparse_matrix.CheckSameItemAlreadyExisted(row, col, found_index)){
+                in_sparse_matrix.sm_array[found_index].SetValue(value);
+            }else{
+                in_sparse_matrix.NewMatrixTerm(row, col, value);
+            }
             return in;
         }
 };
