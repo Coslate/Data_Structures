@@ -101,6 +101,8 @@ class SparseMatrix{
         void                               SetName             (const std::string &in_name){name     = in_name;}
         void                               SetMatrixTermArray  (const MatrixTerm<T>* const &in_sm_array, const int &in_terms);
         void                               NewMatrixTerm       (const int &row_pos, const int &col_pos, const T &value);
+
+        void                               DeleteOneLastElement();
         void                               ChangeArraySize(const int &new_size);
         bool                               CheckSameItemAlreadyExisted(const int &row, const int &col, int &found_index);
 

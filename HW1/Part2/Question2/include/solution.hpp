@@ -222,9 +222,89 @@ SparseMatrix<T> SparseMatrix<T>::Transpose(){
 }
 
 template <typename T>
+void SparseMatrix<T>::DeleteOneLastElement(){
+    if(terms>0){
+        MatrixTerm<T> *temp = new MatrixTerm<T>[capacity];
+        std::copy(sm_array, sm_array+terms-1, temp);
+        delete [] sm_array;
+        sm_array = temp;
+        temp = nullptr;
+        terms--;
+    }
+}
+
+template <typename T>
 SparseMatrix<T> SparseMatrix<T>::Multiply(SparseMatrix b){
-    SparseMatrix<T> c(rows, b.cols, 0, 0, "temp_result");
-    //to-do
+    if(terms == 0){
+        throw std::runtime_error(std::string("Warning: "+name+"is an empty matrix. Thus, the Multiply() cannot be applied."));
+    }
+
+    if(b.terms == 0){
+        throw std::runtime_error(std::string("Warning: "+b.name+"is an empty matrix. Thus, the Multiply() cannot be applied."));
+    }
+
+    if(cols != b.rows){
+        throw std::runtime_error(std::string("Error: the cols of matrix of "+name+" does not match with the rows of matrix of "+b.name+". Thus, the Multiply() cannot be applied."));
+    }
+    SparseMatrix<T> c(rows, b.cols, 0, 10, "temp_result");
+    SparseMatrix<T> b_transpose = b.Transpose();
+
+    SortAll();
+    b_transpose.SortAll();
+
+    int curr_row_index = 0;
+    int curr_row_begin = 0;
+    int curr_rowa      = sm_array[0].row;
+
+    NewMatrixTerm(rows, cols, -1); //Add one temp term to *this, will be deleted later.
+    b_transpose.NewMatrixTerm(b.cols, -1, -1);
+
+    T sum = 0;
+    while(curr_row_index < terms){
+        int curr_colb = b_transpose.sm_array[0].row;
+        int curr_col_index = 0;
+
+        while(curr_col_index <= b_transpose.terms){
+            if(sm_array[curr_row_index].row != curr_rowa){//rowa end
+                if(sum != 0){
+                    c.NewMatrixTerm(curr_rowa, curr_colb, sum);
+                    sum = 0;
+                }
+                curr_row_index = curr_row_begin;//rewind to the beginning of rowa
+
+                while(b_transpose.sm_array[curr_col_index].row == curr_colb){
+                    curr_col_index++;//skip the remaining terms in b_transpose
+                }
+
+                curr_colb = b_transpose.sm_array[curr_col_index].row;
+            }else if(b_transpose.sm_array[curr_col_index].row != curr_colb){//colb end
+                if(sum != 0){
+                    c.NewMatrixTerm(curr_rowa, curr_colb, sum);
+                    sum = 0;
+                }
+                curr_row_index = curr_row_begin;//rewind to the beginning of rowa
+                curr_colb = b_transpose.sm_array[curr_col_index].row;
+            }else{
+                if(sm_array[curr_row_index].col < b_transpose.sm_array[curr_col_index].col){
+                    curr_row_index++;
+                }else if(sm_array[curr_row_index].col == b_transpose.sm_array[curr_col_index].col){
+                    sum += sm_array[curr_row_index].value*b_transpose.sm_array[curr_col_index].value;
+                    curr_row_index++;
+                    curr_col_index++;
+                }else{
+                    curr_col_index++;
+                }
+            }
+        }
+        //Go to next rowa
+        while(sm_array[curr_row_index].row == curr_rowa){
+            curr_row_index++;
+        }
+        curr_row_begin = curr_row_index;
+        curr_rowa = sm_array[curr_row_index].row;
+    }
+
+    DeleteOneLastElement();
     return c;
 }
 

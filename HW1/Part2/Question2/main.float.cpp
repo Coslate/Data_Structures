@@ -4,12 +4,12 @@
 
 
 int main(){
-    SparseMatrix<int> test_sparse_matrix_a(6, 6, 0, 10, "test_sparse_matrix_a");
-    SparseMatrix<int> test_sparse_matrix_b(6, 6, 0, 10, "test_sparse_matrix_b");
-    SparseMatrix<int> test_sparse_matrix_a_trans_result (6, 6, 0, 10, "test_sparse_matrix_a_trans_result");
-    SparseMatrix<int> test_sparse_matrix_b_trans_result (6, 6, 0, 10, "test_sparse_matrix_b_trans_result");
-    SparseMatrix<int> test_sparse_matrix_a_add_b_result (6, 6, 0, 10, "test_sparse_matrix_a_add_b_result");
-    SparseMatrix<int> test_sparse_matrix_a_mul_b_result (6, 6, 0, 10, "test_sparse_matrix_a_mul_b_result");
+    SparseMatrix<float> test_sparse_matrix_a(6, 6, 0, 10, "test_sparse_matrix_a");
+    SparseMatrix<float> test_sparse_matrix_b(6, 6, 0, 10, "test_sparse_matrix_b");
+    SparseMatrix<float> test_sparse_matrix_a_trans_result (6, 6, 0, 10, "test_sparse_matrix_a_trans_result");
+    SparseMatrix<float> test_sparse_matrix_b_trans_result (6, 6, 0, 10, "test_sparse_matrix_b_trans_result");
+    SparseMatrix<float> test_sparse_matrix_a_add_b_result (6, 6, 0, 10, "test_sparse_matrix_a_add_b_result");
+    SparseMatrix<float> test_sparse_matrix_a_mul_b_result (6, 6, 0, 10, "test_sparse_matrix_a_mul_b_result");
     std::string skip;
 
 

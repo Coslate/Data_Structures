@@ -1,6 +1,7 @@
 #declare variable
 EXE := main
 OBJS := solution.o main.o
+#OBJS := solution.o main.float.o
 OBJS_DIR := .objs
 INC_DIR := ./include
 
