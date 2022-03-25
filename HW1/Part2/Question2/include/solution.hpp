@@ -78,14 +78,76 @@ bool SparseMatrix<T>::CheckSameItemAlreadyExisted(const int &row, const int &col
 }
 
 template <typename T>
-SparseMatrix<T> SparseMatrix<T>::Add(SparseMatrix b){
-    SparseMatrix<T> c(rows, cols, 0, 0, "temp_result");
+void SparseMatrix<T>::SortAccordingToRow(){
+    MatrixTerm<T> *temp = new MatrixTerm<T>[capacity];
+    int index = 0;
+    int *row_size  = new int[cols]();
+    int *row_start = new int[cols]();
 
-    if(terms == 0 && b.terms == 0){
-        return c;
+    //calculate the row size of the new matrix
+    for(int i=0;i<terms;++i){
+        row_size[sm_array[i].row]++;
     }
-    //to-do
-    return c;
+
+    //calculate the starting index of each row in the new matrix
+    for(int i=1;i<cols;++i){
+        row_start[i] = row_start[i-1]+row_size[i-1];
+    }
+
+    //start moving data
+    for(int i=0;i<terms;++i){
+        int j=row_start[sm_array[i].row];
+        temp[j].row   = sm_array[i].row;
+        temp[j].col   = sm_array[i].col;
+        temp[j].value = sm_array[i].value;
+        row_start[sm_array[i].row]++;
+    }
+
+    delete [] row_size;
+    delete [] row_start;
+    delete [] sm_array;
+    sm_array = temp;
+    delete [] temp;
+}
+
+template <typename T>
+SparseMatrix<T> SparseMatrix<T>::Add(SparseMatrix b){
+    if(b.rows != rows || b.cols !=cols){
+        throw std::runtime_error(std::string("Error: the rows or cols of "+b.name<<" does not match with "<<name<<". Thus, the Add() cannot be applied."));
+    }
+    if(terms>0 && b.terms>0){
+        SparseMatrix<T> c(rows, cols, 0, 0, "temp_result");
+        int aPos=0;
+        int bPos=0;
+
+        SortAccordingToRow();
+        b.SortAccordingToRow();
+
+        while(aPos<=terms && bPos<=b.terms){
+            if((sm_array[aPos].row==b.sm_array[bPos].row) && (sm_array[aPos].col==b.sm_array[bPos].col)){
+                c.NewMatrixTerm(sm_array[aPos].row, sm_array[aPos].col, (sm_array[aPos].value+b.sm_array[bPos].value));
+            }else{
+                c.NewMatrixTerm(sm_array[aPos].row, sm_array[aPos].col, sm_array[aPos].value);
+                c.NewMatrixTerm(b.sm_array[bPos].row, b.sm_array[bPos].col, b.sm_array[bPos].value);
+            }
+            aPos++;
+            bPos++;
+        }
+
+        for(int i=aPos;i<terms;++i){
+            c.NewMatrixTerm(sm_array[i].row, sm_array[].col, sm_array[i].value);
+        }
+
+        for(int i=bPos;i<b.terms;++i){
+            c.NewMatrixTerm(b.sm_array[i].row, b.sm_array[i].col, b.sm_array[i].value);
+        }
+
+        return c;
+    }else if(terms==0){
+        return b;
+    }else if(b.terms==0){
+        return *this;
+    }
 }
 
 /*

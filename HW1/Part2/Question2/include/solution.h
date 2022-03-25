@@ -104,6 +104,8 @@ class SparseMatrix{
         void                               ChangeArraySize(const int &new_size);
         bool                               CheckSameItemAlreadyExisted(const int &row, const int &col, int &found_index);
 
+        void                               SortAccordingToRow();
+
         SparseMatrix                       Transpose           ();
         SparseMatrix                       Add                 (SparseMatrix b);
         SparseMatrix                       Multiply            (SparseMatrix b);
