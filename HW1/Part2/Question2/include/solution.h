@@ -27,7 +27,7 @@ class MatrixTerm{
         MatrixTerm(const MatrixTerm &p){
             row  = p.row;
             col  = p.col;
-            value = p.vlaue;
+            value = p.value;
         }
 
         void SetRow(const int &in_row){row = in_row;}
@@ -104,8 +104,9 @@ class SparseMatrix{
         void                               ChangeArraySize(const int &new_size);
         bool                               CheckSameItemAlreadyExisted(const int &row, const int &col, int &found_index);
 
-        void                               SortAccordingToRow();
-
+        void                               SortAccordingToRow  ();
+        void                               SortAll             (){std::sort(sm_array, sm_array+terms, SortFunction);}
+        static bool                        SortFunction        (const MatrixTerm<T> &a, const MatrixTerm<T> &b);
         SparseMatrix                       Transpose           ();
         SparseMatrix                       Add                 (SparseMatrix b);
         SparseMatrix                       Multiply            (SparseMatrix b);
@@ -113,7 +114,7 @@ class SparseMatrix{
 
         friend std::ostream & operator<<(std::ostream &os, const SparseMatrix<T> &out_sparse_matrix){
             if(out_sparse_matrix.terms == 0){
-                throw std::runtime_error(std::string("Error: Not available. The SparseMatrix is empty."));
+                throw std::runtime_error(std::string("Warning: The SparseMatrix is empty."));
             }
 
             os<<std::endl<<out_sparse_matrix.name<<"is a "<<out_sparse_matrix.rows<<"X"<<out_sparse_matrix.cols<<" matrix: "<<std::endl;

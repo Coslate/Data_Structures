@@ -79,8 +79,12 @@ bool SparseMatrix<T>::CheckSameItemAlreadyExisted(const int &row, const int &col
 
 template <typename T>
 void SparseMatrix<T>::SortAccordingToRow(){
+    if(terms<=0){
+        std::cout<<"Warning: Empty sparse matrix. Cannot apply SortAccordingToRow().";
+        return;
+    }
+
     MatrixTerm<T> *temp = new MatrixTerm<T>[capacity];
-    int index = 0;
     int *row_size  = new int[cols]();
     int *row_start = new int[cols]();
 
@@ -105,58 +109,79 @@ void SparseMatrix<T>::SortAccordingToRow(){
 
     delete [] row_size;
     delete [] row_start;
-    delete [] sm_array;
+
+    if(capacity>0){
+        delete [] sm_array;
+    }
     sm_array = temp;
-    delete [] temp;
+    temp = nullptr;
 }
 
 template <typename T>
 SparseMatrix<T> SparseMatrix<T>::Add(SparseMatrix b){
     if(b.rows != rows || b.cols !=cols){
-        throw std::runtime_error(std::string("Error: the rows or cols of "+b.name<<" does not match with "<<name<<". Thus, the Add() cannot be applied."));
+        throw std::runtime_error(std::string("Error: the rows or cols of "+b.name+" does not match with "+name+". Thus, the Add() cannot be applied."));
     }
+
+    SparseMatrix<T> c(rows, cols, 0, 10, "temp_result");
+
     if(terms>0 && b.terms>0){
-        SparseMatrix<T> c(rows, cols, 0, 0, "temp_result");
         int aPos=0;
         int bPos=0;
+        int current_row_a = sm_array[aPos].row;
+        int current_row_b = b.sm_array[bPos].row;
 
-        SortAccordingToRow();
-        b.SortAccordingToRow();
+        SortAll();
+        b.SortAll();
 
-        while(aPos<=terms && bPos<=b.terms){
-            if((sm_array[aPos].row==b.sm_array[bPos].row) && (sm_array[aPos].col==b.sm_array[bPos].col)){
-                c.NewMatrixTerm(sm_array[aPos].row, sm_array[aPos].col, (sm_array[aPos].value+b.sm_array[bPos].value));
+        while(aPos<terms && bPos<b.terms){
+            if(sm_array[aPos].row==b.sm_array[bPos].row){
+                if(sm_array[aPos].col==b.sm_array[bPos].col){
+                    c.NewMatrixTerm(sm_array[aPos].row, sm_array[aPos].col, (sm_array[aPos].value+b.sm_array[bPos].value));
+                    aPos++;
+                    bPos++;
+                }else if(sm_array[aPos].col < b.sm_array[bPos].col){
+                    c.NewMatrixTerm(sm_array[aPos].row, sm_array[aPos].col, sm_array[aPos].value);
+                    aPos++;
+                }else{
+                    c.NewMatrixTerm(b.sm_array[bPos].row, b.sm_array[bPos].col, b.sm_array[bPos].value);
+                    bPos++;
+                }
+            }else if(sm_array[aPos].row < b.sm_array[bPos].row){
+                while(sm_array[aPos].row == current_row_a){
+                    c.NewMatrixTerm(sm_array[aPos].row, sm_array[aPos].col, sm_array[aPos].value);
+                    aPos++;
+                }
+                current_row_a = sm_array[aPos].row;
             }else{
-                c.NewMatrixTerm(sm_array[aPos].row, sm_array[aPos].col, sm_array[aPos].value);
-                c.NewMatrixTerm(b.sm_array[bPos].row, b.sm_array[bPos].col, b.sm_array[bPos].value);
+                while(b.sm_array[bPos].row == current_row_b){
+                    c.NewMatrixTerm(b.sm_array[bPos].row, b.sm_array[bPos].col, b.sm_array[bPos].value);
+                    bPos++;
+                }
+                current_row_b = b.sm_array[bPos].row;
             }
-            aPos++;
-            bPos++;
         }
 
         for(int i=aPos;i<terms;++i){
-            c.NewMatrixTerm(sm_array[i].row, sm_array[].col, sm_array[i].value);
+            c.NewMatrixTerm(sm_array[i].row, sm_array[i].col, sm_array[i].value);
         }
 
         for(int i=bPos;i<b.terms;++i){
             c.NewMatrixTerm(b.sm_array[i].row, b.sm_array[i].col, b.sm_array[i].value);
         }
-
-        return c;
-    }else if(terms==0){
+    }else if(terms==0 && b.terms>0){
         return b;
-    }else if(b.terms==0){
+    }else if(b.terms==0 && terms>0){
         return *this;
     }
+
+    return c;
 }
 
-/*
-template <T>
+template <typename T>
 bool SparseMatrix<T>::SortFunction(const MatrixTerm<T> &a, const MatrixTerm<T> &b){
-    return (a.exp > b.exp);
+    return (((a.row<b.row) && (a.col<b.col)) ? true : (a.row<b.row ? true : (a.row==b.row ? a.col<b.col : false)));
 }
-*/
-
 
 template <typename T>
 SparseMatrix<T> SparseMatrix<T>::Transpose(){
@@ -198,11 +223,7 @@ SparseMatrix<T> SparseMatrix<T>::Transpose(){
 
 template <typename T>
 SparseMatrix<T> SparseMatrix<T>::Multiply(SparseMatrix b){
-    SparseMatrix<T> c(rows, cols, 0, 0, "temp_result");
-
-    if(terms == 0 && b.terms == 0){
-        return c;
-    }
+    SparseMatrix<T> c(rows, b.cols, 0, 0, "temp_result");
     //to-do
     return c;
 }

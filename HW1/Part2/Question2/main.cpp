@@ -74,6 +74,25 @@ int main(){
     }
 
     std::cout<<"------------Add() Test--------------"<<std::endl;
+//    test_sparse_matrix_a.SortAccordingToRow();
+//    try{std::cout<<"After sorting by row: test_sparse_matrix_a = "<<test_sparse_matrix_a;}
+    test_sparse_matrix_a.SortAll();
+    try{std::cout<<"After sorting by all: test_sparse_matrix_a = "<<test_sparse_matrix_a;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+//    test_sparse_matrix_b.SortAccordingToRow();
+//    try{std::cout<<"After sorting by row: test_sparse_matrix_b = "<<test_sparse_matrix_b;}
+    test_sparse_matrix_b.SortAll();
+    try{std::cout<<"After sorting by all: test_sparse_matrix_b = "<<test_sparse_matrix_b;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    test_sparse_matrix_a_add_b_result = test_sparse_matrix_a.Add(test_sparse_matrix_b);
+    try{std::cout<<"test_sparse_matrix_a + test_sparse_matrix_b = "<<test_sparse_matrix_a_add_b_result<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
 
     std::cout<<"------------Mul() Test--------------"<<std::endl;
 
