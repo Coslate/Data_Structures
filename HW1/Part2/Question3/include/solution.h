@@ -55,32 +55,32 @@ class String{
 
         void                               SetSize             (const int &in_size)        {size    = in_size;}
         void                               SetName             (const std::string &in_name){name    = in_name;}
-//        void                               SetStrArray         (const char* const &input_str_array, const int &in_size);
-
-        //static bool                        SortFunction        (const MatrixTerm<T> &a, const MatrixTerm<T> &b);
-        void                               operator=           (const String &other);
-        bool                               operator==          (String t);
-        bool                               operator!           (){return (size==0);}
 
         int                                Length              (){return size;}
         String                             Concat              (String t);
         String                             Substr              (int i, int j);
         /*
         int                                Find                (String pat);
+        */
         String                             Delete              (int start, int length);
         String                             CharDelete          (char c);
         int                                Compare             (String y);
-        */
+
+        void operator=(const String &other);
+        bool operator==(String t);
+        bool operator!(){return (size==0);}
 
         friend std::ostream & operator<<(std::ostream &os, const String &out_string){
+            os<<out_string.name<<" is: ";
             if(out_string.size == 0){
-                throw std::runtime_error(std::string("Warning: The String is empty."));
+                throw std::runtime_error(std::string("Warning: The String is empty.\n"+std::string("The size of ")+out_string.name+std::string(" is ")+std::to_string(out_string.size)));
             }
 
-            os<<out_string.name<<" is ";
             for(int i=0;i<out_string.size;++i){
                 if(i == out_string.size-1){
-                    os<<out_string.in_str_array[i]<<std::endl;
+                    os<<out_string.in_str_array[i]<<"\""<<std::endl;
+                }else if(i==0){
+                    os<<"\""<<out_string.in_str_array[i];
                 }else{
                     os<<out_string.in_str_array[i];
                 }
