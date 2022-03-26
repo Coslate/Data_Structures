@@ -4,16 +4,21 @@
 void String::operator=(const String &other){
     if(size > 0){
         delete [] in_str_array;
+        delete [] f;
     }
 
-    size       = other.size;
-    char *temp = new char [size];
+    size         = other.size;
+    char *temp   = new char [size];
+    int  *temp_f = new int  [size];
 
     for(int i=0;i<size;++i){
-        temp[i] = other.in_str_array[i];
+        temp[i]   = other.in_str_array[i];
+        temp_f[i] = other.f[i];
     }
     in_str_array = temp;
-    temp = nullptr;
+    f            = temp_f;
+    temp   = nullptr;
+    temp_f = nullptr;
 }
 
 
@@ -190,4 +195,54 @@ int String::Compare(String y){
         }
     }
     return result;
+}
+
+void String::FailuerFunction(){
+    if(size == 0){
+        throw std::runtime_error(std::string("Error: the input String: "+std::string(name)+" is empty. FailuerFunction() cannot be applied."));
+    }
+
+    f[0] = -1;
+    for(int j=1;j<size;++j){
+        int i = f[j-1];
+        while((in_str_array[j] != in_str_array[i+1]) && (i>=0)){
+            i = f[i];
+        }
+
+        if(in_str_array[i+1]==in_str_array[j]){
+            f[j] = i+1;
+        }else{
+            f[j] = -1;
+        }
+    }
+}
+
+int String::Find(String pat){
+    if(pat.size == 0){
+        return -1;
+    }
+
+    int pos_p = 0;
+    int pos_s = 0;
+
+    pat.FailuerFunction();
+
+    while((pos_s<size) && (pos_p<pat.size)){
+        if(in_str_array[pos_s] == pat.in_str_array[pos_p]){
+            pos_s++;
+            pos_p++;
+        }else{
+            if(pos_p==0){
+                pos_s++;
+            }else{
+                pos_p = pat.f[pos_p-1]+1;
+            }
+        }
+    }
+
+    if(pos_p>=pat.size){
+        return pos_s-pat.size;
+    }else{
+        return -1;
+    }
 }

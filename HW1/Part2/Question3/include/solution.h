@@ -15,36 +15,50 @@ class String{
         int         size;
         std::string name;
         char*       in_str_array;
+        int*        f;//failure function for Find()
     public:
-        String(const std::string &name = "Null"):size(0), name(name){}
+        String(const std::string &name = "Null"):size(0), name(name), in_str_array(nullptr), f(nullptr){}
 
-        String(int m, const std::string &name="NULL"):size(m), name(name){
+        String(int m, const std::string &name="NULL"):size(m), name(name), f(nullptr){
             in_str_array = new char [size];
+            f            = new int  [size];
+            std::fill(f, f + size, -1);
         }
 
         String(char* init, int m, const std::string &name="NULL"):size(m), name(name){
             in_str_array = new char [size];
+            f            = new int [size];
+
             for(int i=0;i<size;++i){
                 in_str_array[i] = init[i];
             }
+
+            std::fill(f, f+size, -1);
         }
 
         //Copy consturctor
         String(const String &p){
             size     = p.size;
             name     = p.name;
+            f            = new int  [size];
             in_str_array = new char [size];
 
             for(int i=0;i<size;++i){
                 in_str_array[i] = p.in_str_array[i];
+                f[i] = p.f[i];
             }
         }
 
         //Destructor
         ~String(){
-            if(size > 0){
+            if(size > 0 && in_str_array != nullptr){
                 delete [] in_str_array;
                 in_str_array = nullptr;
+            }
+
+            if(size > 0 && f != nullptr){
+                delete [] f;
+                f = nullptr;
             }
         }
 
@@ -59,16 +73,27 @@ class String{
         int                                Length              (){return size;}
         String                             Concat              (String t);
         String                             Substr              (int i, int j);
-        /*
         int                                Find                (String pat);
-        */
         String                             Delete              (int start, int length);
         String                             CharDelete          (char c);
         int                                Compare             (String y);
+        void                               FailuerFunction     ();
 
         void operator=(const String &other);
         bool operator==(String t);
         bool operator!(){return (size==0);}
+
+        void PrintFailureFunction(){
+            for(int i=0;i<size;++i){
+                if(i==0){
+                    std::cout<<"["<<f[i]<<" ";
+                }else if(i==size-1){
+                    std::cout<<f[i]<<"]"<<std::endl;
+                }else{
+                    std::cout<<f[i]<<" ";
+                }
+            }
+        }
 
         friend std::ostream & operator<<(std::ostream &os, const String &out_string){
             os<<out_string.name<<" is: ";
