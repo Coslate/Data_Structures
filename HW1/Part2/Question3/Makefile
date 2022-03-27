@@ -1,6 +1,7 @@
 #declare variable
 EXE := main
-OBJS := solution.o main.o
+OBJS := solution.o main.execution_trace1.o
+#OBJS := solution.o main.execution_trace2.o
 OBJS_DIR := .objs
 INC_DIR := ./include
 
