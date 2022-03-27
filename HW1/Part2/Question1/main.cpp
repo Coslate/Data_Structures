@@ -67,8 +67,8 @@ int main(){
         std::cerr<<e.what()<<std::endl;
     }
 
-    std::cout<<"------------Mul() Test--------------"<<std::endl;
-    try {test_poly_a_mul_b_result = test_poly_a.Mul(test_poly_b);}
+    std::cout<<"------------Mult() Test--------------"<<std::endl;
+    try {test_poly_a_mul_b_result = test_poly_a.Mult(test_poly_b);}
     catch(std::runtime_error &e){
         std::cerr<<e.what()<<std::endl;
     }

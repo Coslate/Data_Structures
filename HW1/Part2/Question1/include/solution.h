@@ -92,7 +92,7 @@ class Polynomial{
         void                               NewTerm             (const CoefType &in_coef, const ExpType &in_exp);
 
         Polynomial      Add                 (Polynomial b);
-        Polynomial      Mul                 (Polynomial b);
+        Polynomial      Mult                (Polynomial b);
         float           Eval                (float f);
         int             operator!           (){return (((terms==1) && (term_array[0].coef==0))?1:0);}
         CoefType        Coef                (ExpType e);

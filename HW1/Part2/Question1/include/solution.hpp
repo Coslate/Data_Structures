@@ -127,9 +127,9 @@ bool Polynomial<CoefType, ExpType>::SortFunction(const Term<CoefType, ExpType> &
 }
 
 template <typename CoefType, typename ExpType>
-Polynomial<CoefType, ExpType> Polynomial<CoefType, ExpType>::Mul(Polynomial b){
+Polynomial<CoefType, ExpType> Polynomial<CoefType, ExpType>::Mult(Polynomial b){
     if(terms == 0 && b.terms == 0){
-        throw std::runtime_error(std::string("Error: all the input Polynomial of Mul() are empty."));
+        throw std::runtime_error(std::string("Error: all the input Polynomial of Mult() are empty."));
     }
 
     Polynomial<CoefType, ExpType> c(0, 10, "temp_result");
