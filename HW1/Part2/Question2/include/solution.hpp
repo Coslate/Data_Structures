@@ -236,11 +236,11 @@ void SparseMatrix<T>::DeleteOneLastElement(){
 template <typename T>
 SparseMatrix<T> SparseMatrix<T>::Multiply(SparseMatrix b){
     if(terms == 0){
-        throw std::runtime_error(std::string("Warning: "+name+"is an empty matrix. Thus, the Multiply() cannot be applied."));
+        throw std::runtime_error(std::string("Warning: "+name+" is an empty matrix. Thus, the Multiply() cannot be applied."));
     }
 
     if(b.terms == 0){
-        throw std::runtime_error(std::string("Warning: "+b.name+"is an empty matrix. Thus, the Multiply() cannot be applied."));
+        throw std::runtime_error(std::string("Warning: "+b.name+" is an empty matrix. Thus, the Multiply() cannot be applied."));
     }
 
     if(cols != b.rows){
