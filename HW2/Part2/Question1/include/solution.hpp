@@ -4,7 +4,7 @@
 
 template <class T>
 void Queue<T>::Push(const T &item){
-    if(((rear+1)%capacity) == front){
+    if(((rear+1)%capacity) == front){//full condition
         ArrayDoubling();
     }
 
@@ -60,20 +60,34 @@ void Queue<T>::Rear() const {
     }
 }
 
-template <typename CoefType, typename ExpType>
-void Polynomial<CoefType, ExpType>::NewTerm(const CoefType &in_coef, const ExpType &in_exp){
-    if(terms == capacity){
-        capacity *= 2;
-        Term<CoefType, ExpType> *temp = new Term<CoefType, ExpType> [capacity];
-        std::copy(queue, queue+terms, temp);
-        delete [] queue;
-        queue = temp;
-        temp = nullptr;
+template <class T>
+Queue<T> Queue<T>::MergeQueue(const Queue &input_queue){
+    int new_capacity = capacity + input_queue.capacity;
+    Queue<T> result_Queue(0, 0, new_capacity, 0, "temp_result_Queue");
+
+    //start position
+    int ptr1 = (front+1)%capacity;
+    int ptr2 = (input_queue.front+1)%input_queue.capacity;
+
+    while((ptr1!=rear) && (ptr2!= input_queue.rear)){
+        result_Queue.Push(queue[ptr1]);
+        result_Queue.Push(input_queue.queue[ptr2]);
+
+        ptr1 = (ptr1+1)%capacity;
+        ptr2 = (ptr2+1)%input_queue.capacity;
     }
 
-    queue[terms].coef = in_coef;
-    queue[terms].exp  = in_exp;
-    terms++;
+    if(ptr1==rear){
+        while(ptr2!=input_queue.rear){
+            result_Queue.Push(input_queue.queue[ptr2]);
+            ptr2 = (ptr2+1)%input_queue.capacity;
+        }
+    }else{//ptr2==rear
+        while(ptr1!=rear){
+            result_Queue.Push(queue[ptr1]);
+            ptr1 = (ptr1+1)%capacity;
+        }
+    }
 }
 
 template <class T>

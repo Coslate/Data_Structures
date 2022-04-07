@@ -48,10 +48,10 @@ class Queue{
         }
 
         bool                               IsEmpty             () const {return (front==rear);}
-        void                               Push                (const T &item);
-        void                               Pop                 ();
         T&                                 Front               () const;
         T&                                 Rear                () const;
+        void                               Push                (const T &item);
+        void                               Pop                 ();
         Queue                              MergeQueue          (const Queue &input_queue);
 
         int                                Size                () const {return size;}
