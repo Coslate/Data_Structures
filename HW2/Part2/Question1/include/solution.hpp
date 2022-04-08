@@ -10,6 +10,7 @@ void Queue<T>::Push(const T &item){
 
     rear = (rear+1)%capacity;
     queue[rear] = item;
+    size++;
 }
 
 template <class T>
@@ -19,6 +20,7 @@ void Queue<T>::Pop(){
     }
     front = (front+1)%capacity;
     queue[front].~T();//Destructor of the deleted item.
+    size--;
 }
 
 template <class T>
@@ -43,7 +45,7 @@ void Queue<T>::ArrayDoubling(){
 }
 
 template <class T>
-void Queue<T>::Front() const {
+T& Queue<T>::Front() const {
     if(IsEmpty()){
         throw std::runtime_error(std::string("Error: Queue "+name+" is empty. No front element."));
     }else{
@@ -52,7 +54,7 @@ void Queue<T>::Front() const {
 }
 
 template <class T>
-void Queue<T>::Rear() const {
+T& Queue<T>::Rear() const {
     if(IsEmpty()){
         throw std::runtime_error(std::string("Error: Queue "+name+" is empty. No rear element."));
     }else{
@@ -63,13 +65,16 @@ void Queue<T>::Rear() const {
 template <class T>
 Queue<T> Queue<T>::MergeQueue(const Queue &input_queue){
     int new_capacity = capacity + input_queue.capacity;
-    Queue<T> result_Queue(0, 0, new_capacity, 0, "temp_result_Queue");
+    if(size+input_queue.size < 10){
+        new_capacity = 10;
+    }
+    Queue<T> result_Queue(new_capacity, "temp_result_Queue");
 
     //start position
     int ptr1 = (front+1)%capacity;
     int ptr2 = (input_queue.front+1)%input_queue.capacity;
 
-    while((ptr1!=rear) && (ptr2!= input_queue.rear)){
+    while((ptr1 != (rear+1)) && (ptr2 != (input_queue.rear+1))){
         result_Queue.Push(queue[ptr1]);
         result_Queue.Push(input_queue.queue[ptr2]);
 
@@ -77,17 +82,20 @@ Queue<T> Queue<T>::MergeQueue(const Queue &input_queue){
         ptr2 = (ptr2+1)%input_queue.capacity;
     }
 
-    if(ptr1==rear){
-        while(ptr2!=input_queue.rear){
+    if(ptr1==(rear+1)){
+        while(ptr2 != (input_queue.rear+1)){
             result_Queue.Push(input_queue.queue[ptr2]);
             ptr2 = (ptr2+1)%input_queue.capacity;
         }
     }else{//ptr2==rear
-        while(ptr1!=rear){
+        while(ptr1 != (rear+1)){
             result_Queue.Push(queue[ptr1]);
             ptr1 = (ptr1+1)%capacity;
         }
     }
+
+    result_Queue.size = size + input_queue.size;
+    return result_Queue;
 }
 
 template <class T>

@@ -22,7 +22,7 @@ class Queue{
 
         void        ArrayDoubling();
     public:
-        Queue(const int &front=0, const int &rear=0, const int &capacity=10, const int &size=0, const std::string &name="NULL"):front(front), rear(rear), capacity(capacity), size(size), name(name){
+        Queue(const int &queueCapacity=10, const std::string &name="NULL"):front(queueCapacity-1), rear(queueCapacity-1), capacity(queueCapacity), size(0), name(name){
             if(capacity < 1) throw std::runtime_error(std::string("Error: Cannot set capacity < 1 ."));
             queue = new T [capacity];
         }
@@ -70,28 +70,28 @@ class Queue{
                 return os;
             }
             os<<out_queue.name<<" = [";
-            if(rear < front){
-                for(int i=front+1;i<capacity;++i){
-                    os<<queue[i]<<" ";
+            if(out_queue.rear < out_queue.front){
+                for(int i=out_queue.front+1;i<out_queue.capacity;++i){
+                    os<<out_queue.queue[i]<<" ";
                 }
-                for(int i=0;i<=rear;++i){
-                    if(i==rear){
-                        os<<queue[i]<<"]"<<std::endl;
+                for(int i=0;i<=out_queue.rear;++i){
+                    if(i==out_queue.rear){
+                        os<<out_queue.queue[i]<<"]"<<", front = "<<out_queue.front<<", rear = "<<out_queue.rear<<std::endl;
                     }else{
-                        os<<queue[i]<<" ";
+                        os<<out_queue.queue[i]<<" ";
                     }
                 }
             }else{
-                for(int i=front+i;i<=rear;++i){
-                    if(i==rear){
-                        os<<queue[i]<<"]"<<std::endl;
+                for(int i=out_queue.front+1;i<=out_queue.rear;++i){
+                    if(i==out_queue.rear){
+                        os<<out_queue.queue[i]<<"]"<<", front = "<<out_queue.front<<", rear = "<<out_queue.rear<<std::endl;
                     }else{
-                        os<<queue[i]<<" ";
+                        os<<out_queue.queue[i]<<" ";
                     }
                 }
             }
-            os<<"front = "<<front<<std::endl;
-            os<<"rear  = "<<rear<<std::endl;
+            //os<<"front = "<<out_queue.front<<std::endl;
+            //os<<"rear  = "<<out_queue.rear<<std::endl;
             return os;
         }
 };
