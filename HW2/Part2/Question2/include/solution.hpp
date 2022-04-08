@@ -58,10 +58,10 @@ void Stack<T>::operator=(const Stack &other){
     temp = nullptr;
 }
 
-/*
 template <class T>
 void reverseQueue(Queue<T> &input_queue){
     Stack<T> tmp_stack(10, "tmp_stack");
+
     while(!input_queue.IsEmpty()){
         tmp_stack.Push(input_queue.Front());
         input_queue.Pop();
@@ -71,8 +71,6 @@ void reverseQueue(Queue<T> &input_queue){
         tmp_stack.Pop();
     }
 }
-*/
-
 
 /*
 template <typename CoefType, typename ExpType>

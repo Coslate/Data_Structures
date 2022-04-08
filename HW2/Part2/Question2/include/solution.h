@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <iostream>
+#include <Queue.h>
 
 template <class T>
 class Stack{
@@ -72,6 +73,24 @@ class Stack{
             return os;
         }
 };
+
+template <class T>
+void reverseQueue(Queue<T> &input_queue);
+/*
+template <class T>
+void reverseQueue(Queue<T> &input_queue){
+    Stack<T> tmp_stack(10, "tmp_stack");
+
+    while(!input_queue.IsEmpty()){
+        tmp_stack.Push(input_queue.Front());
+        input_queue.Pop();
+    }
+    while(!tmp_stack.IsEmpty()){
+        input_queue.Push(tmp_stack.Top());
+        tmp_stack.Pop();
+    }
+}
+*/
 
 #include <solution.hpp>
 #endif

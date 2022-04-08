@@ -2,7 +2,7 @@
 EXE := main
 OBJS := solution.o main.o
 OBJS_DIR := .objs
-INC_DIR := ./include ../Question1/include
+INC_DIR := ./include
 
 CC = g++
 INCLUDE_FLAGS = $(foreach d, $(INC_DIR), -I $d)
@@ -29,7 +29,7 @@ LDFLAGS += -std=c++14 $(ASANFLAGS)
 
 # Rule for `all` (first/default rule):
 #all: $(INC_DIR) $(EXE) all_file_tags
-all: $(INC_DIR) $(EXE)
+all: copy $(INC_DIR) $(EXE)
 
 # Rule for linking the final executable:
 # - $(EXE) depends on all object files in $(OBJS)
@@ -45,6 +45,13 @@ $(OBJS_DIR)/%.o: %.cpp | $(OBJS_DIR)
 
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
+
+copy:
+	@cp -rf ../Question1/include/solution.h ./include/Queue.h
+	@cp -rf ../Question1/include/solution.hpp ./include/Queue.hpp
+	@sed -i 's/solution.hpp/Queue.hpp/g' ./include/Queue.h
+	@sed -i 's/SOLUTION_H/QUEUE_H/g' ./include/Queue.h
+	@sed -i 's/solution.h/Queue.h/g' ./include/Queue.hpp
 
 $(INC_DIR):
 	@mkdir -p $@

@@ -2,12 +2,9 @@
 #include <iostream>
 #include <solution.h>
 
-
 int main(){
     Stack<int> stack_a(10, "stack_a");
-    Stack<int> stack_b(10, "stack_b");
-    Stack<int> stack_c(10, "stack_c");
-    Stack<int> stack_d(10, "stack_d");
+    Queue<int> queue_a(10, "queue_a");
 
     std::cout<<"------------IsEmpty() Test--------------"<<std::endl;
     if(stack_a.IsEmpty()){
@@ -71,12 +68,26 @@ int main(){
     std::cout<<"stack_a.Capacity() = "<<stack_a.Capacity()<<std::endl;
     std::cout<<std::endl;
     std::cout<<stack_a;
+    std::cout<<std::endl;
     std::cout<<"> stack_a.Push(500)"<<std::endl;
     stack_a.Push(500);
     std::cout<<"stack_a.Capacity() = "<<stack_a.Capacity()<<std::endl;
     std::cout<<std::endl;
     std::cout<<stack_a;
 
+    std::cout<<std::endl;
+    std::cout<<"------------reverseQueue() Test--------------"<<std::endl;
+    queue_a.Push(1001);
+    queue_a.Push(1002);
+    queue_a.Push(1003);
+    queue_a.Push(1004);
+    queue_a.Push(1005);
+    queue_a.Push(1006);
+    queue_a.Push(1007);
+    std::cout<<queue_a;
+    std::cout<<"reverseQueue(queue_a)"<<std::endl;
+    reverseQueue(queue_a);
+    std::cout<<queue_a;
 
     return EXIT_SUCCESS;
 }
