@@ -57,8 +57,6 @@ class Queue{
         int                                Size                () const {return size;}
         int                                Capacity            () const {return capacity;}
         std::string                        Name                () const {return name;}
-        void                               SetSize             (const int &in_size)            {size     = in_size;}
-        void                               SetCapacity         (const int &in_capacity)        {capacity = in_capacity;}
         void                               SetName             (const std::string &in_name)    {name     = in_name;}
 
         //static bool SortFunction(const Term<CoefType, ExpType> &a, const Term<CoefType, ExpType> &b);
