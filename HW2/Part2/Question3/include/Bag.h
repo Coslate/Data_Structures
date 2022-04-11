@@ -66,7 +66,7 @@ class Bag{
                 if(i==out_bag.top){
                     os<<out_bag.array[i]<<"]"<<std::endl;
                 }else{
-                    os<<out_bag.array[i]<<" ";
+                    os<<out_bag.array[i]<<", ";
                 }
             }
             return os;
