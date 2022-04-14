@@ -42,7 +42,7 @@ class Stack : public Bag<T>{
                 if(i==out_array.top){
                     os<<out_array.array[i]<<"], top = "<<out_array.top<<std::endl;
                 }else{
-                    os<<out_array.array[i]<<", ";
+                    os<<out_array.array[i]<<" ";
                 }
             }
 
