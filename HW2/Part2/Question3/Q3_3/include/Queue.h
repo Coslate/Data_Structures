@@ -13,7 +13,7 @@
 
 template <class T>
 class Queue : public Bag<T>{
-    private:
+    protected:
         int         front;    //the front position of the queue
         int         rear;     //the rear position of the queue
         int         size;     //the current size of the queue
@@ -36,17 +36,17 @@ class Queue : public Bag<T>{
             std::cout<<"Queue::~Queue() is called."<<std::endl;
         }
 
-        bool                               IsEmpty             () const        override {return (front==rear);}
-        T&                                 Front               () const;
-        T&                                 Rear                () const;
-        void                               Push                (const T &item) override;
-        void                               Pop                 ()              override;
+        virtual bool                               IsEmpty             () const        override {return (front==rear);}
+        virtual T&                                 Front               () const;
+        virtual T&                                 Rear                () const;
+        virtual void                               Push                (const T &item) override;
+        virtual void                               Pop                 ()              override;
 
-        int                                Size                () const        override {return size;}
-        int                                Capacity            () const                 {return Bag<T>::capacity;}
+        virtual int                                Size                () const        override {return size;}
+        virtual int                                Capacity            () const                 {return Bag<T>::capacity;}
 
         //static bool SortFunction(const Term<CoefType, ExpType> &a, const Term<CoefType, ExpType> &b);
-        void operator=(const Queue &queue);
+        virtual void operator=(const Queue &queue);
 
         friend std::ostream & operator<<(std::ostream &os, const Queue<T> &out_queue){
             if(out_queue.size == 0){
