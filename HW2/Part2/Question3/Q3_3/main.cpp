@@ -198,10 +198,10 @@ int main(){
     deque_b.PopFront();
     std::cout<<"> deque_b.PopFront()"<<std::endl;
     deque_b.PopFront();
-    std::cout<<"> deque_b.PushRear(11111.11111)"<<std::endl;
-    deque_b.PushRear(11111.11111);
-    std::cout<<"> deque_b.PushFront(22222.22222)"<<std::endl;
-    deque_b.PushFront(22222.22222);
+    std::cout<<"> deque_b.PushRear(11.11)"<<std::endl;
+    deque_b.PushRear(11.11);
+    std::cout<<"> deque_b.PushFront(22.22)"<<std::endl;
+    deque_b.PushFront(22.22);
     std::cout<<"> deque_b.PopRear()"<<std::endl;
     deque_b.PopRear();
     std::cout<<deque_b;
