@@ -4,7 +4,68 @@
 #include<sstream>
 
 void Path(const std::vector<std::vector<bool>> &maze, const int &m, const int &p){
+    std::vector<std::vector<bool>> mark(m, std::vector<bool> (p, 0));
+    Offset<int> move[8];
+    move[0].di = -1; //N
+    move[0].dj =  0;
+    move[1].di = -1; //NE
+    move[1].dj =  1;
+    move[2].di =  0; //E
+    move[2].dj =  1;
+    move[3].di =  1; //SE
+    move[3].dj =  1;
+    move[4].di =  1; //S
+    move[4].dj =  0;
+    move[5].di =  1; //SW
+    move[5].dj = -1;
+    move[6].di =  0; //W
+    move[6].dj = -1;
+    move[7].di = -1; //NW
+    move[7].dj = -1;
 
+    //Start from maze[1][1];
+    mark[1][1] = 1;
+    Stack<Node<int>> stack_traverse(m*p, "stack_traverse");
+
+    //Initialized point
+    Node<int> temp(1, 1, E);
+    stack_traverse.Push(temp);
+    while(!stack_traverse.IsEmpty()){
+        temp = stack_traverse.Top();
+        stack_traverse.Pop();
+        int i = temp.x;
+        int j = temp.y;
+        int d = temp.dir;
+
+        while(d<8){
+            int g = i+move[d].di;
+            int h = j+move[d].dj;
+
+            if(g==m && h==p){
+                temp.x = i;
+                temp.y = j;
+                temp.dir = d;
+                stack_traverse.Push(temp);
+                std::cout<<"Find a path : "<<std::endl;
+                stack_traverse.PrintPath(m, p);
+                return;
+            }
+
+            if(!maze[g][h] && !mark[g][h]){
+                mark[g][h] = true;
+                temp.x = i;
+                temp.y = j;
+                temp.dir = d;
+                stack_traverse.Push(temp);
+                i = g;
+                j = h;
+                d = N;
+            }else{
+                d++;
+            }
+        }
+    }
+    std::cout<<"No path in maze."<<std::endl;
 }
 
 void AugmentedMazeBuildWall(const std::vector<std::vector<bool>> &tmp_maze, std::vector<std::vector<bool>> &maze, const int &rows, const int &cols, int &m, int &p){
@@ -25,8 +86,8 @@ void AugmentedMazeBuildWall(const std::vector<std::vector<bool>> &tmp_maze, std:
         }
         maze.push_back(row_maze);
     }
-    m = rows+2;
-    p = cols+2;
+    m = rows;
+    p = cols;
 }
 
 void ReadFile(std::string filename, std::vector<std::vector<bool>> &maze, int &rows, int &cols){

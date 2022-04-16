@@ -15,7 +15,6 @@ template <class T>
 class Stack : public Bag<T>{
     public:
         Stack(const int &stackCapacity=10, const std::string &name="NULL"): Bag<T>(stackCapacity, name){
-            std::cout<<"Stack::Stack() is called."<<std::endl;
         }
 
         //Copy consturctor
@@ -23,11 +22,12 @@ class Stack : public Bag<T>{
 
         //Destructor
         ~Stack(){
-            std::cout<<"Stack::~Stack() is called."<<std::endl;
         }
 
         T&                                 Top                 () const;
         void                               Pop                 ()       override;
+
+        void                               PrintPath           (const int &end_x, const int &end_y);
 
         //static bool SortFunction(const Term<CoefType, ExpType> &a, const Term<CoefType, ExpType> &b);
         void operator=(const Stack &array);

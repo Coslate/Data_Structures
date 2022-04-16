@@ -21,7 +21,6 @@ class Bag{
         virtual void        ArrayDoubling();
     public:
         Bag(const int &bagCapacity=10, const std::string &name="NULL"):capacity(bagCapacity), top(-1), name(name){
-            std::cout<<"Bag::Bag() is called."<<std::endl;
             if(capacity < 1) throw std::runtime_error(std::string("Error: Cannot set capacity < 1 ."));
             array = new T [capacity];
         }
@@ -42,7 +41,6 @@ class Bag{
         ~Bag(){
             delete [] array;
             array = nullptr;
-            std::cout<<"Bag::~Bag() is called."<<std::endl;
         }
 
         virtual int                        Size                () const {return (top+1);}

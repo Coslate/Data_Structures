@@ -37,3 +37,14 @@ void Stack<T>::operator=(const Stack &other){
     temp = nullptr;
 }
 
+template <class T>
+void Stack<T>::PrintPath(const int &end_x, const int &end_y){
+    for(int i=0;i<=Bag<T>::top;++i){
+        if(i==Bag<T>::top){
+            std::cout<<Bag<T>::array[i]<<" -> END: ("<<end_x<<", "<<end_y<<")"<<std::endl;
+        }else{
+            std::cout<<Bag<T>::array[i]<<" -> ";
+        }
+    }
+}
+
