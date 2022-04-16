@@ -5,4 +5,4 @@ make
 
 
 #run formal released case
-./main
+./main -input_maze ./maze.txt
