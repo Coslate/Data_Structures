@@ -1,16 +1,94 @@
-input_maze = ./maze.txt
-rows = 12
-cols = 15
+rm -rf main  .objs  *.o *.d *.dSYM
+rm -rf ./tags
+g++ -g -c -std=c++14 -O0 -pedantic -Wall  -Wfatal-errors -Wextra  -MMD -MP   -I ./include solution.cpp -o .objs/solution.o
+g++ -g -c -std=c++14 -O0 -pedantic -Wall  -Wfatal-errors -Wextra  -MMD -MP   -I ./include main.cpp -o .objs/main.o
+g++ .objs/solution.o .objs/main.o -std=c++14   -I ./include -o main
 maze = 
-0 1 0 0 0 1 1 0 0 0 1 1 1 1 1 
-1 0 0 0 1 1 0 1 1 1 0 0 1 1 1 
-0 1 1 0 0 0 0 1 1 1 1 0 0 1 1 
-1 1 0 1 1 1 1 0 1 1 0 1 1 0 0 
-1 1 0 1 0 0 1 0 1 1 1 1 1 1 1 
-0 0 1 1 0 1 1 1 0 1 0 0 1 0 1 
-0 0 1 1 0 1 1 1 0 1 0 0 1 0 1 
-0 1 1 1 1 0 0 1 1 1 1 1 1 1 1 
-0 0 1 1 0 1 1 0 1 1 1 1 1 0 1 
-1 1 0 0 0 1 1 0 1 1 0 0 0 0 0 
-0 0 1 1 1 1 1 0 0 0 1 1 1 1 0 
-0 1 0 0 1 1 1 1 1 0 1 1 1 1 0 
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+1 0 1 0 0 0 1 1 0 0 0 1 1 1 1 1 1 
+1 1 0 0 0 1 1 0 1 1 1 0 0 1 1 1 1 
+1 0 1 1 0 0 0 0 1 1 1 1 0 0 1 1 1 
+1 1 1 0 1 1 1 1 0 1 1 0 1 1 0 0 1 
+1 1 1 0 1 0 0 1 0 1 1 1 1 1 1 1 1 
+1 0 0 1 1 0 1 1 1 0 1 0 0 1 0 1 1 
+1 0 0 1 1 0 1 1 1 0 1 0 0 1 0 1 1 
+1 0 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 
+1 0 0 1 1 0 1 1 0 1 1 1 1 1 0 1 1 
+1 1 1 0 0 0 1 1 0 1 1 0 0 0 0 0 1 
+1 0 0 1 1 1 1 1 0 0 0 1 1 1 1 0 1 
+1 0 1 0 0 1 1 1 1 1 0 1 1 1 1 0 1 
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+
+stack 'push' occurs, push item: (1, 1, E), stack = [(1, 1, E)], top = 0
+stack 'pop' occurs, stack = [], top = -1
+stack 'push' occurs, push item: (1, 1, SE), stack = [(1, 1, SE)], top = 0
+stack 'push' occurs, push item: (2, 2, NE), stack = [(1, 1, SE) (2, 2, NE)], top = 1
+stack 'push' occurs, push item: (1, 3, E), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E)], top = 2
+stack 'push' occurs, push item: (1, 4, E), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E)], top = 3
+stack 'push' occurs, push item: (1, 5, SW), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW)], top = 4
+stack 'push' occurs, push item: (2, 4, SE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE)], top = 5
+stack 'push' occurs, push item: (3, 5, E), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E)], top = 6
+stack 'push' occurs, push item: (3, 6, NE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE)], top = 7
+stack 'push' occurs, push item: (2, 7, NE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE)], top = 8
+stack 'push' occurs, push item: (1, 8, E), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E)], top = 9
+stack 'push' occurs, push item: (1, 9, E), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E)], top = 10
+stack 'push' occurs, push item: (1, 10, SE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE)], top = 11
+stack 'push' occurs, push item: (2, 11, E), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE) (2, 11, E)], top = 12
+stack 'push' occurs, push item: (2, 12, SE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE) (2, 11, E) (2, 12, SE)], top = 13
+stack 'push' occurs, push item: (3, 13, SE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE) (2, 11, E) (2, 12, SE) (3, 13, SE)], top = 14
+stack 'push' occurs, push item: (4, 14, E), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE) (2, 11, E) (2, 12, SE) (3, 13, SE) (4, 14, E)], top = 15
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE) (2, 11, E) (2, 12, SE) (3, 13, SE)], top = 14
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE) (2, 11, E) (2, 12, SE)], top = 13
+stack 'push' occurs, push item: (3, 13, W), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE) (2, 11, E) (2, 12, SE) (3, 13, W)], top = 14
+stack 'push' occurs, push item: (3, 12, SW), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE) (2, 11, E) (2, 12, SE) (3, 13, W) (3, 12, SW)], top = 15
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE) (2, 11, E) (2, 12, SE) (3, 13, W)], top = 14
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE) (2, 11, E) (2, 12, SE)], top = 13
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE) (2, 11, E)], top = 12
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E) (1, 10, SE)], top = 11
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E) (1, 9, E)], top = 10
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE) (1, 8, E)], top = 9
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, NE)], top = 8
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE)], top = 7
+stack 'push' occurs, push item: (2, 7, S), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, S)], top = 8
+stack 'push' occurs, push item: (3, 7, SE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, S) (3, 7, SE)], top = 9
+stack 'push' occurs, push item: (4, 8, S), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, S) (3, 7, SE) (4, 8, S)], top = 10
+stack 'push' occurs, push item: (5, 8, SE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, S) (3, 7, SE) (4, 8, S) (5, 8, SE)], top = 11
+stack 'push' occurs, push item: (6, 9, S), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, S) (3, 7, SE) (4, 8, S) (5, 8, SE) (6, 9, S)], top = 12
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, S) (3, 7, SE) (4, 8, S) (5, 8, SE)], top = 11
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, S) (3, 7, SE) (4, 8, S)], top = 10
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, S) (3, 7, SE)], top = 9
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE) (2, 7, S)], top = 8
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E) (3, 6, NE)], top = 7
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, E)], top = 6
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE)], top = 5
+stack 'push' occurs, push item: (3, 5, W), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W)], top = 6
+stack 'push' occurs, push item: (3, 4, SW), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW)], top = 7
+stack 'push' occurs, push item: (4, 3, S), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S)], top = 8
+stack 'push' occurs, push item: (5, 3, SW), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW)], top = 9
+stack 'push' occurs, push item: (6, 2, S), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S)], top = 10
+stack 'push' occurs, push item: (7, 2, SW), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW)], top = 11
+stack 'push' occurs, push item: (8, 1, N), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, N)], top = 12
+stack 'push' occurs, push item: (7, 1, N), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, N) (7, 1, N)], top = 13
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, N)], top = 12
+stack 'pop' occurs, stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW)], top = 11
+stack 'push' occurs, push item: (8, 1, SE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE)], top = 12
+stack 'push' occurs, push item: (9, 2, SE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE)], top = 13
+stack 'push' occurs, push item: (10, 3, E), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E)], top = 14
+stack 'push' occurs, push item: (10, 4, NE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE)], top = 15
+stack 'push' occurs, push item: (9, 5, NE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE)], top = 16
+stack 'push' occurs, push item: (8, 6, E), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE) (8, 6, E)], top = 17
+stack 'push' occurs, push item: (8, 7, SE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE) (8, 6, E) (8, 7, SE)], top = 18
+stack 'push' occurs, push item: (9, 8, S), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE) (8, 6, E) (8, 7, SE) (9, 8, S)], top = 19
+stack 'push' occurs, push item: (10, 8, SE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE) (8, 6, E) (8, 7, SE) (9, 8, S) (10, 8, SE)], top = 20
+stack 'push' occurs, push item: (11, 9, E), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE) (8, 6, E) (8, 7, SE) (9, 8, S) (10, 8, SE) (11, 9, E)], top = 21
+stack 'push' occurs, push item: (11, 10, NE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE) (8, 6, E) (8, 7, SE) (9, 8, S) (10, 8, SE) (11, 9, E) (11, 10, NE)], top = 22
+stack 'push' occurs, push item: (10, 11, E), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE) (8, 6, E) (8, 7, SE) (9, 8, S) (10, 8, SE) (11, 9, E) (11, 10, NE) (10, 11, E)], top = 23
+stack 'push' occurs, push item: (10, 12, E), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE) (8, 6, E) (8, 7, SE) (9, 8, S) (10, 8, SE) (11, 9, E) (11, 10, NE) (10, 11, E) (10, 12, E)], top = 24
+stack 'push' occurs, push item: (10, 13, NE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE) (8, 6, E) (8, 7, SE) (9, 8, S) (10, 8, SE) (11, 9, E) (11, 10, NE) (10, 11, E) (10, 12, E) (10, 13, NE)], top = 25
+stack 'push' occurs, push item: (9, 14, SE), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE) (8, 6, E) (8, 7, SE) (9, 8, S) (10, 8, SE) (11, 9, E) (11, 10, NE) (10, 11, E) (10, 12, E) (10, 13, NE) (9, 14, SE)], top = 26
+stack 'push' occurs, push item: (10, 15, S), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE) (8, 6, E) (8, 7, SE) (9, 8, S) (10, 8, SE) (11, 9, E) (11, 10, NE) (10, 11, E) (10, 12, E) (10, 13, NE) (9, 14, SE) (10, 15, S)], top = 27
+stack 'push' occurs, push item: (11, 15, S), stack = [(1, 1, SE) (2, 2, NE) (1, 3, E) (1, 4, E) (1, 5, SW) (2, 4, SE) (3, 5, W) (3, 4, SW) (4, 3, S) (5, 3, SW) (6, 2, S) (7, 2, SW) (8, 1, SE) (9, 2, SE) (10, 3, E) (10, 4, NE) (9, 5, NE) (8, 6, E) (8, 7, SE) (9, 8, S) (10, 8, SE) (11, 9, E) (11, 10, NE) (10, 11, E) (10, 12, E) (10, 13, NE) (9, 14, SE) (10, 15, S) (11, 15, S)], top = 28
+
+Find a path : 
+(1, 1, SE) -> (2, 2, NE) -> (1, 3, E) -> (1, 4, E) -> (1, 5, SW) -> (2, 4, SE) -> (3, 5, W) -> (3, 4, SW) -> (4, 3, S) -> (5, 3, SW) -> (6, 2, S) -> (7, 2, SW) -> (8, 1, SE) -> (9, 2, SE) -> (10, 3, E) -> (10, 4, NE) -> (9, 5, NE) -> (8, 6, E) -> (8, 7, SE) -> (9, 8, S) -> (10, 8, SE) -> (11, 9, E) -> (11, 10, NE) -> (10, 11, E) -> (10, 12, E) -> (10, 13, NE) -> (9, 14, SE) -> (10, 15, S) -> (11, 15, S) -> END: (12, 15)
+
