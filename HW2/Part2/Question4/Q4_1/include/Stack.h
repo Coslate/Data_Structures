@@ -34,9 +34,12 @@ class Stack : public Bag<T>{
 
         friend std::ostream & operator<<(std::ostream &os, const Stack<T> &out_array){
             if(out_array.top == -1){
-                throw std::runtime_error(std::string("Error: Not available. The Stack is empty."));
+//                throw std::runtime_error(std::string("Error: Not available. The Stack is empty."));
+//                return os;
+                os<<out_array.name<<" = [], top = "<<out_array.top<<std::endl;   
                 return os;
             }
+
             os<<out_array.name<<" = [";
             for(int i=0;i<=out_array.top;++i){
                 if(i==out_array.top){

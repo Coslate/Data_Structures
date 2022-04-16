@@ -24,28 +24,7 @@ int main(int argc, char*argv[]){
 
     AugmentedMazeBuildWall(tmp_maze, maze, rows, cols, m, p);
 
-    /*
-    std::cout<<"input_maze = "<<input_maze<<std::endl;
-    std::cout<<"rows = "<<rows<<std::endl;
-    std::cout<<"cols = "<<cols<<std::endl;
-    std::cout<<"m    = "<<m<<std::endl;
-    std::cout<<"p    = "<<p<<std::endl;
-    std::cout<<"tmp_maze = "<<std::endl;
-    for(int i = 0; i < rows; ++i){
-        for(int j = 0; j < cols; ++j){
-            std::cout<<tmp_maze[i][j]<<" ";
-        }
-        std::cout<<std::endl;
-    }
-    std::cout<<std::endl;
-    */
-    std::cout<<"maze = "<<std::endl;
-    for(int i = 0; i < rows+2; ++i){
-        for(int j = 0; j < cols+2; ++j){
-            std::cout<<maze[i][j]<<" ";
-        }
-        std::cout<<std::endl;
-    }
+    PrintMatrix("maze", maze, rows+2, cols+2);
 
     Path(maze, m, p);
 

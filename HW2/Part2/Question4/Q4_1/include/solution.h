@@ -75,6 +75,7 @@ std::unordered_map<T, std::string> Node<T>::dir_map = {
 void Path(const std::vector<std::vector<bool>> &maze, const int &m, const int &p);
 void AugmentedMazeBuildWall(const std::vector<std::vector<bool>> &tmp_maze, std::vector<std::vector<bool>> &maze, const int &rows, const int &cols, int &m, int &p);
 void ReadFile(std::string filename, std::vector<std::vector<bool>> &maze, int &rows, int &cols);
+void PrintMatrix(const std::string &name, const std::vector<std::vector<bool>> &matrix, const int &rows, const int &cols);
 
 #include <solution.hpp>
 #endif

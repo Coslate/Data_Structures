@@ -25,14 +25,17 @@ void Path(const std::vector<std::vector<bool>> &maze, const int &m, const int &p
 
     //Start from maze[1][1];
     mark[1][1] = 1;
-    Stack<Node<int>> stack_traverse(m*p, "stack_traverse");
+    Stack<Node<int>> stack_traverse(m*p, "stack");
 
     //Initialized point
     Node<int> temp(1, 1, E);
     stack_traverse.Push(temp);
+    std::cout<<"stack 'push' occurs, push item: "<<temp<<", "<<stack_traverse;
+
     while(!stack_traverse.IsEmpty()){
         temp = stack_traverse.Top();
         stack_traverse.Pop();
+        std::cout<<"stack 'pop' occurs, "<<stack_traverse;
         int i = temp.x;
         int j = temp.y;
         int d = temp.dir;
@@ -46,8 +49,11 @@ void Path(const std::vector<std::vector<bool>> &maze, const int &m, const int &p
                 temp.y = j;
                 temp.dir = d;
                 stack_traverse.Push(temp);
+                std::cout<<"stack 'push' occurs, push item: "<<temp<<", "<<stack_traverse;
+                std::cout<<std::endl;
                 std::cout<<"Find a path : "<<std::endl;
                 stack_traverse.PrintPath(m, p);
+                std::cout<<std::endl;
                 return;
             }
 
@@ -57,6 +63,7 @@ void Path(const std::vector<std::vector<bool>> &maze, const int &m, const int &p
                 temp.y = j;
                 temp.dir = d;
                 stack_traverse.Push(temp);
+                std::cout<<"stack 'push' occurs, push item: "<<temp<<", "<<stack_traverse;
                 i = g;
                 j = h;
                 d = N;
@@ -117,4 +124,15 @@ void ReadFile(std::string filename, std::vector<std::vector<bool>> &maze, int &r
         }
         myfile.close();
     }else std::cout << "Unable to open file"; 
+}
+
+void PrintMatrix(const std::string &name, const std::vector<std::vector<bool>> &matrix, const int &rows, const int &cols){
+    std::cout<<name<<" = "<<std::endl;
+    for(int i = 0; i < rows; ++i){
+        for(int j = 0; j < cols; ++j){
+            std::cout<<matrix[i][j]<<" ";
+        }
+        std::cout<<std::endl;
+    }
+    std::cout<<std::endl;
 }
