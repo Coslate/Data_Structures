@@ -11,10 +11,13 @@
 #include <iostream>
 #include <Bag.h>
 
+/*
 template <class T>
-class Stack : public Bag<T>{
+class Node{
+    private:
+
     public:
-        Stack(const int &stackCapacity=10, const std::string &name="NULL"): Bag<T>(stackCapacity, name){
+        Node(): Bag<T>(stackCapacity, name){
             std::cout<<"Stack::Stack() is called."<<std::endl;
         }
 
@@ -25,9 +28,6 @@ class Stack : public Bag<T>{
         ~Stack(){
             std::cout<<"Stack::~Stack() is called."<<std::endl;
         }
-
-        T&                                 Top                 () const;
-        void                               Pop                 ()       override;
 
         //static bool SortFunction(const Term<CoefType, ExpType> &a, const Term<CoefType, ExpType> &b);
         void operator=(const Stack &array);
@@ -49,6 +49,9 @@ class Stack : public Bag<T>{
             return os;
         }
 };
+*/
+
+void ReadFile(std::string filename);
 
 #include <solution.hpp>
 #endif
