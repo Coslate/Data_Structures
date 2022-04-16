@@ -9,49 +9,41 @@
 #include <unordered_map>
 #include <algorithm>
 #include <iostream>
-#include <Bag.h>
+#include <Stack.h>
 
-/*
 template <class T>
 class Node{
     private:
-
+        int x;
+        int y;
+        int dir;
     public:
-        Node(): Bag<T>(stackCapacity, name){
-            std::cout<<"Stack::Stack() is called."<<std::endl;
-        }
+        Node(const int x=0, const int y=0, const int dir=0):x(x), y(y), dir(dir){}
 
         //Copy consturctor
-        Stack(const Stack &p) : Bag<T>(p){}
+        Node(const Node &p){
+            x   = p.x;
+            y   = p.y;
+            dir = p.dir;
+        }
 
         //Destructor
-        ~Stack(){
-            std::cout<<"Stack::~Stack() is called."<<std::endl;
-        }
+        ~Node(){}
 
         //static bool SortFunction(const Term<CoefType, ExpType> &a, const Term<CoefType, ExpType> &b);
-        void operator=(const Stack &array);
+        void operator=(const Node &out_node);
 
-        friend std::ostream & operator<<(std::ostream &os, const Stack<T> &out_array){
-            if(out_array.top == -1){
-                throw std::runtime_error(std::string("Error: Not available. The Stack is empty."));
-                return os;
-            }
-            os<<out_array.name<<" = [";
-            for(int i=0;i<=out_array.top;++i){
-                if(i==out_array.top){
-                    os<<out_array.array[i]<<"], top = "<<out_array.top<<std::endl;
-                }else{
-                    os<<out_array.array[i]<<" ";
-                }
-            }
-
+        friend std::ostream & operator<<(std::ostream &os, const Node<T> &out_node){
+            os<<"("<<out_node.x<<", "<<out_node.y<<", "<<out_node.dir<<")"<<std::endl;
             return os;
         }
-};
-*/
 
-void ReadFile(std::string filename);
+        friend class Stack<T>;
+};
+
+void Path(const std::vector<std::vector<bool>> &maze, const int &m, const int &p);
+void AugmentedMazeBuildWall(const std::vector<std::vector<bool>> &tmp_maze, std::vector<std::vector<bool>> &maze, const int &rows, const int &cols, int &m, int &p);
+void ReadFile(std::string filename, std::vector<std::vector<bool>> &maze, int &rows, int &cols);
 
 #include <solution.hpp>
 #endif
