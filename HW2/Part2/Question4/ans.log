@@ -1,8 +1,4 @@
-rm -rf main  .objs  *.o *.d *.dSYM
-rm -rf ./tags
-g++ -g -c -std=c++14 -O0 -pedantic -Wall  -Wfatal-errors -Wextra  -MMD -MP   -I ./include solution.cpp -o .objs/solution.o
-g++ -g -c -std=c++14 -O0 -pedantic -Wall  -Wfatal-errors -Wextra  -MMD -MP   -I ./include main.cpp -o .objs/main.o
-g++ .objs/solution.o .objs/main.o -std=c++14   -I ./include -o main
+> Initialization...
 maze = 
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
 1 0 1 0 0 0 1 1 0 0 0 1 1 1 1 1 1 
@@ -17,6 +13,23 @@ maze =
 1 1 1 0 0 0 1 1 0 1 1 0 0 0 0 0 1 
 1 0 0 1 1 1 1 1 0 0 0 1 1 1 1 0 1 
 1 0 1 0 0 1 1 1 1 1 0 1 1 1 1 0 1 
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+
+> Path...
+mark = 
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
 
 stack 'push' occurs, push item: (1, 1, E), stack = [(1, 1, E)], top = 0

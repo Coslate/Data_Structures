@@ -4,7 +4,9 @@
 #include<sstream>
 
 void Path(const std::vector<std::vector<bool>> &maze, const int &m, const int &p){
-    std::vector<std::vector<bool>> mark(m, std::vector<bool> (p, 0));
+    int tmp_m, tmp_p;
+    std::vector<std::vector<bool>> tmp_mark(m, std::vector<bool> (p, 0));
+    std::vector<std::vector<bool>> mark;
     Offset<int> move[8];
     move[0].di = -1; //N
     move[0].dj =  0;
@@ -24,7 +26,9 @@ void Path(const std::vector<std::vector<bool>> &maze, const int &m, const int &p
     move[7].dj = -1;
 
     //Start from maze[1][1];
+    AugmentedMazeBuildWall(tmp_mark, mark, m, p, tmp_m, tmp_p);
     mark[1][1] = 1;
+    PrintMatrix("mark", mark, m+2, p+2);
     Stack<Node<int>> stack_traverse(m*p, "stack");
 
     //Initialized point
