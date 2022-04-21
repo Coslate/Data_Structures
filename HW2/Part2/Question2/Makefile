@@ -49,9 +49,9 @@ $(OBJS_DIR):
 copy:
 	@cp -rf ../Question1/include/solution.h ./include/Queue.h
 	@cp -rf ../Question1/include/solution.hpp ./include/Queue.hpp
-	@sed -i 's/solution.hpp/Queue.hpp/g' ./include/Queue.h
-	@sed -i 's/SOLUTION_H/QUEUE_H/g' ./include/Queue.h
-	@sed -i 's/solution.h/Queue.h/g' ./include/Queue.hpp
+	@perl -i -pe 's/solution.hpp/Queue.hpp/g' ./include/Queue.h
+	@perl -i -pe 's/SOLUTION_H/QUEUE_H/g' ./include/Queue.h
+	@perl -i -pe 's/solution.h/Queue.h/g' ./include/Queue.hpp
 
 $(INC_DIR):
 	@mkdir -p $@
