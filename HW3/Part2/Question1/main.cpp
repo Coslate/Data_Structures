@@ -149,6 +149,10 @@ int main(){
     chain_a.InsertBeforeK(1, 11);
     std::cout<<"> std::cout<<chain_a"<<std::endl;
     std::cout<<chain_a;
+    std::cout<<"> chain_a.InsertBeforeK(3, 97)"<<std::endl;
+    chain_a.InsertBeforeK(3, 97);
+    std::cout<<"> std::cout<<chain_a"<<std::endl;
+    std::cout<<chain_a;
     std::cout<<"> chain_a.InsertBeforeK(6, -11)"<<std::endl;
     chain_a.InsertBeforeK(6, -11);
     std::cout<<"> std::cout<<chain_a"<<std::endl;
