@@ -56,10 +56,20 @@ class Chain{
 
         bool                               IsEmpty             () const {return (first==NULL);}
         void                               InsertFront         (const T &in_data);
+        void                               Insert              (const int i, const T e);
+        void                               InsertBeforeK       (const int k, const T &Y);
         void                               DeleteFront         ();
+        void                               Delete              (const int i);
+        void                               DeleteEveryOtherNode();
+        void                               DivideMid           (Chain<T> &sub_list);
+        void                               Deconcatenate       (ChainNode<T> *split, Chain<T> &sub_list);
+        void                               Merge               (Chain<T> &L1, Chain<T> &L2);
+        void                               ChangeData          (const int k, const T &Y);
+        int                                NumOfNodes          ();
         T&                                 Front               () const;
         T&                                 Back                () const;
         T&                                 Get                 (const int i) const;
+        ChainNode<T>*                      GetNode             (const int i) const;
 
 
         std::string                        Name                () const {return name;}
