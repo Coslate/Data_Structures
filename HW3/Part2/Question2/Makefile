@@ -1,6 +1,6 @@
 #declare variable
 EXE := main
-OBJS := circular_linkedlist.o main.o
+OBJS := circular_linkedlist.o circular_headerlist.o main.o
 OBJS_DIR := .objs
 INC_DIR := ./include
 
