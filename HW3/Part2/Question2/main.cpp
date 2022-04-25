@@ -107,10 +107,11 @@ int main(){
     circular_list_a.InsertFront(45);
     std::cout<<"> std::cout<<circular_list_a"<<std::endl;
     std::cout<<circular_list_a;
-    std::cout<<"> split = circular_list_a.GetNode(4)"<<std::endl;
-    CircularListNode<int> *split = circular_list_a.GetNode(4);
-    std::cout<<"> circular_list_a.Deconcatenate(split, circular_list_b)"<<std::endl;
-    circular_list_a.Deconcatenate(split, circular_list_b);
+    std::cout<<"> We get the address of the 4th node in circular_list_a and stored in split_node4:"<<std::endl;
+    std::cout<<"> split_node4 = circular_list_a.GetNode(4)"<<std::endl;
+    CircularListNode<int> *split_node4 = circular_list_a.GetNode(4);
+    std::cout<<"> circular_list_a.Deconcatenate(split_node4, circular_list_b)"<<std::endl;
+    circular_list_a.Deconcatenate(split_node4, circular_list_b);
     std::cout<<"> std::cout<<circular_list_a"<<std::endl;
     std::cout<<circular_list_a;
     std::cout<<"> std::cout<<circular_list_b"<<std::endl;
@@ -245,6 +246,7 @@ int main(){
     circular_header_list_a.InsertFront(45);
     std::cout<<"> std::cout<<circular_header_list_a"<<std::endl;
     std::cout<<circular_header_list_a;
+    std::cout<<"> We get the address of the 5th node in circular_header_list_a and stored in split_node5:"<<std::endl;
     std::cout<<"> split_node5 = circular_header_list_a.GetNode(5)"<<std::endl;
     CircularHeaderListNode<int> *split_node5 = circular_header_list_a.GetNode(5);
     std::cout<<"> circular_header_list_a.Deconcatenate(split_node5, circular_header_list_b)"<<std::endl;
