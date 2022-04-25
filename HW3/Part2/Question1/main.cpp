@@ -209,10 +209,11 @@ int main(){
         std::cerr<<e.what()<<std::endl;
     }
 
-    std::cout<<"> split = chain_a.GetNode(2)"<<std::endl;
-    ChainNode<int> *split = chain_a.GetNode(2);
-    std::cout<<"> chain_a.Deconcatenate(split, chain_c)"<<std::endl;
-    chain_a.Deconcatenate(split, chain_c);
+    std::cout<<"> We get the address of the 2nd node in chain_a and stored in split_node2:"<<std::endl;
+    std::cout<<"> split_node2 = chain_a.GetNode(2)"<<std::endl;
+    ChainNode<int> *split_node2 = chain_a.GetNode(2);
+    std::cout<<"> chain_a.Deconcatenate(split_node2, chain_c)"<<std::endl;
+    chain_a.Deconcatenate(split_node2, chain_c);
     std::cout<<"> std::cout<<chain_a"<<std::endl;
     std::cout<<chain_a;
     std::cout<<"> std::cout<<chain_c"<<std::endl;
@@ -252,8 +253,6 @@ int main(){
     chain_e.Merge(chain_a, chain_d);
     std::cout<<"> std::cout<<chain_e"<<std::endl;
     std::cout<<chain_e;
-
-
 
     return EXIT_SUCCESS;
 }
