@@ -28,6 +28,16 @@ T& Chain<T>::Front() const {
     }
 }
 
+
+template <class T>
+ChainNode<T>* Chain<T>::FrontNode() const {
+    if(IsEmpty()){
+        throw std::runtime_error(std::string("Warning: Chain "+name+" is empty. No front element."));
+    }else{
+        return first; //front unchanged
+    }
+}
+
 template <class T>
 T& Chain<T>::Back() const {
     if(IsEmpty()){
@@ -39,6 +49,20 @@ T& Chain<T>::Back() const {
         }
 
         return current_node->data; //back changed
+    }
+}
+
+template <class T>
+ChainNode<T>* Chain<T>::BackNode() const {
+    if(IsEmpty()){
+        throw std::runtime_error(std::string("Warning: Chain "+name+" is empty. No back element."));
+    }else{
+        ChainNode<T> *current_node = first;
+        while(current_node->link != NULL){
+            current_node = current_node->link;
+        }
+
+        return current_node; //back changed
     }
 }
 
@@ -393,6 +417,17 @@ std::ostream & operator<<(std::ostream &os, const Chain<T> &out_chain){
         current_node = current_node->link;
     }
 
+    return os;
+}
+
+template <class T>
+std::ostream & operator<<(std::ostream &os, const ChainNode<T>* out_node){
+    if(out_node==NULL){
+        throw std::runtime_error(std::string("Warning: Not available. The node does not exist."));
+        return os;
+    }
+
+    os<<out_node->data;
     return os;
 }
 

@@ -13,8 +13,14 @@
 template <class T>
 class Chain; //forward declaration
 
+template <class T>
+class ChainNode; //forward declaration
+
 template <typename T>
-std::ostream & operator<<(std::ostream &os, const Chain<T> &out_queue);
+std::ostream & operator<<(std::ostream &os, const Chain<T> &out_chain);
+
+template <typename T>
+std::ostream & operator<<(std::ostream &os, const ChainNode<T> *out_node);
 
 template <class T>
 class ChainNode{
@@ -25,7 +31,8 @@ class ChainNode{
         ChainNode(const T &in_data, ChainNode<T>* const in_link=NULL) : data(in_data), link(in_link){}
         ~ChainNode(){}
         friend class Chain<T>;
-        friend std::ostream & operator<<<T>(std::ostream &os, const Chain<T> &out_queue);
+        friend std::ostream & operator<<<T>(std::ostream &os, const Chain<T> &out_chain);
+        friend std::ostream & operator<<<T>(std::ostream &os, const ChainNode<T> *out_node);
 };
 
 template <class T>
@@ -67,7 +74,9 @@ class Chain{
         void                               ChangeData          (const int k, const T &Y);
         int                                NumOfNodes          ();
         T&                                 Front               () const;
+        ChainNode<T>*                      FrontNode           () const;
         T&                                 Back                () const;
+        ChainNode<T>*                      BackNode            () const;
         T&                                 Get                 (const int i) const;
         ChainNode<T>*                      GetNode             (const int i) const;
 

@@ -26,7 +26,7 @@ int main(){
 
     std::cout<<std::endl;
     std::cout<<"------------Front() Test--------------"<<std::endl;
-    std::cout<<"> chain_a.Front() = "<<chain_a.Front()<<std::endl;
+    std::cout<<"> chain_a.FrontNode() = "<<chain_a.FrontNode()<<std::endl;
 
     std::cout<<std::endl;
     std::cout<<"------------DeleteFront() Test--------------"<<std::endl;
@@ -54,9 +54,9 @@ int main(){
     chain_a.InsertFront(111);
     std::cout<<"> chain_a.InsertFront(222)"<<std::endl;
     chain_a.InsertFront(222);
-    std::cout<<"> chain_a.Back() = "<<chain_a.Back()<<std::endl;
     std::cout<<"> std::cout<<chain_a"<<std::endl;
     std::cout<<chain_a;
+    std::cout<<"> chain_a.BackNode() = "<<chain_a.BackNode()<<std::endl;
 
     std::cout<<std::endl;
     std::cout<<"------------Get(i) Test--------------"<<std::endl;
