@@ -1,5 +1,5 @@
-//list.hpp
-#include <list.h>
+//List.hpp
+#include <List.h>
 #include <cstdlib>
 
 template <class T>
@@ -79,7 +79,7 @@ void List<T>::Insert(const int i, const T e){
             prev_node->link = new Node<T>(e, NULL);
         }else{
             if((current_node == NULL) && (i>count)){
-                throw std::runtime_error(std::string("Warning: "+std::to_string(i)+"th node is out of range of the list."));
+                throw std::runtime_error(std::string("Warning: "+std::to_string(i)+"th node is out of range of the List."));
             }else{
                 Node<T> *tmp_node = new Node<T> (e, prev_node->link);
                 prev_node->link = tmp_node;
@@ -98,6 +98,25 @@ void List<T>::DeleteFront(){
     first = first->link;
     tmp->link = NULL;
     delete tmp;
+}
+
+template <class T>
+void List<T>::DeleteBack(){
+    if(IsEmpty()){
+        throw std::runtime_error(std::string("Warning: List "+name+" is empty. Cannot DeleteBack()."));
+    }
+
+    Node<T> *last_node = first;
+    Node<T> *prev_node = first;
+
+    //Find the last node
+    while(last_node->link != NULL){
+        prev_node = last_node;
+        last_node = last_node->link;
+    }
+
+    prev_node->link = NULL;
+    delete last_node;
 }
 
 template <class T>
@@ -137,27 +156,21 @@ void List<T>::Delete(const int i){
 }
 
 template <class T>
-T& List<T>::Front() const {
-    if(IsEmpty()){
-        throw std::runtime_error(std::string("Warning: List "+name+" is empty. No front element."));
-    }else{
-        return first->data; //front unchanged
-    }
+Node<T>* List<T>::Front() const {
+    return first; //front unchanged
 }
 
 template <class T>
-T& List<T>::Back() const {
-    if(IsEmpty()){
-        throw std::runtime_error(std::string("Warning: List "+name+" is empty. No back element."));
-    }else{
-        Node<T> *last_node = first;
-        //Find the last node
+Node<T>* List<T>::Back() const {
+    Node<T> *last_node = first;
+    //Find the last node
+    if(last_node != NULL){
         while(last_node->link != NULL){
             last_node = last_node->link;
         }
-
-        return last_node->data; //back changed
     }
+
+    return last_node; //back changed
 }
 
 template <class T>
