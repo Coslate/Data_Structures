@@ -67,32 +67,7 @@ ChainNode<T>* Chain<T>::BackNode() const {
 }
 
 template <class T>
-T& Chain<T>::Get(const int i) const{
-    if(IsEmpty()){
-        throw std::runtime_error(std::string("Warning: Chain "+name+" is empty. Cannot Get(i)."));
-    }
-
-    if(i<=0){
-        throw std::runtime_error(std::string("Warning: The smallest number of input i of Get(i) shoule be >=1."));
-    }
-
-    int count = 1;
-    ChainNode<T> *current_node = first;
-
-    while((count != i) && (current_node != NULL)){
-        current_node = current_node->link;
-        count++;
-    }
-
-    if(current_node == NULL){
-        throw std::runtime_error(std::string("Warning: "+std::to_string(i)+"th element is not found in Chain."));
-    }
-
-    return current_node->data;
-}
-
-template <class T>
-ChainNode<T>* Chain<T>::GetNode(const int i) const{
+ChainNode<T>* Chain<T>::Get(const int i) const{
     if(IsEmpty()){
         throw std::runtime_error(std::string("Warning: Chain "+name+" is empty. Cannot Get(i)."));
     }

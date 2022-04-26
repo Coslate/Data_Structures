@@ -77,8 +77,7 @@ class Chain{
         ChainNode<T>*                      FrontNode           () const;
         T&                                 Back                () const;
         ChainNode<T>*                      BackNode            () const;
-        T&                                 Get                 (const int i) const;
-        ChainNode<T>*                      GetNode             (const int i) const;
+        ChainNode<T>*                      Get                 (const int i) const;
 
 
         std::string                        Name                () const {return name;}

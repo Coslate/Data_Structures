@@ -210,8 +210,8 @@ int main(){
     }
 
     std::cout<<"> We get the address of the 2nd node in chain_a and stored in split_node2:"<<std::endl;
-    std::cout<<"> split_node2 = chain_a.GetNode(2)"<<std::endl;
-    ChainNode<int> *split_node2 = chain_a.GetNode(2);
+    std::cout<<"> split_node2 = chain_a.Get(2)"<<std::endl;
+    ChainNode<int> *split_node2 = chain_a.Get(2);
     std::cout<<"> chain_a.Deconcatenate(split_node2, chain_c)"<<std::endl;
     chain_a.Deconcatenate(split_node2, chain_c);
     std::cout<<"> std::cout<<chain_a"<<std::endl;
