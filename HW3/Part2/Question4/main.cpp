@@ -119,6 +119,52 @@ int main(){
         std::cerr<<e.what()<<std::endl;
     }
 
+    std::cout<<"------------Eval() Test--------------"<<std::endl;
+    try {std::cout<<test_poly_a.GetName()<<"(5)   = "<<test_poly_a.Eval(5)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    try {std::cout<<test_poly_a.GetName()<<"(3.3) = "<<test_poly_a.Eval(3.3)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    try {std::cout<<test_poly_b.GetName()<<"(9)   = "<<test_poly_b.Eval(9)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    try {std::cout<<test_poly_b.GetName()<<"(2.7) = "<<test_poly_b.Eval(2.7)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    try {std::cout<<test_poly_a_plus_b_result.GetName()<<"(5)   = "<<test_poly_a_plus_b_result.Eval(5)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    try {std::cout<<test_poly_a_plus_b_result.GetName()<<"(3.3) = "<<test_poly_a_plus_b_result.Eval(3.3)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    try {std::cout<<test_poly_a_minus_b_result.GetName()<<"(9)   = "<<test_poly_a_minus_b_result.Eval(9)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    try {std::cout<<test_poly_a_minus_b_result.GetName()<<"(2.7) = "<<test_poly_a_minus_b_result.Eval(2.7)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    try {std::cout<<test_poly_a_mul_b_result.GetName()<<"(5)   = "<<test_poly_a_mul_b_result.Eval(5)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    try {std::cout<<test_poly_a_mul_b_result.GetName()<<"(3.3) = "<<test_poly_a_mul_b_result.Eval(3.3)<<std::endl;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
 
     /*
     std::cout<<"---------------------------------------------------------------------------"<<std::endl;
