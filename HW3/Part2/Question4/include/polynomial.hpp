@@ -8,12 +8,14 @@ void Polynomial::NewTerm(const double &in_coef, const int &in_exp){
     terms++;
 }
 
-void Polynomial::operator=(const Polynomial &b){
+const Polynomial& Polynomial::operator=(const Polynomial &b){
     terms               = b.terms;
     max_exp             = b.max_exp;
     input_at_least_once = b.input_at_least_once;
     term_list           = b.term_list;
     std::cout<<"> Operator=() of Polynomial is called."<<std::endl;
+
+    return *this;
 }
 
 Polynomial Polynomial::operator+(const Polynomial &b){
@@ -164,7 +166,7 @@ Polynomial Polynomial::operator*(const Polynomial &b){
     return c;
 }
 
-double Polynomial::Eval(double x){
+double Polynomial::Evaluate(double x) const {
     if(terms == 0){
         throw std::runtime_error(std::string("Warning: Not available. The Polynomial is empty."));
     }

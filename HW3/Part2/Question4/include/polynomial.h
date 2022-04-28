@@ -87,8 +87,8 @@ class Polynomial{
         Polynomial                         operator+           (const Polynomial &b);
         Polynomial                         operator-           (const Polynomial &b);
         Polynomial                         operator*           (const Polynomial &b);
-        void                               operator=           (const Polynomial &b);
-        double                             Eval                (double x);
+        const Polynomial&                  operator=           (const Polynomial &b);
+        double                             Evaluate            (double x) const ;
         int                                LeadExp             (){if(terms==0){throw std::runtime_error(std::string("Warning: Not available. The Polynomial is empty."));} return max_exp;}
 
         static bool SortFunction(const Term &a, const Term &b);
