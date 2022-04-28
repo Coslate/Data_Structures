@@ -1,6 +1,6 @@
 #declare variable
 EXE := main
-OBJS := circular_headerlist.o main.o
+OBJS := main.o
 OBJS_DIR := .objs
 INC_DIR := ./include
 

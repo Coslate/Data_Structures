@@ -26,7 +26,7 @@ void  CircularHeaderList<T>::RetNode(CHLNode<T> *&x){
 template <typename T>
 void  CircularHeaderList<T>::CleanAV(){
     while(av!=NULL){
-        CHLNode<T> tmp_nxt = av->link;
+        CHLNode<T> *tmp_nxt = av->link;
         av->link = NULL;
         delete av;
         av = tmp_nxt;
@@ -127,8 +127,13 @@ int CircularHeaderList<T>::NumOfNodes(){
 
 template <typename T>
 void CircularHeaderList<T>::operator=(const CircularHeaderList &other){
-    header     = other.header;
-    av         = other.av;
+    while(!IsEmpty()){
+        DeleteFirst();
+    }
+
+    for(Iterator i = other.Begin(); i!=other.End(); i++){
+        InsertBack(*i);
+    }
 }
 
 template <typename T>
@@ -140,7 +145,6 @@ std::ostream & operator<<(std::ostream &os, const CircularHeaderList<T> &out_lis
 
     CHLNode<T> *current_node = out_list.header->link;
     os<<out_list.name<<" = [";
-
     while(current_node != out_list.header){
         if(current_node->link == out_list.header){
             os<<current_node->data<<"]"<<std::endl;

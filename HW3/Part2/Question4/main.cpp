@@ -1,11 +1,126 @@
 //main.cpp
 #include <iostream>
 #include <circular_headerlist.h>
-#include <solution.h>
+#include <polynomial.h>
 
 
 int main(){
+    Polynomial test_poly_a(0, "test_poly_a");
+    Polynomial test_poly_b(0, "test_poly_b");
+    Polynomial test_poly_a_plus_b_result(0, "test_poly_a_plus_b_result");
+    Polynomial test_poly_a_minus_b_result(0, "test_poly_a_minus_b_result");
+    Polynomial test_poly_a_mul_b_result (0, "test_poly_a_mul_b_result");
+    std::string skip;
+
+
+    std::cout<<"Please enter the terms in decreasing order of exponential for polynomial "<<test_poly_a.GetName()<<std::endl;
+    std::cout<<"If want to SKIP[Y/N]? : ";
+    std::cin >> skip;
+    if(skip != "Y" && skip != "y"){
+        while(std::cin >> test_poly_a){
+            std::string end_input;
+            std::cout<<test_poly_a.GetName()<<" = "<<test_poly_a;
+
+            std::cout<<"End of the input[Y/N]? : ";
+            std::cin>> end_input;
+            if(end_input == "Y" || end_input == "y"){
+                break;
+            }
+        }
+    }
+
+    std::cout<<"Please enter the terms in decreasing order of exponential for polynomial "<<test_poly_b.GetName()<<std::endl;
+    std::cout<<"If want to SKIP[Y/N]? : ";
+    std::cin >> skip;
+    if(skip != "Y" && skip != "y"){
+        while(std::cin >> test_poly_b){
+            std::string end_input;
+            std::cout<<test_poly_b.GetName()<<" = "<<test_poly_b;
+
+            std::cout<<"End of the input[Y/N]? : ";
+            std::cin>> end_input;
+            if(end_input == "Y" || end_input == "y"){
+                break;
+            }
+        }
+    }
+
     std::cout<<std::endl;
+    std::cout<<"You just entered:"<<std::endl;
+    try{std::cout<<test_poly_a.GetName()<<" = "<<test_poly_a;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    try{std::cout<<test_poly_b.GetName()<<" = "<<test_poly_b;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+    std::cout<<std::endl;
+
+    std::cout<<std::endl;
+    std::cout<<"------------Copy Constructor() Test--------------"<<std::endl;
+    std::cout<<"> Polynomial copy_b = test_poly_a;"<<std::endl;
+    Polynomial copy_b = test_poly_a;
+    std::cout<<"> std::cout<<copy_b"<<std::endl;
+    try{std::cout<<"copy_b"<<" = "<<copy_b;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    std::cout<<std::endl;
+    std::cout<<"------------Operator=() Test--------------"<<std::endl;
+    std::cout<<"> Polynomial assign_b;"<<std::endl;
+    std::cout<<"> assign_b = test_poly_a;"<<std::endl;
+    Polynomial assign_b;
+    assign_b = test_poly_a;
+    std::cout<<"> std::cout<<assign_b"<<std::endl;
+    try{std::cout<<"assign_b"<<" = "<<assign_b;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    std::cout<<std::endl;
+    std::cout<<"------------Operator+() Test--------------"<<std::endl;
+    std::cout<<"> test_poly_a_plus_b_result = test_poly_a+test_poly_b"<<std::endl;
+    try {test_poly_a_plus_b_result = test_poly_a + test_poly_b;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    try{std::cout<<test_poly_a_plus_b_result.GetName()<<" = "<<test_poly_a_plus_b_result;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    std::cout<<std::endl;
+    std::cout<<"------------Operator-() Test--------------"<<std::endl;
+    std::cout<<"> test_poly_a_minus_b_result = test_poly_a-test_poly_b"<<std::endl;
+    try {test_poly_a_minus_b_result = test_poly_a - test_poly_b;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    try{std::cout<<test_poly_a_minus_b_result.GetName()<<" = "<<test_poly_a_minus_b_result;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    std::cout<<std::endl;
+    std::cout<<"------------Operator*() Test--------------"<<std::endl;
+    std::cout<<"> test_poly_a_mul_b_result = test_poly_a*test_poly_b"<<std::endl;
+    try {test_poly_a_mul_b_result = test_poly_a * test_poly_b;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+    try{std::cout<<test_poly_a_mul_b_result.GetName()<<" = "<<test_poly_a_mul_b_result;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
+
+    /*
     std::cout<<"---------------------------------------------------------------------------"<<std::endl;
     std::cout<<"-------------CircularLinkedList with Dummy Header Node Test----------------"<<std::endl;
     std::cout<<"---------------------------------------------------------------------------"<<std::endl;
@@ -85,7 +200,7 @@ int main(){
     circular_header_list_a.DeleteLast();
     std::cout<<"> std::cout<<circular_header_list_a"<<std::endl;
     std::cout<<circular_header_list_a;
-
+    */
 
     return EXIT_SUCCESS;
 }

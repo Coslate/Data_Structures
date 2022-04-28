@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <iostream>
 
+class Polynomial;
+
 template <typename T>
 class CircularHeaderList; //forward declaration
 
@@ -23,10 +25,10 @@ class CHLNode{
         CHLNode<T>* link;
     public:
         CHLNode(const T &data, CHLNode<T>* const in_link=NULL) : data(data), link(in_link){}
-
         ~CHLNode(){}
 
         friend class CircularHeaderList<T>;
+        friend class Polynomial;
         friend std::ostream & operator<<<T>(std::ostream &os, const CircularHeaderList<T> &out_list);
 };
 
@@ -67,6 +69,26 @@ class CircularHeaderList{
             av = header->link;
             header->link = header;
         }
+
+        class Iterator{
+            private:
+                CHLNode<T> *current_node;
+            public:
+                Iterator(CHLNode<T> *start_node=NULL){
+                    current_node = start_node;
+                }
+
+                T&         operator  *() const            {return current_node->data;}
+                T*         operator ->() const            {return &current_node->data;}//from textbook ppt p.75
+                Iterator&  operator ++()                  {current_node = current_node->link; return *this;}
+                Iterator   operator ++(int)               {Iterator old = *this; current_node = current_node->link; return old;}
+                Iterator   operator +(int i)              {CHLNode<T> *tmp_node = current_node; int count=0; while(count<i && current_node!=NULL){current_node = current_node->link; count++;}  CHLNode<T> *dest_node = current_node; current_node = tmp_node; return Iterator(dest_node);}
+                bool       operator !=(const Iterator &r) {return current_node != r.current_node;}
+                bool       operator ==(const Iterator &r) {return current_node == r.current_node;}
+        };
+
+        Iterator                           Begin() const { return Iterator(header->link);}
+        Iterator                           End()   const { return Iterator(header);}
 
         bool                               IsEmpty             () const {return (header->link==header);}
         void                               InsertFront         (const T &data);

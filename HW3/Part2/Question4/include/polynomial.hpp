@@ -1,94 +1,57 @@
-//solution.hpp
-#include <solution.h>
+//polynomial.hpp
+#include <polynomial.h>
 #include <cstdlib>
 
-template <typename CoefType, typename ExpType>
-void Polynomial<CoefType, ExpType>::SetTermArray(const Term<CoefType, ExpType>* const in_term_array, const int &in_terms){
-    if(terms != in_terms){
-        throw std::runtime_error(std::string("Error: the size of in_term_array does not match with the term_array inside the Polunomial."));
-        //exit(0);
-    }
-    for(int i=0;i<terms;++i){
-        term_array[i] = in_term_array[i];
-    }
-}
-
-template <typename CoefType, typename ExpType>
-void Polynomial<CoefType, ExpType>::NewTerm(const CoefType &in_coef, const ExpType &in_exp){
-    if(terms == capacity){
-        capacity *= 2;
-        Term<CoefType, ExpType> *temp = new Term<CoefType, ExpType> [capacity];
-        std::copy(term_array, term_array+terms, temp);
-        delete [] term_array;
-        term_array = temp;
-        temp = nullptr;
-    }
-
-    term_array[terms].coef = in_coef;
-    term_array[terms].exp  = in_exp;
+void Polynomial::NewTerm(const double &in_coef, const int &in_exp){
+    Term new_term(in_coef, in_exp);
+    term_list.InsertBack(new_term);
     terms++;
 }
 
-template <typename CoefType, typename ExpType>
-void Polynomial<CoefType, ExpType>::operator=(const Polynomial &other){
-    if(capacity > 0){
-        delete [] term_array;
-    }
-
-    terms    = other.terms;
-    capacity = other.capacity;
-    max_exp  = other.max_exp;
-    input_at_least_once = other.input_at_least_once;
-
-    Term<CoefType, ExpType> *temp = new Term<CoefType, ExpType> [capacity];
-    for(int i=0;i<terms;++i){
-        temp[i] = other.term_array[i];
-    }
-
-    term_array = temp;
-    temp = nullptr;
+void Polynomial::operator=(const Polynomial &b){
+    terms               = b.terms;
+    max_exp             = b.max_exp;
+    input_at_least_once = b.input_at_least_once;
+    term_list           = b.term_list;
+    std::cout<<"> Operator=() of Polynomial is called."<<std::endl;
 }
 
-template <typename CoefType, typename ExpType>
-Polynomial<CoefType, ExpType> Polynomial<CoefType, ExpType>::Add(Polynomial b){
+Polynomial Polynomial::operator+(const Polynomial &b){
     if(terms == 0 && b.terms == 0){
-        throw std::runtime_error(std::string("Error: all the input Polynomial of Add() are empty."));
+        throw std::runtime_error(std::string("Warning: all the input Polynomial of operator+() are empty."));
     }
 
-    Polynomial<CoefType, ExpType> c(0, 10, "temp_result");
-    int aPos = 0;
-    int bPos = 0;
+    Polynomial c(0, "temp_result");
+    CircularHeaderList<Term>::Iterator aPos = term_list.Begin();
+    CircularHeaderList<Term>::Iterator bPos = b.term_list.Begin();
 
     //Reset c to remove 0 term because of the default constructor.
     if(c.terms > 0){
-        c.terms = 0;
-        delete [] c.term_array;
-        Term<CoefType, ExpType> *temp = new Term<CoefType, ExpType> [c.capacity];
-        c.term_array = temp;
-        temp = nullptr;
+        c.DeleteAll();
     }
 
     //Begin the algorithm
-    while((aPos<terms) && (bPos<b.terms)){
-        if(term_array[aPos].exp == b.term_array[bPos].exp){
-            CoefType t = term_array[aPos].coef + b.term_array[bPos].coef;
-            c.NewTerm(t, term_array[aPos].exp);
+    while((aPos!=term_list.End()) && (bPos!=b.term_list.End())){
+        if((*aPos).exp == (*bPos).exp){
+            double t = (*aPos).coef + (*bPos).coef;
+            c.NewTerm(t, (*aPos).exp);
             aPos++;
             bPos++;
-        }else if(term_array[aPos].exp < b.term_array[bPos].exp){
-            c.NewTerm(b.term_array[bPos].coef, b.term_array[bPos].exp);
+        }else if((*aPos).exp < (*bPos).exp){
+            c.NewTerm((*bPos).coef, (*bPos).exp);
             bPos++;
         }else{
-            c.NewTerm(term_array[aPos].coef, term_array[aPos].exp);
+            c.NewTerm((*aPos).coef, (*aPos).exp);
             aPos++;
         }
     }
 
-    for(int i=aPos;i<terms;++i){
-        c.NewTerm(term_array[i].coef, term_array[i].exp);
+    for(CircularHeaderList<Term>::Iterator i=aPos; i != term_list.End(); i++){
+        c.NewTerm((*i).coef, (*i).exp);
     }
-    for(int i=bPos;i<b.terms;++i){
-        c.NewTerm(b.term_array[i].coef, b.term_array[i].exp);
+
+    for(CircularHeaderList<Term>::Iterator i=bPos; i != b.term_list.End(); i++){
+        c.NewTerm((*i).coef, (*i).exp);
     }
 
     try {c.FindLeadExp();}
@@ -99,21 +62,43 @@ Polynomial<CoefType, ExpType> Polynomial<CoefType, ExpType>::Add(Polynomial b){
     return c;
 }
 
-template <typename CoefType, typename ExpType>
-void Polynomial<CoefType, ExpType>::FindLeadExp(){
-    ExpType tmp;
+Polynomial Polynomial::operator-(const Polynomial &b){
+    if(terms == 0 && b.terms == 0){
+        throw std::runtime_error(std::string("Warning: all the input Polynomial of operator+() are empty."));
+    }
+
+    Polynomial c(0, "temp_result");
+    Polynomial inverse_b(0, "temp_neg_b_result");
+
+    for(CircularHeaderList<Term>::Iterator i=b.term_list.Begin(); i != b.term_list.End(); i++){
+        inverse_b.NewTerm(((*i).coef)*(-1), (*i).exp);
+    }
+
+    //Reset c to remove 0 term because of the default constructor.
+    if(c.terms > 0){
+        c.DeleteAll();
+    }
+
+    //Begin the algorithm
+    c = (*this)+inverse_b;
+
+    return c;
+}
+
+void Polynomial::FindLeadExp(){
+    int tmp;
 
     if(terms == 0){
-        throw std::runtime_error(std::string("Error: Not available. The Polynomial is empty."));
+        throw std::runtime_error(std::string("Warning: Not available. The Polynomial is empty."));
         //exit(0);
     }
 
-    for(int i=0;i<terms;++i){
-        if(i==0){
-            tmp = term_array[i].exp;
+    for(CircularHeaderList<Term>::Iterator i=term_list.Begin(); i != term_list.End(); i++){
+        if(i==term_list.Begin()){
+            tmp = (*i).exp;
         }else{
-            if(tmp < term_array[i].exp){
-                tmp = term_array[i].exp;
+            if(tmp < (*i).exp){
+                tmp = (*i).exp;
             }
         }
     }
@@ -121,82 +106,75 @@ void Polynomial<CoefType, ExpType>::FindLeadExp(){
     max_exp = tmp;
 }
 
-template <typename CoefType, typename ExpType>
-bool Polynomial<CoefType, ExpType>::SortFunction(const Term<CoefType, ExpType> &a, const Term<CoefType, ExpType> &b){
+bool Polynomial::SortFunction(const Term &a, const Term &b){
     return (a.exp > b.exp);
 }
 
-template <typename CoefType, typename ExpType>
-Polynomial<CoefType, ExpType> Polynomial<CoefType, ExpType>::Mult(Polynomial b){
+Polynomial Polynomial::operator*(const Polynomial &b){
     if(terms == 0 && b.terms == 0){
-        throw std::runtime_error(std::string("Error: all the input Polynomial of Mult() are empty."));
+        throw std::runtime_error(std::string("Warning: all the input Polynomial of Mult() are empty."));
     }
 
-    Polynomial<CoefType, ExpType> c(0, 10, "temp_result");
-    std::unordered_map<ExpType, int> map_exp2pos; //to record the exp stored in which position in c
+    int count_i = 0;
+    Polynomial c(0, "temp_result");
+    std::unordered_map<int, int> map_exp2pos; //to record the exp stored in which position in c
 
     //Reset c to remove 0 term because of the default constructor.
     if(c.terms > 0){
-        c.terms = 0;
-        delete [] c.term_array;
-        Term<CoefType, ExpType> *temp = new Term<CoefType, ExpType> [c.capacity];
-        c.term_array = temp;
-        temp = nullptr;
+        c.DeleteAll();
     }
 
-    for(int i=0;i<terms;++i){
-        for(int j=0;j<b.terms;++j){
-            ExpType exp_result   = term_array[i].exp + b.term_array[j].exp;
-            CoefType coef_result = term_array[i].coef * b.term_array[j].coef;
+    for(CircularHeaderList<Term>::Iterator i=term_list.Begin(); i != term_list.End(); i++){
+        for(CircularHeaderList<Term>::Iterator j=b.term_list.Begin(); j != b.term_list.End(); j++){
+            int    exp_result   = (*i).exp  + (*j).exp;
+            double  coef_result = (*i).coef * (*j).coef;
 
             if(map_exp2pos.find(exp_result) == map_exp2pos.end()){//not found
                 map_exp2pos[exp_result] = c.terms;
                 c.NewTerm(coef_result, exp_result);
             }else{
-                c.term_array[map_exp2pos[exp_result]].coef += coef_result;
+                c.term_list.Get(map_exp2pos[exp_result]+1)->data.coef += coef_result;
             }
         }
     }
 
-    std::sort(c.term_array, c.term_array+c.terms, c.SortFunction);
+    //Do the sorting
+    Term *term_array = new Term[c.terms];
+    for(CircularHeaderList<Term>::Iterator i=c.term_list.Begin(); i != c.term_list.End(); i++){
+        term_array[count_i] = *i;
+        count_i++;
+    }
+
+    std::sort(term_array, term_array+c.terms, c.SortFunction);
+
+    count_i = 0;
+    for(CircularHeaderList<Term>::Iterator i=c.term_list.Begin(); i != c.term_list.End(); i++){
+        *i = term_array[count_i];
+        count_i++;
+    }
+
     try {c.FindLeadExp();}
     catch(std::runtime_error &e){
         std::cerr<<e.what()<<std::endl;
     }
+
+    delete [] term_array;
+    term_array = NULL;
+
     return c;
 }
 
-template <typename CoefType, typename ExpType>
-CoefType Polynomial<CoefType, ExpType>::Coef(ExpType e){
-    CoefType tmp;
-    bool found = false;
-    for(int i=0;i<terms;++i){
-        if(term_array[i].exp == e){
-            found = true;
-            tmp = term_array[i].coef;
-            break;
-        }
-    }
-
-    if(found){
-        return tmp;
-    }else{
-        throw std::runtime_error(std::string("Error: No terms in the current Polynomial has the matched exponential."));
-        //exit(0);
-    }
-}
-
-template <typename CoefType, typename ExpType>
-float Polynomial<CoefType, ExpType>::Eval(float f){
+double Polynomial::Eval(double x){
     if(terms == 0){
-        throw std::runtime_error(std::string("Error: Not available. The Polynomial is empty."));
+        throw std::runtime_error(std::string("Warning: Not available. The Polynomial is empty."));
     }
 
-    float tmp_sum = 0;
-    for(int i=0;i<terms;++i){
-        ExpType pow_term = term_array[i].exp;
-        tmp_sum += term_array[i].coef*pow(f, (double)pow_term);
+    double tmp_sum = 0;
+    for(CircularHeaderList<Term>::Iterator i=term_list.Begin(); i != term_list.End(); i++){
+        int pow_term = (*i).exp;
+        tmp_sum += (*i).coef*pow(x, (double)pow_term);
     }
 
     return tmp_sum;
 }
+
