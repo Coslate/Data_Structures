@@ -18,7 +18,7 @@ struct Triple {
 class Matrix; //forward declaration
 
 std::istream & operator>>(std::istream &is, Matrix &in_matrix);//forward declaration
-std::ostream & operator<<(std::ostream &os, const Matrix &out_matrix);
+std::ostream & operator<<(std::ostream &os, const Matrix &out_matrix); //forward declaration
 
 class MatrixNode{
     private:
@@ -185,22 +185,10 @@ class Matrix{
                 return;
             }
 
-            MatrixNode *x = headnode->right;
+            //Return all nodes to av list
+            DeleteAllNode();
 
-            //return headnode
-            headnode->right = av;
-            av = headnode;
-
-            //return nodes by rows
-            while(x!=headnode){
-                MatrixNode *y = x->right;
-                x->right = av;
-                av = y;
-                x = x->next;//next row;
-            }
-            headnode = NULL;
-
-            //Clean the av list;
+            //Clean the av list
             CleanAV();
         }
 
@@ -216,6 +204,7 @@ class Matrix{
         MatrixNode*                        GetNode             (const bool &b, Triple * const t);
         void                               RetNode             (MatrixNode *&x);
         void                               CleanAV             ();
+        void                               DeleteAllNode       ();
 
 //        static bool SortFunction(const Term &a, const Term &b);
 

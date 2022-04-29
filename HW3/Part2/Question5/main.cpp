@@ -37,6 +37,19 @@ int main(){
         std::cerr<<e.what()<<std::endl;
     }
 
+    std::cout<<std::endl;
+    std::cout<<"----------------Assignment Operator=() test---------------------"<<std::endl;
+    std::cout<<"> Matrix mat_c(NULL, 'mat_c');"<<std::endl;
+    std::cout<<"> mat_c = mat_a;"<<std::endl;
+    Matrix mat_c(NULL, "mat_c");
+    mat_c = mat_a;
+
+    std::cout<<"> std::cout<<mat_c;"<<std::endl;
+    try{std::cout<<mat_c;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
+    }
+
 
 
     return EXIT_SUCCESS;
