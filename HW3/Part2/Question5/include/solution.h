@@ -206,11 +206,14 @@ class Matrix{
         void                               CleanAV             ();
         void                               DeleteAllNode       ();
 
+        void                               Initialize          (int row, int col, int num);
+        void                               Insert              (int row, int col, int value);
+
 //        static bool SortFunction(const Term &a, const Term &b);
 
         friend std::ostream & operator<<(std::ostream &os, const Matrix &out_matrix){
             if(out_matrix.IsEmpty()){
-                throw std::runtime_error(std::string("Warning: Not available. The Matrix is empty."));
+                throw std::runtime_error(std::string(out_matrix.name+" = Warning: Not available. The Matrix is empty."));
                 return os;
             }
 
