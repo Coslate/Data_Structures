@@ -84,38 +84,48 @@ int main(){
 
     std::cout<<std::endl;
     std::cout<<"----------------Operator+() test---------------------"<<std::endl;
-    std::cout<<"> Matrix mat_a_plus_b  = mat_a + mat_b;"<<std::endl;
-    try{Matrix mat_a_plus_b = mat_a + mat_b;
-        mat_a_plus_b.SetName("mat_a_plus_b");
-        std::cout<<"> std::cout<<mat_a_plus_b;"<<std::endl;
-        std::cout<<mat_a_plus_b;
+    std::cout<<"> Matrix mat_a_plus_b(NULL, 'mat_a_plus_b');"<<std::endl;
+    std::cout<<"> mat_a_plus_b = mat_a + mat_b;"<<std::endl;
+    Matrix mat_a_plus_b(NULL, "mat_a_plus_b");
+    try{mat_a_plus_b  = mat_a + mat_b;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
     }
+
+    std::cout<<"> std::cout<<mat_a_plus_b;"<<std::endl;
+    try{std::cout<<mat_a_plus_b;}
     catch(std::runtime_error &e){
         std::cerr<<e.what()<<std::endl;
     }
 
     std::cout<<std::endl;
     std::cout<<"----------------Transpose() test---------------------"<<std::endl;
-    std::cout<<"> Matrix mat_aT = mat_a.Transpose()"<<std::endl;
-    try{Matrix mat_aT = mat_a.Transpose();
-        mat_aT.SetName("mat_aT");
-        std::cout<<"> std::cout<<mat_aT;"<<std::endl;
-        std::cout<<mat_aT;
+    std::cout<<"> Matrix mat_aT(NULL, 'mat_aT');"<<std::endl;
+    std::cout<<"> mat_aT = mat_a.Transpose();"<<std::endl;
+    Matrix mat_aT(NULL, "mat_aT");
+    try{mat_aT = mat_a.Transpose();}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
     }
+
+    std::cout<<"> std::cout<<mat_aT;"<<std::endl;
+    try{std::cout<<mat_aT;}
     catch(std::runtime_error &e){
         std::cerr<<e.what()<<std::endl;
     }
 
     std::cout<<std::endl;
     std::cout<<"----------------Operator*() test---------------------"<<std::endl;
-    std::cout<<mat_a;
-    std::cout<<mat_e;
-    std::cout<<"> Matrix mat_a_mul_e  = mat_a * mat_e;"<<std::endl;
-    try{Matrix mat_a_mul_e = mat_a * mat_e;
-        mat_a_mul_e.SetName("mat_a_mul_e");
-        std::cout<<"> std::cout<<mat_a_mul_e;"<<std::endl;
-        std::cout<<mat_a_mul_e;
+    std::cout<<"> Matrix mat_a_mul_e(NULL, 'mat_a_mul_e');"<<std::endl;
+    std::cout<<"> mat_a_mul_e = mat_a * mat_e;"<<std::endl;
+    Matrix mat_a_mul_e(NULL, "mat_a_mul_e");
+    try{mat_a_mul_e = mat_a * mat_e;}
+    catch(std::runtime_error &e){
+        std::cerr<<e.what()<<std::endl;
     }
+
+    std::cout<<"> std::cout<<mat_a_mul_e;"<<std::endl;
+    try{std::cout<<mat_a_mul_e;}
     catch(std::runtime_error &e){
         std::cerr<<e.what()<<std::endl;
     }
