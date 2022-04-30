@@ -196,7 +196,7 @@ class Matrix{
         std::string                        GetName             () const {return name;}
         void                               SetName             (const std::string &in_name)   {name     = in_name;}
 
-        Matrix                             Transpose           (); //Clean all the nodes in av;
+        Matrix                             Transpose           () const ; //Clean all the nodes in av;
         Matrix                             operator+           (const Matrix &b);
         Matrix                             operator*           (const Matrix &b);
         void                               operator=           (const Matrix &b);
@@ -206,6 +206,7 @@ class Matrix{
         void                               CleanAV             ();
         void                               DeleteAllNode       ();
 
+        void                               SetTotalNum         (const int &total_num){headnode->triple.value = total_num;}
         void                               Initialize          (int row, int col, int num);
         void                               Insert              (int row, int col, int value);
 

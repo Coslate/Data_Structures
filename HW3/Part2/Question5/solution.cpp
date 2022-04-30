@@ -166,15 +166,30 @@ void Matrix::Initialize(int row, int col, int num){
     delete [] head;
 }
 
-Matrix Matrix::Transpose(){
+Matrix Matrix::Transpose() const {
+    if(IsEmpty()){
+        throw std::runtime_error(std::string("Warning: "+name+" are empty. Cannot perform Transpose()."));
+    }
     Matrix c(NULL, "c_tmp_transpose_result");
+    c.Initialize(headnode->triple.col, headnode->triple.row, headnode->triple.value);
+
+    //insert a^T
+    MatrixNode *current_row = headnode->right;//first row
+    while(current_row != headnode){
+        MatrixNode *current_node = current_row->right;//first element
+        while(current_node != current_row){
+            c.Insert(current_node->triple.col, current_node->triple.row, current_node->triple.value);
+            current_node = current_node->right;
+        }
+        current_row = current_row->next;
+    }
 
     return c;
 }
 
 Matrix Matrix::operator+ (const Matrix &b){
     if(IsEmpty() && b.IsEmpty()){
-        throw std::runtime_error(std::string("Error: Both of "+b.GetName()+" and "+name+" are empty. Cannot perform operator+()."));
+        throw std::runtime_error(std::string("Warning: Both of "+b.GetName()+" and "+name+" are empty. Cannot perform operator+()."));
     }else if(IsEmpty()){
         return b;
     }else if(b.IsEmpty()){
@@ -219,7 +234,66 @@ Matrix Matrix::operator+ (const Matrix &b){
 }
 
 Matrix Matrix::operator* (const Matrix &b){
-    Matrix c(NULL, "c_tmp_transpose_result");
+    if(IsEmpty() && b.IsEmpty()){
+        throw std::runtime_error(std::string("Warning: Both of "+b.GetName()+" and "+name+" are empty. Cannot perform operator*()."));
+    }else if(IsEmpty()){
+        throw std::runtime_error(std::string("Warning: "+name+" is empty. Cannot perform operator*()."));
+    }else if(b.IsEmpty()){
+        throw std::runtime_error(std::string("Warning: "+b.GetName()+" is empty. Cannot perform operator*()."));
+    }
+
+    if(headnode->triple.col != b.headnode->triple.row){
+        throw std::runtime_error(std::string("Error: The dimension of "+name+" and "+b.GetName()+" does not match. Cannot perform operator*()."));
+    }
+
+    Matrix c (NULL, "c_tmp_mul_result");
+    Matrix bT(NULL, "bT");
+    int count_nonz = 0; //non-zero product term
+
+    //Initialize the result
+    c.Initialize(headnode->triple.row, b.headnode->triple.col, headnode->triple.row*b.headnode->triple.col);
+
+    //Transpose b
+    bT = b.Transpose();
+
+    //Perform a*b
+    MatrixNode *current_row    = headnode->right;//first row of a
+    MatrixNode *current_node   = current_row->right;//first element of a
+    while(current_row != headnode){
+        if(current_node != current_row){//not empty row
+            MatrixNode *current_row_b  = bT.headnode->right;//first row of bT
+            MatrixNode *current_node_b = current_row_b->right; //first element of bT
+            while(current_row_b != bT.headnode){
+                while((current_node_b != current_row_b) && (current_node != current_row)){//not empty row
+                    if(current_node->triple.col == current_node_b->triple.col){
+                        c.Insert(current_node->triple.row, current_node_b->triple.row, current_node->triple.value*current_node_b->triple.value);
+                        count_nonz++;
+                        current_node   = current_node->right;
+                        current_node_b = current_node_b->right;
+                    }else if(current_node->triple.col < current_node_b->triple.col){
+                        current_node = current_node->right;
+                    }else{
+                        current_node_b = current_node_b->right;
+                    }
+                }
+
+                if(current_node != current_row){//current_node_b==current_row_b reaches
+                    current_node = current_row;//back to first element of a
+                }
+
+                current_row_b  = current_row_b->next;
+                if(current_row_b != bT.headnode){
+                    current_node_b = current_row_b->right;
+                }
+
+                current_node   = current_node->right;
+            }
+        }
+        current_row = current_row->next;
+        current_node = current_row->right;
+    }
+
+    c.SetTotalNum(count_nonz);
     return c;
 }
 
