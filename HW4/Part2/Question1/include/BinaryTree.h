@@ -66,6 +66,7 @@ class BinaryTree{
 
         //Copy consturctor
         BinaryTree(const BinaryTree &p){
+            std::cout<<"("<<p.name<<", Copy Constructor() is called...)"<<std::endl;
             std::queue<BinaryTreeNode<T>* > node_p_queue;
             std::queue<BinaryTreeNode<T>* > node_queue;
             name                              = p.name;
@@ -98,6 +99,7 @@ class BinaryTree{
                 current_node = node_queue.front();
                 node_queue.pop();
             }
+            std::cout<<"("<<name<<", Copy Constructor() ends...)"<<std::endl;
         }
 
         //Constructor given the root item and left subtrees bt1 and right subtree bt2
@@ -107,7 +109,7 @@ class BinaryTree{
 
         //Destructor
         ~BinaryTree(){
-            std::cout<<name<<", Destructor called..."<<std::endl;
+            std::cout<<"("<<name<<", Destructor is called...)"<<std::endl;
             std::queue<BinaryTreeNode<T>* > node_queue;
             BinaryTreeNode<T>* current_node   = root;
 
@@ -131,7 +133,7 @@ class BinaryTree{
                 current_node = node_queue.front();
                 node_queue.pop();
             }
-            std::cout<<name<<", Destructor end..."<<std::endl;
+            std::cout<<"("<<name<<", Destructor ends...)"<<std::endl;
         }
 
         bool                               IsEmpty             () const {return (root==NULL);}

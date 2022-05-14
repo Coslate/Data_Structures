@@ -251,6 +251,7 @@ void BinaryTree<T>::Postorder(BinaryTreeNode<T> *t){
 
 template <class T>
 void BinaryTree<T>::operator=(const BinaryTree &other){
+    std::cout<<"("<<name<<", Assignment operator=() is called...)"<<std::endl;
     std::queue<BinaryTreeNode<T>* > node_p_queue;
     std::queue<BinaryTreeNode<T>* > node_queue;
     BinaryTreeNode<T>* current_p_node = other.root;
@@ -282,6 +283,7 @@ void BinaryTree<T>::operator=(const BinaryTree &other){
         current_node = node_queue.front();
         node_queue.pop();
     }
+    std::cout<<"("<<name<<", Assignment operator=() ends...)"<<std::endl;
 }
 
 template <class T>
