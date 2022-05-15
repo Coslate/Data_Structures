@@ -1,0 +1,184 @@
+rm -rf main  .objs  *.o *.d *.dSYM
+rm -rf ./tags
+g++ -g -c -std=c++14 -O0 -pedantic -Wall  -Wfatal-errors -Wextra  -MMD -MP   -I ./include main.cpp -o .objs/main.o
+g++ .objs/main.o -std=c++14   -I ./include -o main
+
+|======================================|
+|===========MaxHeap test===============|
+|======================================|
+
+(MaxHeap::MaxHeap() is called...)
+(MaxHeap::MaxHeap() ended...)
+(MaxHeap::MaxHeap() is called...)
+(MaxHeap::MaxHeap() ended...)
+
+------------IsEmpty() Test--------------
+max_heap_a.IsEmpty() = true
+max_heap_b.IsEmpty() = true
+
+------------Initialization with Push() Test--------------
+>max_heap_a.Push(50)
+>max_heap_a.Push(5)
+>max_heap_a.Push(30)
+>max_heap_a.Push(40)
+>max_heap_a.Push(80)
+>max_heap_a.Push(35)
+>max_heap_a.Push(2)
+>max_heap_a.Push(20)
+>max_heap_a.Push(15)
+>max_heap_a.Push(60)
+>max_heap_a.Push(70)
+>max_heap_a.Push(8)
+>max_heap_a.Push(10)
+> std::cout<<max_heap_a
+> Array Illustration: 
+max_heap_a = [NULL, 80, 70, 35, 20, 60, 30, 2, 5, 15, 40, 50, 8, 10]
+
+------------Initialization with  BottomUpConstruction() Test--------------
+> int max_arr[] = {50, 5, 30, 40, 80, 35, 2, 20, 15, 60, 70, 8, 10};
+> max_heap_b.BottomUpConstruction(max_arr, 13);
+> std::cout<<max_heap_b
+> Array Illustration: 
+max_heap_b = [NULL, 80, 70, 35, 40, 60, 30, 2, 20, 15, 50, 5, 8, 10]
+
+------------Push() Test--------------
+>max_heap_a.Push(999)
+> Array Illustration: 
+max_heap_a = [NULL, 999, 70, 80, 20, 60, 30, 35, 5, 15, 40, 50, 8, 10, 2]
+>max_heap_a.Push(1)
+> Array Illustration: 
+max_heap_a = [NULL, 999, 70, 80, 20, 60, 30, 35, 5, 15, 40, 50, 8, 10, 2, 1]
+>max_heap_a.Push(97)
+> Array Illustration: 
+max_heap_a = [NULL, 999, 97, 80, 70, 60, 30, 35, 20, 15, 40, 50, 8, 10, 2, 1, 5]
+
+>max_heap_b.Push(666)
+> Array Illustration: 
+max_heap_b = [NULL, 666, 70, 80, 40, 60, 30, 35, 20, 15, 50, 5, 8, 10, 2]
+>max_heap_b.Push(0)
+> Array Illustration: 
+max_heap_b = [NULL, 666, 70, 80, 40, 60, 30, 35, 20, 15, 50, 5, 8, 10, 2, 0]
+>max_heap_b.Push(49)
+> Array Illustration: 
+max_heap_b = [NULL, 666, 70, 80, 49, 60, 30, 35, 40, 15, 50, 5, 8, 10, 2, 0, 20]
+
+------------Pop() Test--------------
+>max_heap_a.Pop()
+> Array Illustration: 
+max_heap_a = [NULL, 97, 70, 80, 20, 60, 30, 35, 5, 15, 40, 50, 8, 10, 2, 1]
+>max_heap_a.Pop()
+> Array Illustration: 
+max_heap_a = [NULL, 80, 70, 35, 20, 60, 30, 2, 5, 15, 40, 50, 8, 10, 1]
+>max_heap_a.Pop()
+> Array Illustration: 
+max_heap_a = [NULL, 70, 60, 35, 20, 50, 30, 2, 5, 15, 40, 1, 8, 10]
+
+>max_heap_b.Pop()
+> Array Illustration: 
+max_heap_b = [NULL, 80, 70, 35, 49, 60, 30, 20, 40, 15, 50, 5, 8, 10, 2, 0]
+>max_heap_b.Pop()
+> Array Illustration: 
+max_heap_b = [NULL, 70, 60, 35, 49, 50, 30, 20, 40, 15, 0, 5, 8, 10, 2]
+>max_heap_b.Pop()
+> Array Illustration: 
+max_heap_b = [NULL, 60, 50, 35, 49, 5, 30, 20, 40, 15, 0, 2, 8, 10]
+
+------------Top() Test--------------
+>max_heap_a.Top() = 70
+>max_heap_b.Top() = 60
+
+|======================================|
+|===========MinHeap test===============|
+|======================================|
+
+(MinHeap::MinHeap() is called...)
+(MinHeap::MinHeap() ended...)
+(MinHeap::MinHeap() is called...)
+(MinHeap::MinHeap() ended...)
+
+------------IsEmpty() Test--------------
+min_heap_a.IsEmpty() = true
+min_heap_b.IsEmpty() = true
+
+------------Initialization with Push() Test--------------
+>min_heap_a.Push(50)
+>min_heap_a.Push(5)
+>min_heap_a.Push(30)
+>min_heap_a.Push(40)
+>min_heap_a.Push(80)
+>min_heap_a.Push(35)
+>min_heap_a.Push(2)
+>min_heap_a.Push(20)
+>min_heap_a.Push(15)
+>min_heap_a.Push(60)
+>min_heap_a.Push(70)
+>min_heap_a.Push(8)
+>min_heap_a.Push(10)
+> std::cout<<min_heap_a
+> Array Illustration: 
+min_heap_a = [NULL, 2, 15, 5, 20, 60, 8, 30, 50, 40, 80, 70, 35, 10]
+
+------------Initialization with  BottomUpConstruction() Test--------------
+> int min_arr[] = {50, 5, 30, 40, 80, 35, 2, 20, 15, 60, 70, 8, 10};
+> min_heap_b.BottomUpConstruction(min_arr, 13);
+> std::cout<<min_heap_b
+> Array Illustration: 
+min_heap_b = [NULL, 2, 5, 8, 15, 60, 10, 30, 20, 40, 80, 70, 35, 50]
+
+------------Push() Test--------------
+>min_heap_a.Push(999)
+> Array Illustration: 
+min_heap_a = [NULL, 2, 15, 5, 20, 60, 8, 30, 50, 40, 80, 70, 35, 10, 999]
+>min_heap_a.Push(1)
+> Array Illustration: 
+min_heap_a = [NULL, 1, 15, 2, 20, 60, 8, 5, 50, 40, 80, 70, 35, 10, 999, 30]
+>min_heap_a.Push(97)
+> Array Illustration: 
+min_heap_a = [NULL, 1, 15, 2, 20, 60, 8, 5, 50, 40, 80, 70, 35, 10, 999, 30, 97]
+
+>min_heap_b.Push(666)
+> Array Illustration: 
+min_heap_b = [NULL, 2, 5, 8, 15, 60, 10, 30, 20, 40, 80, 70, 35, 50, 666]
+>min_heap_b.Push(0)
+> Array Illustration: 
+min_heap_b = [NULL, 0, 5, 2, 15, 60, 10, 8, 20, 40, 80, 70, 35, 50, 666, 30]
+>min_heap_b.Push(49)
+> Array Illustration: 
+min_heap_b = [NULL, 0, 5, 2, 15, 60, 10, 8, 20, 40, 80, 70, 35, 50, 666, 30, 49]
+
+------------Pop() Test--------------
+>min_heap_a.Pop()
+> Array Illustration: 
+min_heap_a = [NULL, 2, 15, 5, 20, 60, 8, 30, 50, 40, 80, 70, 35, 10, 999, 97]
+>min_heap_a.Pop()
+> Array Illustration: 
+min_heap_a = [NULL, 5, 15, 8, 20, 60, 10, 30, 50, 40, 80, 70, 35, 97, 999]
+>min_heap_a.Pop()
+> Array Illustration: 
+min_heap_a = [NULL, 8, 15, 10, 20, 60, 35, 30, 50, 40, 80, 70, 999, 97]
+>min_heap_a.Pop()
+> Array Illustration: 
+min_heap_a = [NULL, 10, 15, 30, 20, 60, 35, 97, 50, 40, 80, 70, 999]
+
+>min_heap_b.Pop()
+> Array Illustration: 
+min_heap_b = [NULL, 2, 5, 8, 15, 60, 10, 30, 20, 40, 80, 70, 35, 50, 666, 49]
+>min_heap_b.Pop()
+> Array Illustration: 
+min_heap_b = [NULL, 5, 15, 8, 20, 60, 10, 30, 49, 40, 80, 70, 35, 50, 666]
+>min_heap_b.Pop()
+> Array Illustration: 
+min_heap_b = [NULL, 8, 15, 10, 20, 60, 35, 30, 49, 40, 80, 70, 666, 50]
+
+------------Top() Test--------------
+>min_heap_a.Top() = 10
+>min_heap_b.Top() = 8
+
+(MinHeap::~MinHeap() is called...)
+(MinHeap::~MinHeap() ended...)
+(MinHeap::~MinHeap() is called...)
+(MinHeap::~MinHeap() ended...)
+(MaxHeap::~MaxHeap() is called...)
+(MaxHeap::~MaxHeap() ended...)
+(MaxHeap::~MaxHeap() is called...)
+(MaxHeap::~MaxHeap() ended...)
