@@ -4,8 +4,82 @@
 #include <cmath>
 
 template <class K, class E>
-void BST<K, E>::Delete(const K &k) const {
-    BSTNode<K, E> *the_node = GetNode(k);
+BSTNode<K, E>* BST<K, E>::SearchLeftMostEngine(BSTNode<K, E>* current_node, BSTNode<K, E> *&parent_node){
+    parent_node = NULL;
+    while((current_node != NULL) && (current_node->leftchild != NULL)){
+        parent_node = current_node;
+        current_node = current_node->leftchild;
+    }
+    return current_node;
+}
+
+template <class K, class E>
+BSTNode<K, E>* BST<K, E>::SearchRightMostEngine(BSTNode<K, E>* current_node, BSTNode<K, E> *&parent_node){
+    parent_node = NULL;
+    while((current_node != NULL) && (current_node->rightchild != NULL)){
+        parent_node = current_node;
+        current_node = current_node->rightchild;
+    }
+    return current_node;
+}
+
+template <class K, class E>
+void BST<K, E>::SwapData(BSTNode<K, E> *node1, BSTNode<K, E> *node2){
+    pair<K, E> tmp = node1->data;
+    node1->data = node2->data;
+    node2->data = tmp;
+}
+
+template <class K, class E>
+void BST<K, E>::DeleteNode(BSTNode<K, E> *the_node, BSTNode<K, E> *the_parent_node){
+    if(the_node == NULL){
+        throw std::runtime_error(std::string("Warning: input the_node does not exist in the BST. Cannot perform DeleteNode()."));
+    }
+
+    if((the_node->leftchild != NULL) && (the_node->rightchild != NULL)){
+        //Find the largest key in the left subtree
+        BSTNode<K, E> *successor_node = SearchRightMostEngine(the_node->leftchild, the_parent_node);
+        if(the_parent_node == NULL){//the leftchild of the_node does not have rightchild
+            the_parent_node = the_node;
+        }
+        SwapData(successor_node, the_node);
+        DeleteNode(successor_node, the_parent_node);
+    }else if(the_node->leftchild != NULL){
+        if(the_parent_node->leftchild == the_node){
+            the_parent_node->leftchild = the_node->leftchild;
+        }else{
+            the_parent_node->rightchild = the_node->leftchild;
+        }
+
+        the_node->leftchild = NULL;
+        delete the_node;
+        the_node = NULL;
+    }else if(the_node->rightchild != NULL){
+        if(the_parent_node->leftchild == the_node){
+            the_parent_node->leftchild = the_node->rightchild;
+        }else{
+            the_parent_node->rightchild = the_node->rightchild;
+        }
+
+        the_node->rightchild = NULL;
+        delete the_node;
+        the_node = NULL;
+    }else{//leaf node
+        if(the_parent_node->leftchild == the_node){
+            the_parent_node->leftchild = NULL;
+        }else{
+            the_parent_node->rightchild = NULL;
+        }
+
+        delete the_node;
+        the_node = NULL;
+    }
+}
+
+template <class K, class E>
+void BST<K, E>::Delete(const K &k) {
+    BSTNode<K, E> *the_parent_node = NULL;
+    BSTNode<K, E> *the_node = GetNode(k, the_parent_node);
 
     if(the_node == NULL){
         throw std::runtime_error(std::string("Warning: No node with the key exists in the BST."));
@@ -13,24 +87,54 @@ void BST<K, E>::Delete(const K &k) const {
 
     if((the_node->leftchild != NULL) && (the_node->rightchild != NULL)){
         //Find the largest key in the left subtree
-
+        BSTNode<K, E> *successor_node = SearchRightMostEngine(the_node->leftchild, the_parent_node);
+        if(the_parent_node == NULL){//the leftchild of the_node does not have rightchild
+            the_parent_node = the_node;
+        }
+        SwapData(successor_node, the_node);
+        DeleteNode(successor_node, the_parent_node);
     }else if(the_node->leftchild != NULL){
-    
-    }else if(the_node->rightchild != NNULL){
-    
-    }else{
+        if(the_parent_node->leftchild == the_node){
+            the_parent_node->leftchild = the_node->leftchild;
+        }else{
+            the_parent_node->rightchild = the_node->leftchild;
+        }
+
+        the_node->leftchild = NULL;
+        delete the_node;
+        the_node = NULL;
+    }else if(the_node->rightchild != NULL){
+        if(the_parent_node->leftchild == the_node){
+            the_parent_node->leftchild = the_node->rightchild;
+        }else{
+            the_parent_node->rightchild = the_node->rightchild;
+        }
+
+        the_node->rightchild = NULL;
+        delete the_node;
+        the_node = NULL;
+    }else{//leaf node
+        if(the_parent_node->leftchild == the_node){
+            the_parent_node->leftchild = NULL;
+        }else{
+            the_parent_node->rightchild = NULL;
+        }
+
         delete the_node;
         the_node = NULL;
     }
 }
 
 template <class K, class E>
-BSTNode<K, E>* BST<K, E>::GetNode(const K &k) const {
+BSTNode<K, E>* BST<K, E>::GetNode(const K &k, BSTNode<K, E> *&the_parent_node){
     BSTNode<K, E> *current_node = root;
+    the_parent_node             = NULL;
     while(current_node){
         if(k < current_node->data.first){
+            the_parent_node = current_node;
             current_node = current_node->leftchild;
         }else if(k > current_node->data.first){
+            the_parent_node = current_node;
             current_node = current_node->rightchild;
         }else{
             return current_node;

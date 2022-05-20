@@ -123,9 +123,15 @@ class BST : public Dictionary<K, E>{
         void                               LevelOrder          ();
 
         pair<K, E>*                        Get                 (const K &)     const;
-        BSTNode<K, E>*                     GetNode             (const K &)     const;
+        BSTNode<K, E>*                     GetNode             (const K &k, BSTNode<K, E> *&the_parent_node);
         void                               Insert              (const pair<K, E>&);
-        void                               Delete              (const K &){};
+        void                               Delete              (const K &);
+        void                               DeleteNode          (BSTNode<K, E> *the_node, BSTNode<K, E> *the_parent_node);
+
+
+        BSTNode<K, E>*                     SearchLeftMostEngine (BSTNode<K, E>* current_node, BSTNode<K, E> *&parent_node);
+        BSTNode<K, E>*                     SearchRightMostEngine(BSTNode<K, E>* current_node, BSTNode<K, E> *&parent_node);
+        void                               SwapData             (BSTNode<K, E> *node1, BSTNode<K, E> *node2);
 
         std::string                        Name                ()              const {return name;}
         void                               SetName             (const std::string &in_name)    {name = in_name;}
