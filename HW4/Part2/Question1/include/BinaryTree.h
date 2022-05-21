@@ -143,7 +143,7 @@ class BinaryTree{
 
         void                               Inorder             ();
         void                               Inorder             (BinaryTreeNode<T> *t);
-        void                               NorecInorder        ();
+        void                               NonrecInorder       ();
         void                               NoStackInorder      ();
         void                               Preorder            ();
         void                               Preorder            (BinaryTreeNode<T> *t);

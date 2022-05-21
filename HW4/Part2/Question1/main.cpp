@@ -48,12 +48,12 @@ int main(){
     binary_tree_b.Inorder();
 
     std::cout<<std::endl;
-    std::cout<<"------------NorecInorder() Test--------------"<<std::endl;
-    std::cout<<"> binary_tree_a.NorecInorder() = "<<std::endl;
-    binary_tree_a.NorecInorder();
+    std::cout<<"------------NonrecInorder() Test--------------"<<std::endl;
+    std::cout<<"> binary_tree_a.NonrecInorder() = "<<std::endl;
+    binary_tree_a.NonrecInorder();
     std::cout<<std::endl;
-    std::cout<<"> binary_tree_b.NorecInorder() = "<<std::endl;
-    binary_tree_b.NorecInorder();
+    std::cout<<"> binary_tree_b.NonrecInorder() = "<<std::endl;
+    binary_tree_b.NonrecInorder();
 
     std::cout<<std::endl;
     std::cout<<"------------NoStackInorder() Test--------------"<<std::endl;
@@ -97,8 +97,8 @@ int main(){
     std::cout<<"> binary_tree_c.Inorder();"<<std::endl;
     binary_tree_c.Inorder();
     std::cout<<std::endl;
-    std::cout<<"> binary_tree_c.NorecInorder() = "<<std::endl;
-    binary_tree_c.NorecInorder();
+    std::cout<<"> binary_tree_c.NonrecInorder() = "<<std::endl;
+    binary_tree_c.NonrecInorder();
     std::cout<<std::endl;
     std::cout<<"> binary_tree_c.NoStackInorder() = "<<std::endl;
     binary_tree_c.NoStackInorder();
@@ -127,8 +127,8 @@ int main(){
     std::cout<<"> binary_tree_c_left.Inorder();"<<std::endl;
     binary_tree_c_left.Inorder();
     std::cout<<std::endl;
-    std::cout<<"> binary_tree_c_left.NorecInorder() = "<<std::endl;
-    binary_tree_c_left.NorecInorder();
+    std::cout<<"> binary_tree_c_left.NonrecInorder() = "<<std::endl;
+    binary_tree_c_left.NonrecInorder();
     std::cout<<std::endl;
     std::cout<<"> binary_tree_c_left.NoStackInorder() = "<<std::endl;
     binary_tree_c_left.NoStackInorder();
@@ -157,8 +157,8 @@ int main(){
     std::cout<<"> binary_tree_c_right.Inorder();"<<std::endl;
     binary_tree_c_right.Inorder();
     std::cout<<std::endl;
-    std::cout<<"> binary_tree_c_right.NorecInorder() = "<<std::endl;
-    binary_tree_c_right.NorecInorder();
+    std::cout<<"> binary_tree_c_right.NonrecInorder() = "<<std::endl;
+    binary_tree_c_right.NonrecInorder();
     std::cout<<std::endl;
     std::cout<<"> binary_tree_c_right.NoStackInorder() = "<<std::endl;
     binary_tree_c_right.NoStackInorder();
@@ -181,8 +181,8 @@ int main(){
     std::cout<<"> binary_tree_d.Inorder();"<<std::endl;
     binary_tree_d.Inorder();
     std::cout<<std::endl;
-    std::cout<<"> binary_tree_d.NorecInorder() = "<<std::endl;
-    binary_tree_d.NorecInorder();
+    std::cout<<"> binary_tree_d.NonrecInorder() = "<<std::endl;
+    binary_tree_d.NonrecInorder();
     std::cout<<std::endl;
     std::cout<<"> binary_tree_d.NoStackInorder() = "<<std::endl;
     binary_tree_d.NoStackInorder();

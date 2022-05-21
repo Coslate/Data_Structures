@@ -85,7 +85,7 @@ void BinaryTree<T>::NoStackInorder(){
 }
 
 template <class T>
-void BinaryTree<T>::NorecInorder(){
+void BinaryTree<T>::NonrecInorder(){
     std::stack<BinaryTreeNode<T>* > node_stack;
     BinaryTreeNode<T> *current_node = root;
 
