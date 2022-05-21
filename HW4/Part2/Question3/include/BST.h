@@ -27,8 +27,12 @@ class BSTNode{
         pair<K, E>         data;
         BSTNode<K, E>*     leftchild;
         BSTNode<K, E>*     rightchild;
+        int                left_size; //1+ the number of node in the left-subtree
+        int                root_size; //1+ the number of nodes in left-subtree and right-subtree
+
+        void               PrintWithLeftSize(){std::cout<<"("<<data.first<<", "<<data.second<<", "<<left_size<<")";}
     public:
-        BSTNode(const pair<K, E> &in_data, BSTNode<K, E>* const leftchild=NULL, BSTNode<K, E>* const rightchild=NULL) : data(in_data), leftchild(leftchild), rightchild(rightchild){}
+        BSTNode(const pair<K, E> &in_data, BSTNode<K, E>* const leftchild=NULL, BSTNode<K, E>* const rightchild=NULL, const int in_left_size = 1, const int in_root_size = 0) : data(in_data), leftchild(leftchild), rightchild(rightchild), left_size(in_left_size), root_size(in_root_size){}
         ~BSTNode(){}
 
         friend class BST<K, E>;
@@ -56,19 +60,19 @@ class BST : public Dictionary<K, E>{
             BSTNode<K, E>* current_node   = root;
 
             if(current_p_node != NULL){
-                current_node = new BSTNode<K, E> (current_p_node->data, NULL, NULL);
+                current_node = new BSTNode<K, E> (current_p_node->data, NULL, NULL, current_p_node->left_size, current_p_node->root_size);
                 root         = current_node;
             }
 
             while(current_p_node != NULL){
                 if(current_p_node->leftchild != NULL){
                     node_p_queue.push(current_p_node->leftchild);
-                    current_node->leftchild = new BSTNode<K, E> (current_p_node->leftchild->data, NULL, NULL);
+                    current_node->leftchild = new BSTNode<K, E> (current_p_node->leftchild->data, NULL, NULL, current_p_node->leftchild->left_size, current_p_node->leftchild->root_size);
                     node_queue.push(current_node->leftchild);
                 }
                 if(current_p_node->rightchild != NULL){
                     node_p_queue.push(current_p_node->rightchild);
-                    current_node->rightchild = new BSTNode<K, E> (current_p_node->rightchild->data, NULL, NULL);
+                    current_node->rightchild = new BSTNode<K, E> (current_p_node->rightchild->data, NULL, NULL, current_p_node->rightchild->left_size, current_p_node->rightchild->root_size);
                     node_queue.push(current_node->rightchild);
                 }
 
@@ -115,19 +119,23 @@ class BST : public Dictionary<K, E>{
 
         bool                               IsEmpty             ()              const {return (root==NULL);}
 
-        void                               Inorder             ();
-        void                               Preorder            ();
-        void                               Preorder            (BSTNode<K, E> *t);
-        void                               Postorder           ();
-        void                               Postorder           (BSTNode<K, E> *t);
-        void                               LevelOrder          ();
+        void                               Inorder             (bool print_left_size=false);
+        void                               Preorder            (bool print_left_size=false);
+        void                               Preorder            (BSTNode<K, E> *t, bool print_left_size=false);
+        void                               Postorder           (bool print_left_size=false);
+        void                               Postorder           (BSTNode<K, E> *t, bool print_left_size=false);
+        void                               LevelOrder          (bool print_left_size=false);
 
         pair<K, E>*                        Get                 (const K &)     const;
         BSTNode<K, E>*                     GetNode             (const K &k, BSTNode<K, E> *&the_parent_node);
         void                               Insert              (const pair<K, E>&);
         void                               Delete              (const K &);
         void                               DeleteNode          (BSTNode<K, E> *the_node, BSTNode<K, E> *the_parent_node);
+        pair<K, E>*                        RankGet             (int r);//search for the rth smallest pair
+        int                                BuildRootSize       (BSTNode<K, E> *node);
+        void                               BuildLeftSize       ();
 
+        void                               Split               (const K &k, BST<K, E> &small, pair<K, E> *&mid, BST<K, E> &big);
 
         BSTNode<K, E>*                     SearchLeftMostEngine (BSTNode<K, E>* current_node, BSTNode<K, E> *&parent_node);
         BSTNode<K, E>*                     SearchRightMostEngine(BSTNode<K, E>* current_node, BSTNode<K, E> *&parent_node);

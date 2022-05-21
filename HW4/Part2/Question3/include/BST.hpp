@@ -4,6 +4,126 @@
 #include <cmath>
 
 template <class K, class E>
+void BST<K, E>::Split(const K &k, BST<K, E> &small, pair<K, E> *&mid, BST<K, E> &big){
+    //Split the BST by the Key k
+    if(root == NULL){
+        small.root = NULL;
+        big.root   = NULL;
+        mid        = NULL;
+        return;
+    }
+    K k_to_delete;
+    E e_to_delete;
+    pair<K, E> pair_to_delete(k_to_delete, e_to_delete);
+    BSTNode<K, E> *s_head            = new BSTNode<K, E>(pair_to_delete);
+    BSTNode<K, E> *s                 = s_head;
+    BSTNode<K, E> *b_head            = new BSTNode<K, E>(pair_to_delete);
+    BSTNode<K, E> *b                 = b_head;
+    BSTNode<K, E> *current_node      = root;
+
+    while(current_node){
+        if(k < current_node->data.first){
+            b->leftchild = current_node;
+            b = current_node;
+            current_node = current_node->leftchild;
+        }else if(k > current_node->data.first){
+            s->rightchild = current_node;
+            s = current_node;
+            current_node = current_node->rightchild;
+        }else{
+            s->rightchild = current_node->leftchild;
+            b->leftchild  = current_node->rightchild;
+            small.root    = s_head->rightchild;
+            delete s_head;
+
+            big.root      = b_head->leftchild;
+            delete b_head;
+
+            mid = new pair<K, E>(current_node->data.first, current_node->data.second);
+            delete current_node;
+            current_node = NULL;
+            root         = NULL;
+            return;
+        }
+    }
+
+    //no pair with key k
+    s->rightchild = NULL;
+    b->leftchild  = NULL;
+    small.root    = s_head->rightchild;
+    delete s_head;
+
+    big.root   = b_head->leftchild;
+    delete b_head;
+    mid  = NULL;
+    root = NULL;
+    return;
+}
+
+template <class K, class E>
+int BST<K, E>::BuildRootSize(BSTNode<K, E> *node){
+    if((node->leftchild != NULL) && (node->rightchild != NULL)){
+        node->root_size = 1 + BuildRootSize(node->leftchild) + BuildRootSize(node->rightchild);
+    }else if(node->leftchild != NULL){
+        node->root_size = 1 + BuildRootSize(node->leftchild);
+    }else if(node->rightchild != NULL){
+        node->root_size = 1 + BuildRootSize(node->rightchild);
+    }else{
+        node->root_size = 1;
+    }
+    return node->root_size;
+}
+
+template <class K, class E>
+void BST<K, E>::BuildLeftSize(){
+    BuildRootSize(root);
+
+    //Update left_size field of each node in the BST
+    std::queue<BSTNode<K, E>* > node_queue;
+    BSTNode<K, E>* current_node   = root;
+
+    while(current_node != NULL){
+        if(current_node->leftchild != NULL){
+            current_node->left_size = 1 + current_node->leftchild->root_size;
+            node_queue.push(current_node->leftchild);
+        }else{
+            current_node->left_size = 1;
+        }
+
+        if(current_node->rightchild != NULL){
+            node_queue.push(current_node->rightchild);
+        }
+
+
+        if(node_queue.empty()){
+            break;
+        }
+
+        current_node = node_queue.front();
+        node_queue.pop();
+    }
+}
+
+template <class K, class E>
+pair<K, E>* BST<K, E>::RankGet(int r){//search for the rth smallest pair
+    BuildLeftSize();
+
+    BSTNode<K, E> *current_node = root;
+    while(current_node){
+        if(r < current_node->left_size){
+            current_node = current_node->leftchild;
+        }else if(r > current_node->left_size){
+            r -= current_node->left_size;
+            current_node = current_node->rightchild;
+        }else{
+            return &current_node->data;
+        }
+    }
+
+    return NULL;
+}
+
+template <class K, class E>
 BSTNode<K, E>* BST<K, E>::SearchLeftMostEngine(BSTNode<K, E>* current_node, BSTNode<K, E> *&parent_node){
     parent_node = NULL;
     while((current_node != NULL) && (current_node->leftchild != NULL)){
@@ -161,7 +281,7 @@ pair<K, E>* BST<K, E>::Get(const K &k) const {
 }
 
 template <class K, class E>
-void BST<K, E>::Inorder(){
+void BST<K, E>::Inorder(bool print_left_size){
     std::stack<BSTNode<K, E>* > node_stack;
     BSTNode<K, E> *current_node = root;
 
@@ -177,19 +297,30 @@ void BST<K, E>::Inorder(){
 
         current_node = node_stack.top();
         node_stack.pop();
-        std::cout<<current_node<<" ";
+        if(print_left_size){
+            current_node->PrintWithLeftSize();
+            std::cout<<" ";
+        }else{
+            std::cout<<current_node<<" ";
+        }
         current_node = current_node->rightchild;
     }
     std::cout<<std::endl;
 }
 
 template <class K, class E>
-void BST<K, E>::LevelOrder(){
+void BST<K, E>::LevelOrder(bool print_left_size){
     std::queue<BSTNode<K, E>* > node_queue;
     BSTNode<K, E>* current_node   = root;
 
     while(current_node != NULL){
-        std::cout<<current_node<<" ";
+        if(print_left_size){
+            current_node->PrintWithLeftSize();
+            std::cout<<" ";
+        }else{
+            std::cout<<current_node<<" ";
+        }
+
         if(current_node->leftchild != NULL){
             node_queue.push(current_node->leftchild);
         }
@@ -208,32 +339,42 @@ void BST<K, E>::LevelOrder(){
 }
 
 template <class K, class E>
-void BST<K, E>::Preorder(){
-    Preorder(root);
+void BST<K, E>::Preorder(bool print_left_size){
+    Preorder(root, print_left_size);
     std::cout<<std::endl;
 }
 
 template <class K, class E>
-void BST<K, E>::Preorder(BSTNode<K, E> *t){
+void BST<K, E>::Preorder(BSTNode<K, E> *t, bool print_left_size){
     if(t != NULL){
-        std::cout<<t<<" ";
-        Preorder(t->leftchild);
-        Preorder(t->rightchild);
+        if(print_left_size){
+            t->PrintWithLeftSize();
+            std::cout<<" ";
+        }else{
+            std::cout<<t<<" ";
+        }
+        Preorder(t->leftchild, print_left_size);
+        Preorder(t->rightchild, print_left_size);
     }
 }
 
 template <class K, class E>
-void BST<K, E>::Postorder(){
-    Postorder(root);
+void BST<K, E>::Postorder(bool print_left_size){
+    Postorder(root, print_left_size);
     std::cout<<std::endl;
 }
 
 template <class K, class E>
-void BST<K, E>::Postorder(BSTNode<K, E> *t){
+void BST<K, E>::Postorder(BSTNode<K, E> *t, bool print_left_size){
     if(t != NULL){
-        Postorder(t->leftchild);
-        Postorder(t->rightchild);
-        std::cout<<t<<" ";
+        Postorder(t->leftchild, print_left_size);
+        Postorder(t->rightchild, print_left_size);
+        if(print_left_size){
+            t->PrintWithLeftSize();
+            std::cout<<" ";
+        }else{
+            std::cout<<t<<" ";
+        }
     }
 }
 
@@ -273,19 +414,19 @@ void BST<K, E>::operator=(const BST &other){
     BSTNode<K, E>* current_node   = root;
 
     if(current_p_node != NULL){
-        current_node = new BSTNode<K, E> (current_p_node->data, NULL, NULL);
+        current_node = new BSTNode<K, E> (current_p_node->data, NULL, NULL, current_p_node->left_size, current_p_node->root_size);
         root         = current_node;
     }
 
     while(current_p_node != NULL){
         if(current_p_node->leftchild != NULL){
             node_p_queue.push(current_p_node->leftchild);
-            current_node->leftchild = new BSTNode<K, E> (current_p_node->leftchild->data, NULL, NULL);
+            current_node->leftchild = new BSTNode<K, E> (current_p_node->leftchild->data, NULL, NULL, current_p_node->leftchild->left_size, current_p_node->leftchild->root_size);
             node_queue.push(current_node->leftchild);
         }
         if(current_p_node->rightchild != NULL){
             node_p_queue.push(current_p_node->rightchild);
-            current_node->rightchild = new BSTNode<K, E> (current_p_node->rightchild->data, NULL, NULL);
+            current_node->rightchild = new BSTNode<K, E> (current_p_node->rightchild->data, NULL, NULL, current_p_node->rightchild->left_size, current_p_node->rightchild->root_size);
             node_queue.push(current_node->rightchild);
         }
 
