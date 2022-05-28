@@ -3,13 +3,7 @@
 
 #include <string>
 #include <cfloat>
-#include <climits>
-#include <math.h>
-#include <unordered_map>
-#include <algorithm>
 #include <iostream>
-#include <stack>
-#include <queue>
 #include <Graph.h>
 #include <Chain.h>
 
@@ -95,6 +89,10 @@ class LinkedGraph : public Graph<T>{
         void                               Setup1              ();
         void                               Setup2              ();
         void                               Setup3              ();
+
+        void                               BFS                 (T v);
+        void                               DFS                 (T v);
+        void                               DFSRecursive        (T v, std::unordered_map<T, bool> &visited, std::unordered_map<T, int> &t_to_index);
 
         std::string                        Name                ()              const {return name;}
         void                               SetName             (const std::string &in_name)    {name = in_name;}

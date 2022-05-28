@@ -1,5 +1,9 @@
 //LinkedGraph.hpp
 #include <LinkedGraph.h>
+#include <algorithm>
+#include <unordered_map>
+#include <stack>
+#include <queue>
 #include <cstdlib>
 #include <cmath>
 #include <sstream>
@@ -10,6 +14,62 @@ T ConvertTo (const std::string &str){
     T num;
     ss >> num;
     return num;
+}
+
+template <class T>
+void LinkedGraph<T>::DFSRecursive(T v, std::unordered_map<T, bool> &visited, std::unordered_map<T, int> &t_to_index){
+    std::cout<<v<<" ";
+    visited[v] = true;
+    //for all adjacent points
+    for(typename Chain<T>::Iterator j = adj_list[t_to_index[v]].Begin(); j!=adj_list[t_to_index[v]].End(); j++){
+        T adj_point_w = *j;
+        if(!visited[adj_point_w]){
+            DFSRecursive(adj_point_w, visited, t_to_index);
+        }
+    }
+}
+
+template <class T>
+void LinkedGraph<T>::DFS(T v){
+    std::unordered_map<T, bool> visited;
+    std::unordered_map<T, int>  t_to_index;
+    //Initialization visited arr
+    for(int i=0;i<Graph<T>::n;++i){
+        visited[ConvertTo<T>(std::to_string(i))] = false;
+        t_to_index[ConvertTo<T>(std::to_string(i))] = i;
+    }
+
+    DFSRecursive(v, visited, t_to_index);
+}
+
+template <class T>
+void LinkedGraph<T>::BFS(T v){
+    std::unordered_map<T, bool> visited;
+    std::unordered_map<T, int>  t_to_index;
+    //Initialization visited arr
+    for(int i=0;i<Graph<T>::n;++i){
+        visited[ConvertTo<T>(std::to_string(i))] = false;
+        t_to_index[ConvertTo<T>(std::to_string(i))] = i;
+    }
+
+    visited[v] = true;
+    std::queue<T> q;
+    q.push(v);
+    std::cout<<v<<" ";
+    while(!q.empty()){
+        T top = q.front();
+        q.pop();
+
+        //for all adjacent points
+        for(typename Chain<T>::Iterator j = adj_list[t_to_index[top]].Begin(); j!=adj_list[t_to_index[top]].End(); j++){
+            T adj_point_w = *j;
+            if(!visited[adj_point_w]){
+                q.push(adj_point_w);
+                visited[adj_point_w] = true;
+                std::cout<<*j<<" ";
+            }
+        }
+    }
 }
 
 template <class T>
