@@ -2,7 +2,10 @@
 #define _LinkedGraph_H_
 
 #include <string>
+#include <unordered_map>
 #include <cfloat>
+#include <stack>
+#include <queue>
 #include <iostream>
 #include <Graph.h>
 #include <Chain.h>
@@ -91,8 +94,14 @@ class LinkedGraph : public Graph<T>{
         void                               Setup3              ();
 
         void                               BFS                 (T v);
-        void                               DFS                 (T v);
-        void                               DFSRecursive        (T v, std::unordered_map<T, bool> &visited, std::unordered_map<T, int> &t_to_index);
+        void                               DFS                 (T v, const bool print_value=true);
+        void                               DFSRecursive        (T v, std::unordered_map<T, bool> &visited, std::unordered_map<T, int> &t_to_index, const bool print_value=true);
+        void                               DFSRecursive        (T v, std::unordered_map<T, bool> &visited, std::unordered_map<T, int> &t_to_index, std::queue<T> &all_connected_component, const bool print_value=true);
+        void                               Components          ();
+        void                               OutputNewComponent  (std::queue<T> &all_connected_component);
+
+        void                               DfnLow              (const T x);
+        void                               DfnLow              (const T u, const T v, std::unordered_map<T, int> &t_to_index, int *&dfn, int *&low, int &num);
 
         std::string                        Name                ()              const {return name;}
         void                               SetName             (const std::string &in_name)    {name = in_name;}
