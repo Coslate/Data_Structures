@@ -24,10 +24,11 @@ class MatrixWDigraph : public Graph<T>{
     private:
         std::string    name;
         T          **length;
+        int            print_shift;//for standard output format
 
     public:
-        MatrixWDigraph(): Graph<T>(), name("NULL"){Graph<T>::n = 0; Graph<T>::e = 0;}
-        MatrixWDigraph(const int n, const int e=0): Graph<T>(), name("NULL"){
+        MatrixWDigraph(): Graph<T>(), name("NULL"), print_shift(0){Graph<T>::n = 0; Graph<T>::e = 0;}
+        MatrixWDigraph(const int n, const int e=0, const int print_shift=0): Graph<T>(), name("NULL"), print_shift(print_shift){
             Graph<T>::n = n;
             Graph<T>::e = e;
 
@@ -44,7 +45,7 @@ class MatrixWDigraph : public Graph<T>{
                 }
             }
         }
-        MatrixWDigraph(const std::string &name = "NULL", const int n=0, const int e=0): Graph<T>(), name(name){
+        MatrixWDigraph(const std::string &name = "NULL", const int n=0, const int e=0, const int print_shift=0): Graph<T>(), name(name), print_shift(print_shift){
             Graph<T>::n = n;
             Graph<T>::e = e;
 
@@ -101,6 +102,7 @@ class MatrixWDigraph : public Graph<T>{
 
         std::string                        Name                ()              const {return name;}
         void                               SetName             (const std::string &in_name)    {name = in_name;}
+        void                               SetPrintShift       (const int in_print_shift=0)    {print_shift = in_print_shift;}
 
         //static bool SortFunction(const Term<CoefType, ExpType> &a, const Term<CoefType, ExpType> &b);
         void operator=(const MatrixWDigraph &gaph);

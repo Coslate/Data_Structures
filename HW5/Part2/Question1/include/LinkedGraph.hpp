@@ -200,8 +200,8 @@ void LinkedGraph<T>::Setup3(){//Build a specific graph
     adj_list[1].InsertBack(ConvertTo<T>("3"));
     adj_list[2].InsertBack(ConvertTo<T>("1"));
     adj_list[2].InsertBack(ConvertTo<T>("4"));
-    adj_list[3].InsertBack(ConvertTo<T>("1"));
     adj_list[3].InsertBack(ConvertTo<T>("4"));
+    adj_list[3].InsertBack(ConvertTo<T>("1"));
     adj_list[3].InsertBack(ConvertTo<T>("5"));
     adj_list[4].InsertBack(ConvertTo<T>("2"));
     adj_list[4].InsertBack(ConvertTo<T>("3"));
@@ -212,8 +212,8 @@ void LinkedGraph<T>::Setup3(){//Build a specific graph
     adj_list[6].InsertBack(ConvertTo<T>("7"));
     adj_list[7].InsertBack(ConvertTo<T>("5"));
     adj_list[7].InsertBack(ConvertTo<T>("6"));
-    adj_list[7].InsertBack(ConvertTo<T>("8"));
     adj_list[7].InsertBack(ConvertTo<T>("9"));
+    adj_list[7].InsertBack(ConvertTo<T>("8"));
     adj_list[8].InsertBack(ConvertTo<T>("7"));
     adj_list[9].InsertBack(ConvertTo<T>("7"));
 }

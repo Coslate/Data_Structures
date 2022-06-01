@@ -48,14 +48,20 @@ void MatrixWDigraph<T>::ShortestPath(const int n, const int v){//Dijkstra's Algo
         //choose u that is not in s and has smallest dist[u]
         T min_dist = ConvertTo<T>(std::to_string(INT_MAX));
         int min_u;
+        bool pick_one = false;
         for(int u=0;u<n;++u){
             if(!s[u]){//not in s
                 if(dist[u] < min_dist){
                     min_dist = dist[u];
                     min_u = u;
+                    pick_one = true;
                 }
             }
 
+        }
+
+        if(!pick_one){
+            break;
         }
 
         s[min_u] = true;
@@ -88,9 +94,14 @@ void MatrixWDigraph<T>::ShortestPath(const int n, const int v){//Dijkstra's Algo
     std::cout<<std::endl;
     std::cout<<"Paths\t\t\tLength"<<std::endl;
     for(int i=0;i<n;++i){
+        if(dist[i] == ConvertTo<T>(std::to_string(INT_MAX))){
+            continue;
+        }
+
         if(i == v){
             continue;
         }
+
         std::stack<int> stack_prev;
         int prev_pt = prev[i];
         while(prev_pt != v){
@@ -108,8 +119,12 @@ void MatrixWDigraph<T>::ShortestPath(const int n, const int v){//Dijkstra's Algo
         }
         std::cout<<i<<"\t";
 
-        for(int j=0;j<n-count_t-6;++j){
-            std::cout<<"\t";
+        if(count_t == 0){
+            std::cout<<"\t\t";
+        }else{
+            for(int j=0;j<(n-count_t-print_shift);++j){
+                std::cout<<"\t";
+            }
         }
         std::cout<<dist[i]<<std::endl;
     }
@@ -142,7 +157,7 @@ void MatrixWDigraph<T>::SetupG1pp(){//Build a specific graph
     length[1][0] = ConvertTo<T>(std::to_string(2));
     length[1][4] = ConvertTo<T>(std::to_string(10));
     length[1][5] = ConvertTo<T>(std::to_string(30));
-    length[2][3] = ConvertTo<T>(std::to_string(30));
+    length[2][3] = ConvertTo<T>(std::to_string(4));
     length[2][5] = ConvertTo<T>(std::to_string(10));
     length[4][3] = ConvertTo<T>(std::to_string(3));
     length[5][3] = ConvertTo<T>(std::to_string(4));
