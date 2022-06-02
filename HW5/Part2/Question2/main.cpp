@@ -4,9 +4,9 @@
 
 int main(){
     std::cout<<std::endl;
-    std::cout<<"===================================================="<<std::endl;
-    std::cout<<"======================  (a)  ======================="<<std::endl;
-    std::cout<<"===================================================="<<std::endl;
+    std::cout<<"=================================================================================="<<std::endl;
+    std::cout<<"=====================================  (a)  ======================================"<<std::endl;
+    std::cout<<"=================================================================================="<<std::endl;
     MatrixWDigraph<int> g1(8, 11, 6);
     MatrixWDigraph<int> g1p(6, 11, 4);
     MatrixWDigraph<int> g1pp(6, 10, 4);
@@ -49,6 +49,39 @@ int main(){
     std::cout<<"------------ShortestPath(Dijkstra) G1'' Test--------------"<<std::endl;
     std::cout<<"> g1pp.ShortestPath(6, 0);"<<std::endl;
     g1pp.ShortestPath(6, 0);
+
+    std::cout<<std::endl;
+    std::cout<<"=================================================================================="<<std::endl;
+    std::cout<<"=====================================  (b)  ======================================"<<std::endl;
+    std::cout<<"=================================================================================="<<std::endl;
+    MatrixWDigraph<int> g2(7, 10, 6);
+    MatrixWDigraph<int> g2p(3, 3, 2);
+    g2.SetName("g2");
+    g2p.SetName("g2p");
+
+    std::cout<<std::endl;
+    std::cout<<"------------SetupG2() Test--------------"<<std::endl;
+    std::cout<<"> g2.SetupG2()"<<std::endl;
+    std::cout<<"> std::cout<<g2;"<<std::endl;
+    g2.SetupG2();
+    std::cout<<g2;
+
+    std::cout<<std::endl;
+    std::cout<<"------------BellmanFord() of G2 Test--------------"<<std::endl;
+    std::cout<<"> g2.BellmanFord(8, 0);"<<std::endl;
+    g2.BellmanFord(8, 0);
+
+    std::cout<<std::endl;
+    std::cout<<"------------SetupG2p() Test--------------"<<std::endl;
+    std::cout<<"> g2p.SetupG2p()"<<std::endl;
+    std::cout<<"> std::cout<<g2p;"<<std::endl;
+    g2p.SetupG2p();
+    std::cout<<g2p;
+
+    std::cout<<std::endl;
+    std::cout<<"------------BellmanFord() of G2' Test--------------"<<std::endl;
+    std::cout<<"> g2p.BellmanFord(6, 0);"<<std::endl;
+//    g2p.BellmanFord(6, 0);
 
     std::cout<<std::endl;
     return EXIT_SUCCESS;

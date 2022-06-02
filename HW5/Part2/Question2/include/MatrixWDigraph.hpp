@@ -131,6 +131,67 @@ void MatrixWDigraph<T>::ShortestPath(const int n, const int v){//Dijkstra's Algo
 }
 
 template <class T>
+void MatrixWDigraph<T>::SetupG2p(){//Build a specific graph
+    if(Graph<T>::n != 0){
+        //Delete original data
+        for(int i=0;i<Graph<T>::n;++i){
+            delete [] length[i];
+        }
+        delete [] length;
+    }
+
+    Graph<T>::n = 3;
+    length= new T *[Graph<T>::n];
+    for(int i=0;i<Graph<T>::n;++i){
+        length[i] = new T [Graph<T>::n];
+    }
+
+    for(int i=0;i<Graph<T>::n;++i){
+        for(int j=0;j<Graph<T>::n;++j){
+            length[i][j] = ConvertTo<T>(std::to_string(INT_MAX));
+        }
+    }
+
+    length[0][1] = ConvertTo<T>(std::to_string(7));
+    length[0][2] = ConvertTo<T>(std::to_string(5));
+    length[1][2] = ConvertTo<T>(std::to_string(-5));
+}
+
+template <class T>
+void MatrixWDigraph<T>::SetupG2(){//Build a specific graph
+    if(Graph<T>::n != 0){
+        //Delete original data
+        for(int i=0;i<Graph<T>::n;++i){
+            delete [] length[i];
+        }
+        delete [] length;
+    }
+
+    Graph<T>::n = 7;
+    length= new T *[Graph<T>::n];
+    for(int i=0;i<Graph<T>::n;++i){
+        length[i] = new T [Graph<T>::n];
+    }
+
+    for(int i=0;i<Graph<T>::n;++i){
+        for(int j=0;j<Graph<T>::n;++j){
+            length[i][j] = ConvertTo<T>(std::to_string(INT_MAX));
+        }
+    }
+
+    length[0][1] = ConvertTo<T>(std::to_string(6));
+    length[0][2] = ConvertTo<T>(std::to_string(5));
+    length[0][3] = ConvertTo<T>(std::to_string(5));
+    length[1][4] = ConvertTo<T>(std::to_string(-1));
+    length[2][1] = ConvertTo<T>(std::to_string(-2));
+    length[2][4] = ConvertTo<T>(std::to_string(1));
+    length[3][2] = ConvertTo<T>(std::to_string(-2));
+    length[3][5] = ConvertTo<T>(std::to_string(-1));
+    length[4][6] = ConvertTo<T>(std::to_string(3));
+    length[5][6] = ConvertTo<T>(std::to_string(3));
+}
+
+template <class T>
 void MatrixWDigraph<T>::SetupG1pp(){//Build a specific graph
     if(Graph<T>::n != 0){
         //Delete original data
@@ -272,7 +333,7 @@ std::ostream & operator<<(std::ostream &os, const MatrixWDigraph<T> &out_graph){
 
     if(out_graph.n != 0){
         os<<"-----Print of "<<out_graph.name<<"-----"<<std::endl;
-        os<<out_graph.name<<": "<<std::endl;
+        os<<out_graph.name<<" adjacency matrix: "<<std::endl;
         os<<"\t";
         for(int i=0;i<out_graph.n;++i){
             os<<"["<<i<<"]\t";

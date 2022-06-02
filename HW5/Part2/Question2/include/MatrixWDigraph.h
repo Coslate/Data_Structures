@@ -97,6 +97,9 @@ class MatrixWDigraph : public Graph<T>{
         void                               SetupG1p            ();
         void                               SetupG1pp           ();
 
+        void                               SetupG2             ();
+        void                               SetupG2p            ();
+
 
         void                               ShortestPath        (const int n, const int v);
 

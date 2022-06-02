@@ -354,7 +354,7 @@ std::ostream & operator<<(std::ostream &os, const LinkedGraph<T> &out_graph){
 
     if(out_graph.n != 0){
         os<<"-----Print of "<<out_graph.name<<"-----"<<std::endl;
-        os<<out_graph.name<<": "<<std::endl;
+        os<<out_graph.name<<" adjacency list: "<<std::endl;
         for(int i=0;i<out_graph.n;++i){
             //Traverse all the chain of the node i
             os<<out_graph.adj_list[i];
