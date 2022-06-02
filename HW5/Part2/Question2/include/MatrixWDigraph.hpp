@@ -14,6 +14,119 @@ T ConvertTo (const std::string &str){
 }
 
 template <class T>
+void MatrixWDigraph<T>::BellmanFord(const int v){
+    int  n = Graph<T>::n;
+    T    *dist   = new T [n];
+    T    *dist_p = new T [n];
+    int  *prev = new int[n];
+    int count_while = 0;
+
+    //Initialization
+    for(int i=0;i<n;++i){
+        dist[i]   = length[v][i];
+        dist_p[i] = length[v][i];
+        prev[i] = v;
+    }
+    dist[v]   = 0;
+    dist_p[v] = 0;
+
+    //Print
+    while(count_while < n/2){
+        std::cout<<"\t";
+        count_while++;
+    }
+
+    std::cout<<"dist["<<n<<"]"<<std::endl;
+    std::cout<<"k\t";
+    for(int i=0;i<n;++i){
+        std::cout<<"["<<i<<"]\t";
+    }
+    std::cout<<std::endl;
+    std::cout<<"1\t";
+    for(int i=0;i<n;++i){
+        if(dist[i] == ConvertTo<T>(std::to_string(INT_MAX))){
+            std::cout<<"INF"<<"\t";
+        }else{
+            std::cout<<dist[i]<<"\t";
+        }
+    }
+    std::cout<<std::endl;
+
+    //BellmanFord-main
+    for(int k=2;k<=n-1;++k){
+        for(int u=0;u<n;++u){//foreach u != v
+            if(u == v) continue;
+
+            //foreach <i, u> in the graph, update it
+            for(int i=0;i<n;++i){
+                if(length[i][u] == ConvertTo<T>(std::to_string(INT_MAX))){//not edge
+                    continue;
+                }
+
+                if((dist[u] > dist_p[i] + length[i][u]) && (dist_p[i] != ConvertTo<T>(std::to_string(INT_MAX)))){
+                    dist[u] = dist_p[i] + length[i][u];
+                    prev[u] = i;
+                }
+            }
+        }
+
+        for(int i=0;i<n;++i){
+            dist_p[i] = dist[i];
+        }
+
+        //Print
+        std::cout<<k<<"\t";
+        for(int i=0;i<n;++i){
+            if(dist[i] == ConvertTo<T>(std::to_string(INT_MAX))){
+                std::cout<<"INF"<<"\t";
+            }else{
+                std::cout<<dist[i]<<"\t";
+            }
+        }
+        std::cout<<std::endl;
+    }
+
+    //Print the Shortest Paths
+    std::cout<<std::endl;
+    std::cout<<"Paths\t\t\t\t\tLength"<<std::endl;
+    for(int i=0;i<n;++i){
+        if(dist[i] == ConvertTo<T>(std::to_string(INT_MAX))){
+            continue;
+        }
+
+        if(i == v){
+            continue;
+        }
+
+        std::stack<int> stack_prev;
+        int prev_pt = prev[i];
+        while(prev_pt != v){
+            stack_prev.push(prev_pt);
+            prev_pt = prev[prev_pt];
+        }
+
+        std::cout<<v<<" -> ";
+        int count_t = 0;
+        while(!stack_prev.empty()){
+            int top = stack_prev.top();
+            stack_prev.pop();
+            std::cout<<top<<" -> ";
+            count_t++;
+        }
+        std::cout<<i<<"\t";
+
+        if(count_t == 0){
+            std::cout<<"\t\t\t\t";
+        }else{
+            for(int j=0;j<(n-count_t/2-print_shift);++j){
+                std::cout<<"\t";
+            }
+        }
+        std::cout<<dist[i]<<std::endl;
+    }
+}
+
+template <class T>
 void MatrixWDigraph<T>::ShortestPath(const int n, const int v){//Dijkstra's Algorithm
     bool *s = new bool [n];
     T    *dist = new T [n];

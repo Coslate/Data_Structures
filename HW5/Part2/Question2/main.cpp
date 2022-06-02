@@ -54,8 +54,8 @@ int main(){
     std::cout<<"=================================================================================="<<std::endl;
     std::cout<<"=====================================  (b)  ======================================"<<std::endl;
     std::cout<<"=================================================================================="<<std::endl;
-    MatrixWDigraph<int> g2(7, 10, 6);
-    MatrixWDigraph<int> g2p(3, 3, 2);
+    MatrixWDigraph<int> g2(7, 10, 4);
+    MatrixWDigraph<int> g2p(3, 3, 0);
     g2.SetName("g2");
     g2p.SetName("g2p");
 
@@ -68,8 +68,8 @@ int main(){
 
     std::cout<<std::endl;
     std::cout<<"------------BellmanFord() of G2 Test--------------"<<std::endl;
-    std::cout<<"> g2.BellmanFord(8, 0);"<<std::endl;
-    g2.BellmanFord(8, 0);
+    std::cout<<"> g2.BellmanFord(0);"<<std::endl;
+    g2.BellmanFord(0);
 
     std::cout<<std::endl;
     std::cout<<"------------SetupG2p() Test--------------"<<std::endl;
@@ -80,8 +80,8 @@ int main(){
 
     std::cout<<std::endl;
     std::cout<<"------------BellmanFord() of G2' Test--------------"<<std::endl;
-    std::cout<<"> g2p.BellmanFord(6, 0);"<<std::endl;
-//    g2p.BellmanFord(6, 0);
+    std::cout<<"> g2p.BellmanFord(0);"<<std::endl;
+    g2p.BellmanFord(0);
 
     std::cout<<std::endl;
     return EXIT_SUCCESS;

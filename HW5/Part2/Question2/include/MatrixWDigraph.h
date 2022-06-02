@@ -101,7 +101,8 @@ class MatrixWDigraph : public Graph<T>{
         void                               SetupG2p            ();
 
 
-        void                               ShortestPath        (const int n, const int v);
+        void                               ShortestPath        (const int n, const int v);//Dijkstra
+        void                               BellmanFord         (const int v);
 
         std::string                        Name                ()              const {return name;}
         void                               SetName             (const std::string &in_name)    {name = in_name;}
