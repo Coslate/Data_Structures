@@ -111,7 +111,7 @@ int main(){
     std::cout<<g2;
 
     std::cout<<std::endl;
-    std::cout<<"------------AllLengths() of G3 Test--------------"<<std::endl;
+    std::cout<<"------------AllLengths() of G2 Test--------------"<<std::endl;
     std::cout<<"> g2.AllLengths(7);"<<std::endl;
     g2.AllLengths(7);
 
