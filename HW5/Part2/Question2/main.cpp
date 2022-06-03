@@ -83,6 +83,38 @@ int main(){
     std::cout<<"> g2p.BellmanFord(0);"<<std::endl;
     g2p.BellmanFord(0);
 
+
+    std::cout<<std::endl;
+    std::cout<<"=================================================================================="<<std::endl;
+    std::cout<<"=====================================  (c)  ======================================"<<std::endl;
+    std::cout<<"=================================================================================="<<std::endl;
+    MatrixWDigraph<int> g3(3, 5, 4);
+    g3.SetName("g3");
+
+    std::cout<<std::endl;
+    std::cout<<"------------SetupG3() Test--------------"<<std::endl;
+    std::cout<<"> g3.SetupG3()"<<std::endl;
+    std::cout<<"> std::cout<<g3;"<<std::endl;
+    g3.SetupG3();
+    std::cout<<g3;
+
+    std::cout<<std::endl;
+    std::cout<<"------------AllLengths() of G3 Test--------------"<<std::endl;
+    std::cout<<"> g3.AllLengths(3);"<<std::endl;
+    g3.AllLengths(3);
+
+    std::cout<<std::endl;
+    std::cout<<"------------SetupG2() Test--------------"<<std::endl;
+    std::cout<<"> g2.SetupG2()"<<std::endl;
+    std::cout<<"> std::cout<<g2;"<<std::endl;
+    g2.SetupG2();
+    std::cout<<g2;
+
+    std::cout<<std::endl;
+    std::cout<<"------------AllLengths() of G3 Test--------------"<<std::endl;
+    std::cout<<"> g2.AllLengths(7);"<<std::endl;
+    g2.AllLengths(7);
+
     std::cout<<std::endl;
     return EXIT_SUCCESS;
 }

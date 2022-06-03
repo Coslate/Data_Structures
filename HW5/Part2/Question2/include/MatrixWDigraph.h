@@ -23,7 +23,7 @@ template <class T>
 class MatrixWDigraph : public Graph<T>{
     private:
         std::string    name;
-        T          **length;
+        T            **length;
         int            print_shift;//for standard output format
 
     public:
@@ -100,9 +100,15 @@ class MatrixWDigraph : public Graph<T>{
         void                               SetupG2             ();
         void                               SetupG2p            ();
 
+        void                               SetupG3            ();
 
         void                               ShortestPath        (const int n, const int v);//Dijkstra
         void                               BellmanFord         (const int v);
+        void                               AllLengths          (const int n);//Floyd
+
+        void                               PrintShortestPath   (int **kay, const int n, T **A);
+        void                               PrintShortestPath   (int start, int end, int **kay);
+        void                               PrintShortestPathRec(int start, int end, int **kay);
 
         std::string                        Name                ()              const {return name;}
         void                               SetName             (const std::string &in_name)    {name = in_name;}

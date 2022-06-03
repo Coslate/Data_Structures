@@ -14,6 +14,159 @@ T ConvertTo (const std::string &str){
 }
 
 template <class T>
+void MatrixWDigraph<T>::PrintShortestPathRec(int start, int end, int **kay){
+    if(kay[start][end] == -1){
+        return;
+    }
+
+    PrintShortestPathRec(start, kay[start][end], kay);
+    std::cout<<kay[start][end]<<" -> ";
+    PrintShortestPathRec(kay[start][end], end, kay);
+}
+
+template <class T>
+void MatrixWDigraph<T>::PrintShortestPath(int start, int end, int **kay){
+    std::cout<<start<<" -> ";
+    if(kay[start][end] != -1){
+        PrintShortestPathRec(start, kay[start][end], kay);
+        std::cout<<kay[start][end]<<" -> ";
+        PrintShortestPathRec(kay[start][end], end, kay);
+    }
+    std::cout<<end;
+}
+
+template <class T>
+void MatrixWDigraph<T>::PrintShortestPath(int **kay, const int n, T **A){
+    for(int i=0;i<n;++i){
+        for(int j=0;j<n;++j){
+            std::cout<<"start = "<<i<<", end = "<<j<<", path = ";
+            PrintShortestPath(i, j, kay);
+            std::cout<<", length = ";
+            if(A[i][j] == ConvertTo<T>(std::to_string(INT_MAX))){
+                std::cout<<"INF"<<std::endl;
+            }else{
+                std::cout<<A[i][j]<<std::endl;
+            }
+        }
+    }
+}
+
+template <class T>
+void MatrixWDigraph<T>::AllLengths(const int n){
+    T **A     = new T *[n];
+    T **A_p   = new T *[n];
+    int **kay = new int *[n];
+
+    for(int i=0;i<n;++i){
+        A[i]   = new T [n];
+        A_p[i] = new T [n];
+        kay[i] = new int [n];
+    }
+
+    for(int i=0;i<n;++i){
+        for(int j=0;j<n;++j){//A^-1
+            if(i==j){
+                A[i][j]   = 0;
+                A_p[i][j] = 0;
+            }else{
+                A[i][j]   = length[i][j];
+                A_p[i][j] = length[i][j];
+            }
+            kay[i][j] = -1;
+        }
+    }
+
+    std::cout<<"A^-1\t";
+    for(int i=0;i<n;++i){
+        std::cout<<"["<<i<<"]\t";
+    }
+    std::cout<<std::endl;
+
+    for(int i=0;i<n;++i){
+        std::cout<<i<<"\t";
+        for(int j=0;j<n;++j){
+            if(A[i][j] == ConvertTo<T>(std::to_string(INT_MAX))){
+                std::cout<<"INF"<<"\t";
+            }else{
+                std::cout<<A[i][j]<<"\t";
+            }
+        }
+        std::cout<<std::endl;
+    }
+    std::cout<<std::endl;
+
+    //Flpyd-main
+    for(int k=0;k<n;++k){
+        for(int i=0;i<n;++i){
+            for(int j=0;j<n;++j){
+                if((A[i][j] > A_p[i][k] + A_p[k][j]) && (A_p[i][k] != ConvertTo<T>(std::to_string(INT_MAX))) && (A_p[k][j] != ConvertTo<T>(std::to_string(INT_MAX)))){
+                    A[i][j] = A_p[i][k] + A_p[k][j];
+                    kay[i][j] = k;
+                }
+            }
+        }
+
+        for(int i=0;i<n;++i){
+            for(int j=0;j<n;++j){
+                A_p[i][j] = A[i][j];
+            }
+        }
+
+        //Print
+        std::cout<<"A^"<<k<<"\t";
+        for(int i=0;i<n;++i){
+            std::cout<<"["<<i<<"]\t";
+        }
+        std::cout<<std::endl;
+
+        for(int i=0;i<n;++i){
+            std::cout<<i<<"\t";
+            for(int j=0;j<n;++j){
+                if(A[i][j] == ConvertTo<T>(std::to_string(INT_MAX))){
+                    std::cout<<"INF"<<"\t";
+                }else{
+                    std::cout<<A[i][j]<<"\t";
+                }
+            }
+            std::cout<<std::endl;
+        }
+        std::cout<<std::endl;
+    }
+
+    //Print Shortest Path
+    std::cout<<"kay"<<"\t";
+    for(int i=0;i<n;++i){
+        std::cout<<"["<<i<<"]\t";
+    }
+    std::cout<<std::endl;
+
+    for(int i=0;i<n;++i){
+        std::cout<<i<<"\t";
+        for(int j=0;j<n;++j){
+            if(kay[i][j] == ConvertTo<T>(std::to_string(INT_MAX))){
+                std::cout<<"INF"<<"\t";
+            }else{
+                std::cout<<kay[i][j]<<"\t";
+            }
+        }
+        std::cout<<std::endl;
+    }
+
+    std::cout<<std::endl;
+    std::cout<<"Paths:"<<std::endl;
+    PrintShortestPath(kay, n, A);
+
+    for(int i=0;i<n;++i){
+        delete [] A[i];
+        delete [] A_p[i];
+        delete [] kay[i];
+    }
+    delete [] A;
+    delete [] A_p;
+    delete [] kay;
+}
+
+template <class T>
 void MatrixWDigraph<T>::BellmanFord(const int v){
     int  n = Graph<T>::n;
     T    *dist   = new T [n];
@@ -124,6 +277,10 @@ void MatrixWDigraph<T>::BellmanFord(const int v){
         }
         std::cout<<dist[i]<<std::endl;
     }
+
+    delete [] dist;
+    delete [] dist_p;
+    delete [] prev;
 }
 
 template <class T>
@@ -241,6 +398,40 @@ void MatrixWDigraph<T>::ShortestPath(const int n, const int v){//Dijkstra's Algo
         }
         std::cout<<dist[i]<<std::endl;
     }
+    delete [] s;
+    delete [] dist;
+    delete [] prev;
+}
+
+
+template <class T>
+void MatrixWDigraph<T>::SetupG3(){//Build a specific graph
+    if(Graph<T>::n != 0){
+        //Delete original data
+        for(int i=0;i<Graph<T>::n;++i){
+            delete [] length[i];
+        }
+        delete [] length;
+    }
+
+    Graph<T>::n = 3;
+    length= new T *[Graph<T>::n];
+    for(int i=0;i<Graph<T>::n;++i){
+        length[i] = new T [Graph<T>::n];
+    }
+
+    for(int i=0;i<Graph<T>::n;++i){
+        for(int j=0;j<Graph<T>::n;++j){
+            length[i][j] = ConvertTo<T>(std::to_string(INT_MAX));
+        }
+    }
+
+    length[0][1] = ConvertTo<T>(std::to_string(4));
+    length[0][2] = ConvertTo<T>(std::to_string(11));
+    length[1][0] = ConvertTo<T>(std::to_string(6));
+    length[1][2] = ConvertTo<T>(std::to_string(2));
+    length[2][0] = ConvertTo<T>(std::to_string(3));
+
 }
 
 template <class T>
