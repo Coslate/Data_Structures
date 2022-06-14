@@ -97,6 +97,35 @@ int main(){
     InsertionSort(a_str_org, num);
     PrintArray(a_str_org, num, "---After Sorting---\na(string)", shift_not_used);
 
+    std::cout<<std::endl;
+    std::cout<<"================================================================"<<std::endl;
+    std::cout<<"=================== Median-Of-Three Quick Sort ================="<<std::endl;
+    std::cout<<"================================================================"<<std::endl;
+
+    std::cout<<std::endl;
+    std::copy(a_char, a_char+num+1, a_char_org);
+    PrintArray(a_char_org, num, "---Original---\na(char)", shift_not_used);
+    QuickSortMedianOfThree(a_char_org, num);
+    PrintArray(a_char_org, num, "---After Sorting---\na(char)", shift_not_used);
+
+    std::cout<<std::endl;
+    std::copy(a_int, a_int+num+1, a_int_org);
+    PrintArray(a_int_org, num, "---Original---\na(int)", shift_not_used);
+    QuickSortMedianOfThree(a_int_org, num);
+    PrintArray(a_int_org, num, "---After Sorting---\na(int)", shift_not_used);
+
+    std::cout<<std::endl;
+    std::copy(a_float, a_float+num+1, a_float_org);
+    PrintArray(a_float_org, num, "---Original---\na(float)", shift_not_used);
+    QuickSortMedianOfThree(a_float_org, num);
+    PrintArray(a_float_org, num, "---After Sorting---\na(float)", shift_not_used);
+
+    std::cout<<std::endl;
+    std::copy(a_str, a_str+num+1, a_str_org);
+    PrintArray(a_str_org, num, "---Original---\na(string)", shift_not_used);
+    QuickSortMedianOfThree(a_str_org, num);
+    PrintArray(a_str_org, num, "---After Sorting---\na(string)", shift_not_used);
+
 
 
     return EXIT_SUCCESS;

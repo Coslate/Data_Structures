@@ -1,7 +1,7 @@
 //Solution.hpp
 #include <Solution.h>
 
-std::string GenRandomString(const int &len) {
+std::string GenRandomString(const int len) {
     static const char alphanum[] =
         "0123456789"
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -17,7 +17,7 @@ std::string GenRandomString(const int &len) {
 }
 
 template <class T>
-void PrintArray(T *a, const int n, const std::string &name, const int shift_not_used){
+void PrintArray(T *a, const int n, const std::string name, const int shift_not_used){
     for(int i=0+shift_not_used;i<n+shift_not_used;++i){
         if(i==0+shift_not_used){
             std::cout<<name<<" = ["<<a[i]<<" ";
@@ -42,4 +42,60 @@ void InsertionSort(T *a, const int n){
     }
 }
 
+template <class T>
+void QuickSortMedianOfThree(T *a, const int n){
+    int left = 1;
+    int right = n;
+    QuickSortMedianOfThree(a, left, right);
+}
 
+template <class T>
+void Swap(T &i, T &j){
+    T tmp = i;
+    i = j;
+    j = tmp;
+}
+
+template <class T>
+T& MedianOfThree(T *a, const int left, const int right){
+    int change_pos = 1;
+    int mid        = int((left+right)/2);
+    T left_val  = a[left];
+    T right_val = a[right];
+    T mid_val   = a[mid];
+
+    T max_val = std::max({left_val, right_val, mid_val});
+    T min_val = std::max({left_val, right_val, mid_val});
+
+    if(left_val != max_val && left_val != min_val){
+        change_pos = left;
+    }else if(right_val != max_val && right_val != min_val){
+        change_pos = right;
+    }else{
+        change_pos = mid;
+    }
+
+    Swap(a[left], a[change_pos]);
+    return a[left];
+}
+
+template <class T>
+void QuickSortMedianOfThree(T *a, const int left, const int right){
+    if(left < right){
+        int i = left;
+        int j = right + 1;
+
+        //T &pivot = a[left];
+        T &pivot = MedianOfThree(a, left, right);
+
+        do {
+            do j--; while(a[j] > pivot);
+            do i++; while(a[i] <= pivot);
+
+            if(i < j) Swap(a[i], a[j]);
+        } while(i < j);
+        Swap(pivot, a[j]);
+        QuickSortMedianOfThree(a, left, j-1);
+        QuickSortMedianOfThree(a, j+1, right);
+    }
+}
