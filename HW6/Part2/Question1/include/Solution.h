@@ -39,6 +39,21 @@ void MergePass(T *a, T *b, const int n, const int s);
 template <class T>
 void Merge(T *a, T *b, const int k, const int m, const int n);
 
+template <class T>
+void RecursiveMergeSort(T *a, const int n);
+
+template <class T>
+int RecursiveMergeSort(T *a, int *link, const int left, const int right);
+
+template <class T>
+int ListMerge(T *a, int *link, const int left, const int right);
+
+template <class T>
+void Adjust(T *a, const int root, const int n);
+
+template <class T>
+void HeapSort(T *a, const int n);
+
 #include <Solution.hpp>
 #endif
 

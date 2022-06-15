@@ -146,38 +146,90 @@ void IterativeMergeSort(T *a, const int n){
     delete [] tmp_list;
 }
 
+template <class T>
+void RecursiveMergeSort(T *a, const int n){
+    int *link  = new int [n+1](); //store index of a[] in order
+    T   *a_tmp = new T [n+1](); //store index of a[] in order
+    int left = 1;
+    int right = n;
+    int curr_link = 0;
+    int curr_pos  = 1;
 
+    RecursiveMergeSort(a, link, left, right);
 
+    //re-arrange a[] according to link
+    std::copy(a, a+n+1, a_tmp);
 
+    while(1){
+        a[curr_pos] = a_tmp[link[curr_link]];
+        curr_link = link[curr_link];
+        curr_pos++;
 
+        if(link[curr_link] == 0) break;
+    }
+}
 
+template <class T>
+int RecursiveMergeSort(T *a, int *link, const int left, const int right){
+    if(left >= right) return left; //base case
+    int mid = (left + right)/2;
+    return ListMerge(a, link, RecursiveMergeSort(a, link, left, mid), RecursiveMergeSort(a, link, mid+1, right));
+}
 
+template <class T>
+int ListMerge(T *a, int *link, const int start1, const int start2){
+    int i_result = 0;//the last record of the resulted link
+    int i1 = start1, i2 = start2;
 
+    for(; i1 && i2 ;){
+        if(a[i1] <= a[i2]){
+            link[i_result] = i1;
+            i_result = i1;
+            i1 = link[i1];
+        }else{
+            link[i_result] = i2;
+            i_result = i2;
+            i2 = link[i2];
+        }
+    }
 
+    if(i1 == 0){
+        link[i_result] = i2;
+    }else{
+        link[i_result] = i1;
+    }
 
+    return link[0];
+}
 
+template <class T>
+void Adjust(T *a, const int root, const int n){//heap down from root to n
+    T e = a[root];
 
+    int j = 2*root;
+    for(; j<=n; j*=2){
+        if((j<n) && (a[j]<a[j+1])){ //compare between j & j+1
+            j++; //make j the max child
+        }
 
+        if(e >= a[j]) break; //find the destination
 
+        a[j/2] = a[j]; //move jth record up the path
+    }
+    a[j/2] = e;
+}
 
+template <class T>
+void HeapSort(T *a, const int n){
+    for(int i=n/2; i>=1; i--){//heap initialization
+        Adjust(a, i, n); //heapify begin from i to n
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    for(int i=n-1; i>=1; i--){
+        Swap(a[1], a[i+1]);//remove from the root
+        Adjust(a, 1, i);//heapify after removing max from the heap
+    }
+}
 
 
 
