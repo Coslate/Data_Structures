@@ -54,20 +54,6 @@ int main(){
     }
     PrintArray(a_str, num, "---Randomly Generated---\na(string)", shift_not_used);
 
-    /*
-    char  *a_test                = new char [num+1]();
-    std::copy(a_char, a_char+num+1, a_test);
-    PrintArray(a_test, num, "---Original---\na(test)", shift_not_used);
-    std::sort(a_test+1, a_test+num+1);
-    PrintArray(a_test, num, "---After Sorting---\na(test)", shift_not_used);
-
-    std::string  *a_str_test = new std::string [num+1]();
-    std::copy(a_str, a_str+num+1, a_str_test);
-    PrintArray(a_str_test, num, "---Original---\na(test)", shift_not_used);
-    std::sort(a_str_test+1, a_str_test+num+1);
-    PrintArray(a_str_test, num, "---After Sorting---\na(test)", shift_not_used);
-    */
-
     std::cout<<std::endl;
     std::cout<<"====================================================="<<std::endl;
     std::cout<<"===================  Insertion Sort ================="<<std::endl;
