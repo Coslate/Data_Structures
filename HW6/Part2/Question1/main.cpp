@@ -126,7 +126,44 @@ int main(){
     QuickSortMedianOfThree(a_str_org, num);
     PrintArray(a_str_org, num, "---After Sorting---\na(string)", shift_not_used);
 
+    std::cout<<std::endl;
+    std::cout<<"================================================================"<<std::endl;
+    std::cout<<"====================== Iterative Merge Sort ===================="<<std::endl;
+    std::cout<<"================================================================"<<std::endl;
 
+    std::cout<<std::endl;
+    std::copy(a_char, a_char+num+1, a_char_org);
+    PrintArray(a_char_org, num, "---Original---\na(char)", shift_not_used);
+    IterativeMergeSort(a_char_org, num);
+    PrintArray(a_char_org, num, "---After Sorting---\na(char)", shift_not_used);
+
+    std::cout<<std::endl;
+    std::copy(a_int, a_int+num+1, a_int_org);
+    PrintArray(a_int_org, num, "---Original---\na(int)", shift_not_used);
+    IterativeMergeSort(a_int_org, num);
+    PrintArray(a_int_org, num, "---After Sorting---\na(int)", shift_not_used);
+
+    std::cout<<std::endl;
+    std::copy(a_float, a_float+num+1, a_float_org);
+    PrintArray(a_float_org, num, "---Original---\na(float)", shift_not_used);
+    IterativeMergeSort(a_float_org, num);
+    PrintArray(a_float_org, num, "---After Sorting---\na(float)", shift_not_used);
+
+    std::cout<<std::endl;
+    std::copy(a_str, a_str+num+1, a_str_org);
+    PrintArray(a_str_org, num, "---Original---\na(string)", shift_not_used);
+    IterativeMergeSort(a_str_org, num);
+    PrintArray(a_str_org, num, "---After Sorting---\na(string)", shift_not_used);
+
+
+    delete [] a_char            ;
+    delete [] a_char_org        ;
+    delete [] a_int             ;
+    delete [] a_int_org         ;
+    delete [] a_float           ;
+    delete [] a_float_org       ;
+    delete [] a_str             ;
+    delete [] a_str_org         ;
 
     return EXIT_SUCCESS;
 }

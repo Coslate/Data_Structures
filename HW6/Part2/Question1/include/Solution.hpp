@@ -43,17 +43,17 @@ void InsertionSort(T *a, const int n){
 }
 
 template <class T>
-void QuickSortMedianOfThree(T *a, const int n){
-    int left = 1;
-    int right = n;
-    QuickSortMedianOfThree(a, left, right);
-}
-
-template <class T>
 void Swap(T &i, T &j){
     T tmp = i;
     i = j;
     j = tmp;
+}
+
+template <class T>
+void QuickSortMedianOfThree(T *a, const int n){
+    int left = 1;
+    int right = n;
+    QuickSortMedianOfThree(a, left, right);
 }
 
 template <class T>
@@ -65,7 +65,7 @@ T& MedianOfThree(T *a, const int left, const int right){
     T mid_val   = a[mid];
 
     T max_val = std::max({left_val, right_val, mid_val});
-    T min_val = std::max({left_val, right_val, mid_val});
+    T min_val = std::min({left_val, right_val, mid_val});
 
     if(left_val != max_val && left_val != min_val){
         change_pos = left;
@@ -90,7 +90,7 @@ void QuickSortMedianOfThree(T *a, const int left, const int right){
 
         do {
             do j--; while(a[j] > pivot);
-            do i++; while(a[i] <= pivot);
+            do i++; while(a[i] <= pivot && i<right);
 
             if(i < j) Swap(a[i], a[j]);
         } while(i < j);
@@ -99,3 +99,90 @@ void QuickSortMedianOfThree(T *a, const int left, const int right){
         QuickSortMedianOfThree(a, j+1, right);
     }
 }
+
+template <class T>
+void Merge(T *a, T *b, const int k, const int m, const int n){
+    int i1=k, i2=m+1, i3=k;
+
+    for(; i1<=m && i2<=n; i3++){
+        if(a[i1] <= a[i2]){
+            b[i3] = a[i1];
+            i1++;
+        }else{
+            b[i3] = a[i2];
+            i2++;
+        }
+    }
+
+    if(i2 > n) std::copy(a+i1, a+m+1, b+i3);
+    if(i1 > m) std::copy(a+i2, a+n+1, b+i3);
+}
+
+template <class T>
+void MergePass(T *a, T *b, const int n, const int s){
+    int i=1;
+    for(; i<=n-(2*s)+1; i+=2*s){
+        Merge(a, b, i, i+s-1, i+(2*s)-1);
+    }
+
+    //merge the remaining lists of size < 2*s
+    if((i+s-1) < n){//one full and one partial lists
+        Merge(a, b, i, i+s-1, n);
+    }else{//only one partial lists remained
+        std::copy(a+i, a+n+1, b+i);
+    }
+}
+
+template <class T>
+void IterativeMergeSort(T *a, const int n){
+    T *tmp_list = new T[n+1];
+
+    for(int s=1; s<n; s*=2){
+        MergePass(a, tmp_list, n, s);
+        s*=2;
+        MergePass(tmp_list, a, n, s);
+    }
+
+    delete [] tmp_list;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
