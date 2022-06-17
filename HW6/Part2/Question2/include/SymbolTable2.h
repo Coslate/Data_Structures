@@ -1,35 +1,36 @@
-#ifndef _SYMBOLTABLE1_H_
-#define _SYMBOLTABLE1_H_
+#ifndef _SYMBOLTABLE2_H_
+#define _SYMBOLTABLE2_H_
 
 #include <string>
 #include <iostream>
 #include <Dictionary.h>
+#include <Chain.h>
 
 template <class K> //Only key, omitted element in this implementation
-class SymbolTable1 : public Dictionary<K>{//hash table using linear probing, assumed slot=1
+class SymbolTable2 : public Dictionary<K>{//hash table using linear probing, assumed slot=1
     private:
-        std::string    name;
-        int            ht_size;
-        int            ht_capacity;
-        pair<K>*       ht; //every element in the hash table is a pair<K>
+        std::string     name;
+        int             ht_size;
+        int             ht_capacity;
+        Chain<pair<K>>* ht; //every element in the hash table is a pair<K>
 
         int hash_func(const K* in_key, const int key_size) const ;
 
     public:
         //Constructor
-        SymbolTable1(const int ht_capacity=26): Dictionary<K>(), name("NULL"), ht_size(0), ht_capacity(ht_capacity){
+        SymbolTable2(const int ht_capacity=26): Dictionary<K>(), name("NULL"), ht_size(0), ht_capacity(ht_capacity){
             std::cout<<"("<<name<<", Constructor is called...)"<<std::endl;
-            ht = new pair<K> [ht_capacity];
+            ht = new Chain<pair<K>> [ht_capacity];
             std::cout<<"("<<name<<", Constructor ends...)"<<std::endl;
         }
-        SymbolTable1(const std::string &name, const int ht_capacity=26): Dictionary<K>(), name(name), ht_size(0), ht_capacity(ht_capacity){
+        SymbolTable2(const std::string &name, const int ht_capacity=26): Dictionary<K>(), name(name), ht_size(0), ht_capacity(ht_capacity){
             std::cout<<"("<<name<<", Constructor is called...)"<<std::endl;
-            ht = new pair<K> [ht_capacity];
+            ht = new Chain<pair<K>> [ht_capacity];
             std::cout<<"("<<name<<", Constructor ends...)"<<std::endl;
         }
 
         //Destructor
-        ~SymbolTable1(){
+        ~SymbolTable2(){
             std::cout<<"("<<name<<", Destructor is called...)"<<std::endl;
             delete [] ht;
             std::cout<<"("<<name<<", Destructor ends...)"<<std::endl;
@@ -45,6 +46,6 @@ class SymbolTable1 : public Dictionary<K>{//hash table using linear probing, ass
         void                               Display             () const;
 };
 
-#include <SymbolTable1.hpp>
+#include <SymbolTable2.hpp>
 #endif
 
