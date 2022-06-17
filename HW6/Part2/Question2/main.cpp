@@ -21,50 +21,50 @@ int main(){
 
     std::cout<<std::endl;
     std::cout<<"> Setup at least 10 key objects."<<std::endl;
-    pair<char> key_obj1(15);
-    pair<char> key_obj2(10);
-    pair<char> key_obj3(3);
-    pair<char> key_obj4(5);
-    pair<char> key_obj5(6);
-    pair<char> key_obj6(2);
-    pair<char> key_obj7(13);
-    pair<char> key_obj8(20);
-    pair<char> key_obj9(17);
-    pair<char> key_obj10(33);
+    pair<char> key_obj1_1(15);
+    pair<char> key_obj1_2(10);
+    pair<char> key_obj1_3(3);
+    pair<char> key_obj1_4(5);
+    pair<char> key_obj1_5(6);
+    pair<char> key_obj1_6(2);
+    pair<char> key_obj1_7(13);
+    pair<char> key_obj1_8(20);
+    pair<char> key_obj1_9(17);
+    pair<char> key_obj1_10(33);
 
-    std::cout<<"key_obj1 = "<<key_obj1<<std::endl;
-    std::cout<<"key_obj2 = "<<key_obj2<<std::endl;
-    std::cout<<"key_obj3 = "<<key_obj3<<std::endl;
-    std::cout<<"key_obj4 = "<<key_obj4<<std::endl;
-    std::cout<<"key_obj5 = "<<key_obj5<<std::endl;
-    std::cout<<"key_obj6 = "<<key_obj6<<std::endl;
-    std::cout<<"key_obj7 = "<<key_obj7<<std::endl;
-    std::cout<<"key_obj8 = "<<key_obj8<<std::endl;
-    std::cout<<"key_obj9 = "<<key_obj9<<std::endl;
-    std::cout<<"key_obj10 = "<<key_obj10<<std::endl;
+    std::cout<<"key_obj1_1 = "<<key_obj1_1<<std::endl;
+    std::cout<<"key_obj1_2 = "<<key_obj1_2<<std::endl;
+    std::cout<<"key_obj1_3 = "<<key_obj1_3<<std::endl;
+    std::cout<<"key_obj1_4 = "<<key_obj1_4<<std::endl;
+    std::cout<<"key_obj1_5 = "<<key_obj1_5<<std::endl;
+    std::cout<<"key_obj1_6 = "<<key_obj1_6<<std::endl;
+    std::cout<<"key_obj1_7 = "<<key_obj1_7<<std::endl;
+    std::cout<<"key_obj1_8 = "<<key_obj1_8<<std::endl;
+    std::cout<<"key_obj1_9 = "<<key_obj1_9<<std::endl;
+    std::cout<<"key_obj1_10 = "<<key_obj1_10<<std::endl;
 
     std::cout<<std::endl;
     std::cout<<"> Inset those 10 keys into d1."<<std::endl;
-    d1.Insert(key_obj1);
-    std::cout<<"d1.Insert(key_obj1)."<<std::endl;
-    d1.Insert(key_obj2);
-    std::cout<<"d1.Insert(key_obj2)."<<std::endl;
-    d1.Insert(key_obj3);
-    std::cout<<"d1.Insert(key_obj3)."<<std::endl;
-    d1.Insert(key_obj4);
-    std::cout<<"d1.Insert(key_obj4)."<<std::endl;
-    d1.Insert(key_obj5);
-    std::cout<<"d1.Insert(key_obj5)."<<std::endl;
-    d1.Insert(key_obj6);
-    std::cout<<"d1.Insert(key_obj6)."<<std::endl;
-    d1.Insert(key_obj7);
-    std::cout<<"d1.Insert(key_obj7)."<<std::endl;
-    d1.Insert(key_obj8);
-    std::cout<<"d1.Insert(key_obj8)."<<std::endl;
-    d1.Insert(key_obj9);
-    std::cout<<"d1.Insert(key_obj9)."<<std::endl;
-    d1.Insert(key_obj10);
-    std::cout<<"d1.Insert(key_obj10)."<<std::endl;
+    d1.Insert(key_obj1_1);
+    std::cout<<"d1.Insert(key_obj1_1)."<<std::endl;
+    d1.Insert(key_obj1_2);
+    std::cout<<"d1.Insert(key_obj1_2)."<<std::endl;
+    d1.Insert(key_obj1_3);
+    std::cout<<"d1.Insert(key_obj1_3)."<<std::endl;
+    d1.Insert(key_obj1_4);
+    std::cout<<"d1.Insert(key_obj1_4)."<<std::endl;
+    d1.Insert(key_obj1_5);
+    std::cout<<"d1.Insert(key_obj1_5)."<<std::endl;
+    d1.Insert(key_obj1_6);
+    std::cout<<"d1.Insert(key_obj1_6)."<<std::endl;
+    d1.Insert(key_obj1_7);
+    std::cout<<"d1.Insert(key_obj1_7)."<<std::endl;
+    d1.Insert(key_obj1_8);
+    std::cout<<"d1.Insert(key_obj1_8)."<<std::endl;
+    d1.Insert(key_obj1_9);
+    std::cout<<"d1.Insert(key_obj1_9)."<<std::endl;
+    d1.Insert(key_obj1_10);
+    std::cout<<"d1.Insert(key_obj1_10)."<<std::endl;
 
     std::cout<<std::endl;
     std::cout<<"> Display d1."<<std::endl;
@@ -72,44 +72,44 @@ int main(){
 
     std::cout<<std::endl;
     std::cout<<"> Demo the Search() function."<<std::endl;
-    std::cout<<"d1.Search(key_obj1.arr, key_obj1.size, bucket_pos);"<<std::endl;
-    pair<char> *search_result = d1.Search(key_obj1.arr, key_obj1.size, bucket_pos);
+    std::cout<<"d1.Search(key_obj1_1.arr, key_obj1_1.size, bucket_pos);"<<std::endl;
+    pair<char> *search_result = d1.Search(key_obj1_1.arr, key_obj1_1.size, bucket_pos);
     if(search_result == NULL){
-        std::cout<<"=> "<<key_obj1<<" not found in d1"<<std::endl;
+        std::cout<<"=> "<<key_obj1_1<<" not found in d1"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj1<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numberd 0-25."<<std::endl;
+        std::cout<<"=> "<<key_obj1_1<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numberd 0-25."<<std::endl;
     }
 
-    std::cout<<"d1.Search(key_obj2.arr, key_obj2.size, bucket_pos);"<<std::endl;
-    search_result = d1.Search(key_obj2.arr, key_obj2.size, bucket_pos);
+    std::cout<<"d1.Search(key_obj1_2.arr, key_obj1_2.size, bucket_pos);"<<std::endl;
+    search_result = d1.Search(key_obj1_2.arr, key_obj1_2.size, bucket_pos);
     if(search_result == NULL){
-        std::cout<<"=> "<<key_obj2<<" not found in d1"<<std::endl;
+        std::cout<<"=> "<<key_obj1_2<<" not found in d1"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj2<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
+        std::cout<<"=> "<<key_obj1_2<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
     }
 
-    std::cout<<"d1.Search(key_obj10.arr, key_obj10.size, bucket_pos);"<<std::endl;
-    search_result = d1.Search(key_obj10.arr, key_obj10.size, bucket_pos);
+    std::cout<<"d1.Search(key_obj1_10.arr, key_obj1_10.size, bucket_pos);"<<std::endl;
+    search_result = d1.Search(key_obj1_10.arr, key_obj1_10.size, bucket_pos);
     if(search_result == NULL){
-        std::cout<<"=> "<<key_obj10<<" not found in d1"<<std::endl;
+        std::cout<<"=> "<<key_obj1_10<<" not found in d1"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj10<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
+        std::cout<<"=> "<<key_obj1_10<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
     }
 
-    std::cout<<"d1.Search(key_obj7.arr, key_obj7.size, bucket_pos);"<<std::endl;
-    search_result = d1.Search(key_obj7.arr, key_obj7.size, bucket_pos);
+    std::cout<<"d1.Search(key_obj1_7.arr, key_obj1_7.size, bucket_pos);"<<std::endl;
+    search_result = d1.Search(key_obj1_7.arr, key_obj1_7.size, bucket_pos);
     if(search_result == NULL){
-        std::cout<<"=> "<<key_obj7<<" not found in d1"<<std::endl;
+        std::cout<<"=> "<<key_obj1_7<<" not found in d1"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj7<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
+        std::cout<<"=> "<<key_obj1_7<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
     }
 
-    std::cout<<"d1.Search(key_obj5.arr, key_obj5.size, bucket_pos);"<<std::endl;
-    search_result = d1.Search(key_obj5.arr, key_obj5.size, bucket_pos);
+    std::cout<<"d1.Search(key_obj1_5.arr, key_obj1_5.size, bucket_pos);"<<std::endl;
+    search_result = d1.Search(key_obj1_5.arr, key_obj1_5.size, bucket_pos);
     if(search_result == NULL){
-        std::cout<<"=> "<<key_obj5<<" not found in d1"<<std::endl;
+        std::cout<<"=> "<<key_obj1_5<<" not found in d1"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj5<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
+        std::cout<<"=> "<<key_obj1_5<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
     }
 
     std::cout<<std::endl;
@@ -124,39 +124,50 @@ int main(){
 
     std::cout<<std::endl;
     std::cout<<"> Setup at least 10 key objects."<<std::endl;
-    std::cout<<"key_obj1 = "<<key_obj1<<std::endl;
-    std::cout<<"key_obj2 = "<<key_obj2<<std::endl;
-    std::cout<<"key_obj3 = "<<key_obj3<<std::endl;
-    std::cout<<"key_obj4 = "<<key_obj4<<std::endl;
-    std::cout<<"key_obj5 = "<<key_obj5<<std::endl;
-    std::cout<<"key_obj6 = "<<key_obj6<<std::endl;
-    std::cout<<"key_obj7 = "<<key_obj7<<std::endl;
-    std::cout<<"key_obj8 = "<<key_obj8<<std::endl;
-    std::cout<<"key_obj9 = "<<key_obj9<<std::endl;
-    std::cout<<"key_obj10 = "<<key_obj10<<std::endl;
+    pair<char> key_obj2_1(15);
+    pair<char> key_obj2_2(10);
+    pair<char> key_obj2_3(3);
+    pair<char> key_obj2_4(5);
+    pair<char> key_obj2_5(6);
+    pair<char> key_obj2_6(2);
+    pair<char> key_obj2_7(13);
+    pair<char> key_obj2_8(20);
+    pair<char> key_obj2_9(17);
+    pair<char> key_obj2_10(33);
+
+    std::cout<<"key_obj2_1 = "<<key_obj2_1<<std::endl;
+    std::cout<<"key_obj2_2 = "<<key_obj2_2<<std::endl;
+    std::cout<<"key_obj2_3 = "<<key_obj2_3<<std::endl;
+    std::cout<<"key_obj2_4 = "<<key_obj2_4<<std::endl;
+    std::cout<<"key_obj2_5 = "<<key_obj2_5<<std::endl;
+    std::cout<<"key_obj2_6 = "<<key_obj2_6<<std::endl;
+    std::cout<<"key_obj2_7 = "<<key_obj2_7<<std::endl;
+    std::cout<<"key_obj2_8 = "<<key_obj2_8<<std::endl;
+    std::cout<<"key_obj2_9 = "<<key_obj2_9<<std::endl;
+    std::cout<<"key_obj2_10 = "<<key_obj2_10<<std::endl;
 
     std::cout<<std::endl;
     std::cout<<"> Inset those 10 keys into d2."<<std::endl;
-    d2.Insert(key_obj1);
-    std::cout<<"d2.Insert(key_obj1)."<<std::endl;
-    d2.Insert(key_obj2);
-    std::cout<<"d2.Insert(key_obj2)."<<std::endl;
-    d2.Insert(key_obj3);
-    std::cout<<"d2.Insert(key_obj3)."<<std::endl;
-    d2.Insert(key_obj4);
-    std::cout<<"d2.Insert(key_obj4)."<<std::endl;
-    d2.Insert(key_obj5);
-    std::cout<<"d2.Insert(key_obj5)."<<std::endl;
-    d2.Insert(key_obj6);
-    std::cout<<"d2.Insert(key_obj6)."<<std::endl;
-    d2.Insert(key_obj7);
-    std::cout<<"d2.Insert(key_obj7)."<<std::endl;
-    d2.Insert(key_obj8);
-    std::cout<<"d2.Insert(key_obj8)."<<std::endl;
-    d2.Insert(key_obj9);
-    std::cout<<"d2.Insert(key_obj9)."<<std::endl;
-    d2.Insert(key_obj10);
-    std::cout<<"d2.Insert(key_obj10)."<<std::endl;
+    d2.Insert(key_obj2_1);
+    std::cout<<"d2.Insert(key_obj2_1)."<<std::endl;
+    d2.Insert(key_obj2_2);
+    std::cout<<"d2.Insert(key_obj2_2)."<<std::endl;
+    d2.Insert(key_obj2_3);
+    std::cout<<"d2.Insert(key_obj2_3)."<<std::endl;
+    d2.Insert(key_obj2_4);
+    std::cout<<"d2.Insert(key_obj2_4)."<<std::endl;
+    d2.Insert(key_obj2_5);
+    std::cout<<"d2.Insert(key_obj2_5)."<<std::endl;
+    d2.Insert(key_obj2_6);
+    std::cout<<"d2.Insert(key_obj2_6)."<<std::endl;
+    d2.Insert(key_obj2_7);
+    std::cout<<"d2.Insert(key_obj2_7)."<<std::endl;
+    d2.Insert(key_obj2_8);
+    std::cout<<"d2.Insert(key_obj2_8)."<<std::endl;
+    d2.Insert(key_obj2_9);
+    std::cout<<"d2.Insert(key_obj2_9)."<<std::endl;
+    d2.Insert(key_obj2_10);
+    std::cout<<"d2.Insert(key_obj2_10)."<<std::endl;
 
     std::cout<<std::endl;
     std::cout<<"> Display d2."<<std::endl;
@@ -164,44 +175,44 @@ int main(){
 
     std::cout<<std::endl;
     std::cout<<"> Demo the Search() function."<<std::endl;
-    std::cout<<"d2.Search(key_obj1.arr, key_obj1.size, bucket_pos);"<<std::endl;
-    search_result = d2.Search(key_obj1.arr, key_obj1.size, bucket_pos);
+    std::cout<<"d2.Search(key_obj2_1.arr, key_obj2_1.size, bucket_pos);"<<std::endl;
+    search_result = d2.Search(key_obj2_1.arr, key_obj2_1.size, bucket_pos);
     if(search_result == NULL){
-        std::cout<<"=> "<<key_obj1<<" not found in d2"<<std::endl;
+        std::cout<<"=> "<<key_obj2_1<<" not found in d2"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj1<<" is in bucket number "<<bucket_pos<<" in d2, where the buckets are numberd 0-25."<<std::endl;
+        std::cout<<"=> "<<key_obj2_1<<" is in bucket number "<<bucket_pos<<" in d2, where the buckets are numberd 0-25."<<std::endl;
     }
 
-    std::cout<<"d2.Search(key_obj2.arr, key_obj2.size, bucket_pos);"<<std::endl;
-    search_result = d2.Search(key_obj2.arr, key_obj2.size, bucket_pos);
+    std::cout<<"d2.Search(key_obj2_2.arr, key_obj2_2.size, bucket_pos);"<<std::endl;
+    search_result = d2.Search(key_obj2_2.arr, key_obj2_2.size, bucket_pos);
     if(search_result == NULL){
-        std::cout<<"=> "<<key_obj2<<" not found in d2"<<std::endl;
+        std::cout<<"=> "<<key_obj2_2<<" not found in d2"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj2<<" is in bucket number "<<bucket_pos<<" in d2, where the buckets are numbered 0-25."<<std::endl;
+        std::cout<<"=> "<<key_obj2_2<<" is in bucket number "<<bucket_pos<<" in d2, where the buckets are numbered 0-25."<<std::endl;
     }
 
-    std::cout<<"d2.Search(key_obj10.arr, key_obj10.size, bucket_pos);"<<std::endl;
-    search_result = d2.Search(key_obj10.arr, key_obj10.size, bucket_pos);
+    std::cout<<"d2.Search(key_obj2_10.arr, key_obj2_10.size, bucket_pos);"<<std::endl;
+    search_result = d2.Search(key_obj2_10.arr, key_obj2_10.size, bucket_pos);
     if(search_result == NULL){
-        std::cout<<"=> "<<key_obj10<<" not found in d2"<<std::endl;
+        std::cout<<"=> "<<key_obj2_10<<" not found in d2"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj10<<" is in bucket number "<<bucket_pos<<" in d2, where the buckets are numbered 0-25."<<std::endl;
+        std::cout<<"=> "<<key_obj2_10<<" is in bucket number "<<bucket_pos<<" in d2, where the buckets are numbered 0-25."<<std::endl;
     }
 
-    std::cout<<"d2.Search(key_obj7.arr, key_obj7.size, bucket_pos);"<<std::endl;
-    search_result = d2.Search(key_obj7.arr, key_obj7.size, bucket_pos);
+    std::cout<<"d2.Search(key_obj2_7.arr, key_obj2_7.size, bucket_pos);"<<std::endl;
+    search_result = d2.Search(key_obj2_7.arr, key_obj2_7.size, bucket_pos);
     if(search_result == NULL){
-        std::cout<<"=> "<<key_obj7<<" not found in d2"<<std::endl;
+        std::cout<<"=> "<<key_obj2_7<<" not found in d2"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj7<<" is in bucket number "<<bucket_pos<<" in d2, where the buckets are numbered 0-25."<<std::endl;
+        std::cout<<"=> "<<key_obj2_7<<" is in bucket number "<<bucket_pos<<" in d2, where the buckets are numbered 0-25."<<std::endl;
     }
 
-    std::cout<<"d2.Search(key_obj5.arr, key_obj5.size, bucket_pos);"<<std::endl;
-    search_result = d2.Search(key_obj5.arr, key_obj5.size, bucket_pos);
+    std::cout<<"d2.Search(key_obj2_5.arr, key_obj2_5.size, bucket_pos);"<<std::endl;
+    search_result = d2.Search(key_obj2_5.arr, key_obj2_5.size, bucket_pos);
     if(search_result == NULL){
-        std::cout<<"=> "<<key_obj5<<" not found in d2"<<std::endl;
+        std::cout<<"=> "<<key_obj2_5<<" not found in d2"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj5<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
+        std::cout<<"=> "<<key_obj2_5<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
     }
 
     std::cout<<std::endl;
