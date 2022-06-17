@@ -1,5 +1,5 @@
-//HashTable.hpp
-#include <HashTable.h>
+//SymbolTable1.hpp
+#include <SymbolTable1.h>
 
 template <class K> //Only key, omitted element in this implementation
 int SymbolTable1<K>::hash_func(const K* in_key, const int key_size) const {

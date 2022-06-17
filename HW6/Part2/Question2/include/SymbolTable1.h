@@ -1,5 +1,5 @@
-#ifndef _HASHTB_H_
-#define _HASHTB_H_
+#ifndef _SYMBOLTABLE1_H_
+#define _SYMBOLTABLE1_H_
 
 #include <string>
 #include <iostream>
@@ -46,6 +46,6 @@ class SymbolTable1 : public Dictionary<K>{//hash table using linear probing, ass
         void                               Display             () const;
 };
 
-#include <HashTable.hpp>
+#include <SymbolTable1.hpp>
 #endif
 

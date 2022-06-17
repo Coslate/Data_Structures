@@ -3,7 +3,7 @@
 #include <time.h>
 #include <cstdlib>
 #include <unistd.h>
-#include <HashTable.h>
+#include <SymbolTable1.h>
 
 int main(){
     srand((unsigned)time(NULL) * getpid());
@@ -76,7 +76,7 @@ int main(){
     if(search_result == NULL){
         std::cout<<"=> "<<key_obj1<<" not found in d1"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj1<<" is in bucket number "<<bucket_pos<<" in d1."<<std::endl;
+        std::cout<<"=> "<<key_obj1<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numberd 0-25."<<std::endl;
     }
 
     std::cout<<"d1.Search(key_obj2.arr, key_obj2.size, bucket_pos);"<<std::endl;
@@ -84,7 +84,7 @@ int main(){
     if(search_result == NULL){
         std::cout<<"=> "<<key_obj2<<" not found in d1"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj2<<" is in bucket number "<<bucket_pos<<" in d1."<<std::endl;
+        std::cout<<"=> "<<key_obj2<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
     }
 
     std::cout<<"d1.Search(key_obj10.arr, key_obj10.size, bucket_pos);"<<std::endl;
@@ -92,7 +92,7 @@ int main(){
     if(search_result == NULL){
         std::cout<<"=> "<<key_obj10<<" not found in d1"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj10<<" is in bucket number "<<bucket_pos<<" in d1."<<std::endl;
+        std::cout<<"=> "<<key_obj10<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
     }
 
     std::cout<<"d1.Search(key_obj7.arr, key_obj7.size, bucket_pos);"<<std::endl;
@@ -100,7 +100,7 @@ int main(){
     if(search_result == NULL){
         std::cout<<"=> "<<key_obj7<<" not found in d1"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj7<<" is in bucket number "<<bucket_pos<<" in d1."<<std::endl;
+        std::cout<<"=> "<<key_obj7<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
     }
 
     std::cout<<"d1.Search(key_obj5.arr, key_obj5.size, bucket_pos);"<<std::endl;
@@ -108,7 +108,7 @@ int main(){
     if(search_result == NULL){
         std::cout<<"=> "<<key_obj5<<" not found in d1"<<std::endl;
     }else{
-        std::cout<<"=> "<<key_obj5<<" is in bucket number "<<bucket_pos<<" in d1."<<std::endl;
+        std::cout<<"=> "<<key_obj5<<" is in bucket number "<<bucket_pos<<" in d1, where the buckets are numbered 0-25."<<std::endl;
     }
 
     std::cout<<std::endl;
